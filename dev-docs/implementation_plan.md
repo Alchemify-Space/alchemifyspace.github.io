@@ -6,19 +6,29 @@ Ensure the website reflects the Alchemify.Space brand identity across all pages.
 ### Sub-Requirement 1.1: Header & Navigation
 - **Goal**: Update the main navigation bar to match the site structure.
 - **Tasks**:
-    - [x] Update Site Title to "Alchemify.Space - Transforming Ideas into Reality".
-    - [x] Update Header Email to `hello@alchemify.space`.
-    - [x] Update Header Social Links (YouTube link provided).
-    - [x] Update Main Menu links: Home, Services, Portfolio, About Me, Contact.
-    - [x] Update "Track Order" button to "Hire Me" (link to contact).
+    - [ ] Update Site Title to "Alchemify.Space - Transforming Ideas into Reality".
+    - [ ] Update Header Email to `alchemify.space@gmail.com`.
+    - [ ] Update Header Social Links (YouTube link provided).
+    - [ ] Update Main Menu links: Home, Services, Portfolio, About Me, Contact.
+    - [ ] Update "Track Order" button to "Hire Me" (link to contact).
 
 ### Sub-Requirement 1.2: Footer
 - **Goal**: Consistent footer with updated contact info and legal links.
 - **Tasks**:
     - [ ] Update Footer Logo Alt Text.
     - [ ] Update Footer Description (Short Alchemify bio).
-    - [ ] Update Footer Locations (Remove placeholder addresses, use generic or provided info).
-    - [ ] Update Footer Email/Phone.
+    - [ ] Update Footer Primary Address: Chak 6061/GD, Tehsil and District Sahiwal, Pakistan.
+    - [ ] Update Footer Secondary Address: Chak 89/6-R, Sahiwal, Pakistan.
+    - [ ] Add Google Maps Links for both locations.
+    - [ ] Update Footer Email: alchemify.space@gmail.com.
+    - [ ] Update Footer Phone: +0310 1556061.
+    - [ ] Add WhatsApp Business: +0310 1556061.
+    - [ ] Update Social Media Links:
+        - YouTube: https://www.youtube.com/@AlchemifySpace
+        - LinkedIn: https://www.linkedin.com/company/alchemifyspace/
+        - Facebook: https://www.facebook.com/AlchemifySpace
+        - GitHub: https://github.com/Alchemify-Space
+        - Twitter/X: [Create account - see guidance below]
     - [ ] Update Copyright year and text.
 
 ## Requirement 2: Homepage (index.html)
@@ -68,6 +78,27 @@ Convert inner pages to specific content areas.
 - **Tasks**:
     - [ ] Update [about.html](file:///Users/javeedishaq/devwork/alchemist/alchemify-space/alchemifyspace.github.io/about.html) content.
     - [ ] Update [contact.html](file:///Users/javeedishaq/devwork/alchemist/alchemify-space/alchemifyspace.github.io/contact.html) form fields (ensure fields like "Project Type" are included).
+    - [ ] Update Contact Information:
+        - **Primary Address**: Chak 6061/GD, Tehsil and District Sahiwal, Pakistan
+        - **Secondary Address**: Chak 89/6-R, Sahiwal, Pakistan
+        - **Google Maps**: Embed both location maps
+        - **Email**: alchemify.space@gmail.com
+        - **Phone**: +0310 1556061
+        - **WhatsApp Business**: +0310 1556061
+        - **Social Media**:
+            - YouTube: https://www.youtube.com/@AlchemifySpace
+            - LinkedIn: https://www.linkedin.com/company/alchemifyspace/
+            - Facebook: https://www.facebook.com/AlchemifySpace
+            - GitHub: https://github.com/Alchemify-Space
+            - Twitter/X: [To be created - @AlchemifySpace recommended]
+    - [ ] Add Contact Form Fields:
+        - Name (required)
+        - Email (required)
+        - Phone (optional)
+        - Project Type (dropdown: Mobile App, Web App, Cloud Solution, Other)
+        - Budget Range (dropdown)
+        - Message (textarea)
+        - Preferred Contact Method (radio: Email, Phone, WhatsApp)
 
 ## Verification Plan
 - **Asset Check**: Verify all 3 ACS images load correctly.
