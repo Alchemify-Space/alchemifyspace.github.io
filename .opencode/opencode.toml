@@ -1,0 +1,145 @@
+# OpenCode Configuration for Alchemify.Space Next.js Migration
+# This file configures the OpenCode CLI for the project
+
+[project]
+name = "alchemify-space"
+description = "Next.js 15 migration from HTML/CSS/jQuery website"
+type = "nextjs"
+
+[agents]
+# Default agent configuration
+default_agent = "nextjs-migration"
+
+[[agents.list]]
+name = "nextjs-migration"
+description = "Senior Next.js/React developer specialized in HTML to Next.js migration"
+system_prompt = """You are a senior Next.js and React developer specializing in migrating legacy HTML/CSS/jQuery websites to modern Next.js 15 applications.
+
+Your expertise includes:
+- Converting static HTML to React components
+- Replacing jQuery with React hooks and modern patterns
+- Migrating Bootstrap layouts to Tailwind CSS
+- Implementing App Router patterns
+- Converting animations to Framer Motion
+- TypeScript best practices
+
+Always follow these principles:
+1. Use Server Components by default
+2. Only use 'use client' when interactivity is required
+3. Maintain exact visual fidelity with original design
+4. Preserve all animations and transitions
+5. Use semantic HTML and accessibility best practices
+6. Follow the project's component structure in AGENTS.md"""
+
+[[agents.list]]
+name = "html-analyzer"
+description = "Analyzes HTML structure and extracts components"
+system_prompt = """You are an expert at analyzing HTML/CSS websites and extracting reusable components.
+
+Your tasks:
+1. Identify common patterns across HTML pages
+2. Extract shared components (Header, Footer, Cards, etc.)
+3. Map Bootstrap classes to Tailwind equivalents
+4. Identify jQuery plugins and their modern replacements
+5. Document page-specific sections vs shared components
+
+Always provide:
+- Component hierarchy breakdown
+- CSS class mapping tables
+- jQuery to React conversion notes
+- Asset organization recommendations"""
+
+[[agents.list]]
+name = "ui-component-builder"
+description = "Builds React UI components with Tailwind"
+system_prompt = """You are a UI component specialist focused on creating reusable React components with Tailwind CSS.
+
+Your expertise:
+- Converting Bootstrap grid to Tailwind
+- Creating accessible component patterns
+- Implementing responsive designs
+- Matching exact visual styling from reference
+
+Rules:
+1. Use TypeScript for all components
+2. Add proper prop types with interfaces
+3. Support forwardRef where appropriate
+4. Include default props for common use cases
+5. Add JSDoc comments for component documentation"""
+
+[skills]
+# Skills directory configuration
+skills_dir = ".agent/skills"
+
+[workflows]
+# Workflows directory configuration
+workflows_dir = ".agent/workflows"
+
+[rules]
+# Rules file configuration
+rules_file = ".agent/rules.md"
+
+[commands]
+# Custom commands for this project
+dev = "npm run dev"
+build = "npm run build"
+lint = "npm run lint"
+typecheck = "npx tsc --noEmit"
+
+[migration]
+# Migration-specific settings
+source_html_dir = "."
+target_app_dir = "app"
+assets_source = "assets"
+assets_target = "public"
+
+[migration.pages]
+# List of pages to migrate from HTML to Next.js
+pages = [
+  "home-index",
+  "about",
+  "service",
+  "service-details",
+  "portfolio",
+  "contact",
+  "team",
+  "team-details",
+  "blog-standard",
+  "blog-details",
+  "faq",
+  "404",
+  "pricing"
+]
+
+[theme]
+# Theme configuration for preserving design system
+colors = [
+  "trucker__deep-sea-blue",
+  "trucker__sunset-orange",
+  "trucker__cloud-white",
+  "trucker__gray",
+  "trucker__gray-2"
+]
+
+fonts = [
+  "trucker__fs-14",
+  "trucker__fs-15", 
+  "trucker__fs-16",
+  "trucker__fs-18",
+  "trucker__fs-24",
+  "trucker__fs-30",
+  "trucker__fs-35",
+  "trucker__fs-45",
+  "trucker__fs-48"
+]
+
+[ignore]
+# Files and directories to ignore during migration
+patterns = [
+  "node_modules",
+  ".git",
+  ".next",
+  "dist",
+  "out",
+  "*.log"
+]
