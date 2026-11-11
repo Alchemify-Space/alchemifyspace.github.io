@@ -12,6 +12,7 @@ import {
 } from "@/app/components/marketing";
 import { site } from "@/app/lib/site";
 import { JsonLd } from "@/app/components/JsonLd";
+import { OwnerScreen, StaffScreen } from "@/app/components/GlamioScreens";
 
 export const metadata = pageMetadata({
   title: "Alchemify Space | Flutter + AI App Studio for Agencies",
@@ -26,7 +27,7 @@ const shippedApps: { name: string; summary: string; href: string; linkLabel: str
 const testimonials: { quote: string; name: string; role: string }[] = [];
 
 const trustFacts = [
-  `Registered company in Pakistan · SECP CUIN ${site.secpCuin}`,
+  `SECP-registered company · CUIN ${site.secpCuin}`,
   `D-U-N-S ${site.duns}`,
   "Verified Google Play developer",
   "NDA and white-label friendly",
@@ -113,9 +114,9 @@ const faqs = [
 
 function PhoneMockup() {
   return (
-    <div className="flex-[0_1_320px] flex justify-center" aria-hidden="true">
-      <div className="w-[300px] h-[600px] rounded-[44px] bg-brand-ink p-3">
-        <div className="flex h-full flex-col gap-3.5 rounded-[34px] bg-white px-5 py-7 text-slate-900">
+    <div className="hidden sm:flex flex-[0_1_320px] justify-center" aria-hidden="true">
+      <div className="w-[300px] rounded-[44px] bg-brand-ink p-3">
+        <div className="flex flex-col gap-3.5 rounded-[34px] bg-white px-5 py-7 text-slate-900">
           <p className="text-xs text-slate-600">Book at</p>
           <p className="-mt-2.5 font-heading text-[22px] font-bold text-brand-indigo">Studio Nine</p>
           <div className="flex flex-col gap-2 text-sm">
@@ -138,7 +139,7 @@ function PhoneMockup() {
             <p className="mb-1 font-semibold text-brand-indigo">AI assistant</p>
             <p className="text-slate-700">&ldquo;Ali is free at 14:30 for a skin fade. Book it?&rdquo;</p>
           </div>
-          <div className="mt-auto rounded-xl bg-brand-gold p-3.5 text-center text-[15px] font-semibold text-brand-indigo">
+          <div className="mt-2 rounded-xl bg-brand-gold p-3.5 text-center text-[15px] font-semibold text-brand-indigo">
             Confirm booking
           </div>
         </div>
@@ -173,7 +174,7 @@ export default function HomePage() {
             <div className="flex flex-wrap gap-4">
               <ButtonLink href={site.bookingUrl}>Book a 20-minute call</ButtonLink>
               <ButtonLink href="/products/" variant="outline-light">
-                See the Glamio demo
+                Explore Glamio
               </ButtonLink>
             </div>
           </div>
@@ -183,7 +184,7 @@ export default function HomePage() {
 
       {/* Trust strip */}
       <section aria-label="Company facts" className="border-b border-slate-200 bg-brand-mist">
-        <Container className="py-6 flex flex-wrap justify-between gap-x-8 gap-y-3 text-sm font-medium text-slate-700">
+        <Container className="py-6 grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-5 text-sm font-medium text-slate-700">
           {trustFacts.map((fact) => (
             <span key={fact}>{fact}</span>
           ))}
@@ -248,13 +249,9 @@ export default function HomePage() {
               </ButtonLink>
             </div>
           </div>
-          <div className="flex-[1_1_400px] min-w-0 grid grid-cols-2 gap-4" aria-hidden="true">
-            <div className="aspect-[9/16] rounded-[20px] bg-slate-200 flex items-center justify-center p-4 text-center text-sm text-slate-600">
-              Glamio customer app
-            </div>
-            <div className="mt-12 aspect-[9/16] rounded-[20px] bg-slate-200 flex items-center justify-center p-4 text-center text-sm text-slate-600">
-              Glamio owner calendar
-            </div>
+          <div className="flex-[1_1_400px] min-w-0 grid grid-cols-2 gap-6 text-slate-600" aria-hidden="true">
+            <StaffScreen className="w-full max-w-[230px] justify-self-end" />
+            <OwnerScreen className="mt-12 w-full max-w-[230px]" />
           </div>
         </Container>
 

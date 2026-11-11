@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { pageMetadata } from "@/app/lib/seo";
 import { site } from "@/app/lib/site";
+import { ServicesScreen, StaffScreen, TimeScreen } from "@/app/components/GlamioScreens";
 import { Badge, ButtonLink, Card, Container, Eyebrow, SectionTitle } from "@/app/components/marketing";
 
 export const metadata = pageMetadata({
@@ -116,20 +117,15 @@ export default function ProductsPage() {
               </ButtonLink>
             </div>
             <p className="mt-5 text-sm text-slate-300">
-              The demo has one-tap logins for customer, staff and owner. Demo data resets every night.
+              {GLAMIO_DEMO_URL
+                ? "The demo has one-tap logins for customer, staff and owner. Demo data resets every night."
+                : "The live demo opens at launch, with one-tap logins for customer, staff and owner."}
             </p>
           </div>
-          <div className="flex-[1_1_420px] min-w-0 grid grid-cols-3 gap-3" aria-hidden="true">
-            {["Customer: services", "Customer: pick a time", "Staff: today's schedule"].map((label, i) => (
-              <div
-                key={label}
-                className={`aspect-[9/19] rounded-[20px] bg-brand-line flex items-center justify-center p-3 text-center text-[13px] text-slate-200 ${
-                  i === 1 ? "mt-8" : ""
-                }`}
-              >
-                {label}
-              </div>
-            ))}
+          <div className="flex-[1_1_420px] min-w-0 grid grid-cols-2 sm:grid-cols-3 gap-4 text-slate-200" aria-hidden="true">
+            <ServicesScreen />
+            <TimeScreen className="mt-8" />
+            <StaffScreen className="hidden sm:block" />
           </div>
         </Container>
       </section>

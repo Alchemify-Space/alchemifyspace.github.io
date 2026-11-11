@@ -27,18 +27,20 @@ export default function BlogPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative py-32 bg-[#1e1b4b]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Our Blog
-          </h1>
-          <div className="flex items-center justify-center gap-2 text-white">
-            <Link href="/" className="hover:text-[#6d28d9]">
+      <section className="bg-brand-indigo text-white">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-20 md:py-24">
+          <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-2 text-sm text-slate-300">
+            <Link href="/" className="hover:text-white">
               Home
             </Link>
-            <span>/</span>
-            <span className="text-[#6d28d9]">Blog</span>
-          </div>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page" className="text-brand-cyan">Blog</span>
+          </nav>
+          <h1 className="mb-4 font-heading text-4xl md:text-[52px] leading-[1.05] font-bold">Blog</h1>
+          <p className="max-w-[620px] text-lg leading-relaxed text-slate-200">
+            Notes on Flutter, Supabase and adding AI to mobile apps, from building client projects and
+            our own products.
+          </p>
         </div>
       </section>
 

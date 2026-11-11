@@ -79,15 +79,15 @@ export default async function BlogPostPage({ params }: PageProps) {
                         </span>
                     </div>
                     <div className="flex items-center justify-center gap-2 text-white mt-4">
-                        <Link href="/" className="hover:text-[#6d28d9]">
+                        <Link href="/" className="hover:text-brand-cyan">
                             Home
                         </Link>
                         <span>/</span>
-                        <Link href="/blog/" className="hover:text-[#6d28d9]">
+                        <Link href="/blog/" className="hover:text-brand-cyan">
                             Blog
                         </Link>
                         <span>/</span>
-                        <span className="text-[#6d28d9]">{post.category}</span>
+                        <span className="text-brand-cyan">{post.category}</span>
                     </div>
                 </div>
             </section>

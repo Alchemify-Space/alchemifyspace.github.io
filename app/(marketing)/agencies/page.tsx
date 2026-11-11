@@ -99,7 +99,7 @@ export default function AgenciesPage() {
         <div className="flex flex-wrap gap-4">
           <ButtonLink href="/contact/">Start with a trial task</ButtonLink>
           <ButtonLink href="/products/" variant="outline-light">
-            See our code in Glamio
+            See Glamio, our own app
           </ButtonLink>
         </div>
       </PageHero>

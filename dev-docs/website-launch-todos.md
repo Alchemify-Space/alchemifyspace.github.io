@@ -25,7 +25,7 @@ Updated 11 Nov 2026. The redesigned site builds and runs; these are the things o
 ## 2. Content to fill in (first two weeks)
 
 - [ ] **Apps you have shipped.** Add 2–3 entries to `shippedApps` in `app/(marketing)/page.tsx` (name, one line, Play Store link). The section stays hidden while the list is empty.
-- [ ] **Glamio screenshots.** Replace the grey placeholders on Home and Products with real screens (save in `public/images/glamio/`).
+- [ ] **Glamio screenshots.** Home and Products now show styled phone mock-ups (`app/components/GlamioScreens.tsx`). Replace them with real screens from the Glamio mock when ready (save in `public/images/glamio/`).
 - [ ] **Founder bio.** Expand the two sentences on Home and About: years of experience, kinds of apps, one result you are proud of.
 - [ ] **Agency trial-task price and hourly rate.** Decide them; the Agencies page currently says "Fixed" and "agreed hourly rate".
 - [x] **Favicon** made from the flask logo (11 Nov 2026): `app/favicon.ico`, `app/icon.png`, `app/apple-icon.png`.

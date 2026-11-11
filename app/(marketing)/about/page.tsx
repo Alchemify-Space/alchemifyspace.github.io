@@ -22,7 +22,7 @@ const facts = [
 const principles = [
   "Specialise: Flutter, Supabase, Firebase, Next.js and AI APIs, done well.",
   "Honest scope: we say no to work we are not the right fit for.",
-  "Ship and show: our own products are public, so you can judge the code.",
+  "Ship and show: Glamio, our own booking app, shows the quality of our work.",
   "Write it down: weekly updates, setup docs and clean handover.",
 ];
 
