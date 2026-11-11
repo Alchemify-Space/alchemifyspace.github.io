@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 356" role="img" aria-labelledby="t d" font-family="Inter, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title id="t">One codebase, two platforms</title>
+  <desc id="d">One codebase written in Flutter or React Native produces both the iOS app and the Android app. Pure native code is kept for AR and VR, heavy on-device machine learning training, and deep system integration.</desc>
+  <defs>
+    <marker id="oc-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#6d28d9"/>
+    </marker>
+  </defs>
+  <rect width="640" height="356" rx="16" fill="#f8f7fc"/>
+  <text x="24" y="42" font-size="18" font-weight="700" fill="#1e1b4b">One codebase, two platforms</text>
+
+  <rect x="200" y="64" width="240" height="76" rx="12" fill="#1e1b4b"/>
+  <text x="320" y="98" text-anchor="middle" font-size="17" font-weight="700" fill="#ffffff">One codebase</text>
+  <text x="320" y="122" text-anchor="middle" font-size="14" fill="#e2e8f0">Flutter or React Native</text>
+
+  <path d="M320 140V162H190V180" fill="none" stroke="#6d28d9" stroke-width="2" marker-end="url(#oc-arrow)"/>
+  <path d="M320 162H450V180" fill="none" stroke="#6d28d9" stroke-width="2" marker-end="url(#oc-arrow)"/>
+
+  <rect x="100" y="184" width="180" height="60" rx="12" fill="#ffffff" stroke="#1e1b4b" stroke-width="1.5"/>
+  <text x="190" y="220" text-anchor="middle" font-size="17" font-weight="700" fill="#1e1b4b">iOS app</text>
+  <rect x="360" y="184" width="180" height="60" rx="12" fill="#ffffff" stroke="#1e1b4b" stroke-width="1.5"/>
+  <text x="450" y="220" text-anchor="middle" font-size="17" font-weight="700" fill="#1e1b4b">Android app</text>
+
+  <rect x="24" y="270" width="592" height="64" rx="12" fill="#ffffff" stroke="#64748b" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="42" y="297" font-size="14" font-weight="700" fill="#1e1b4b">Pure native (Swift or Kotlin) is now kept for:</text>
+  <text x="42" y="319" font-size="14" fill="#475569">AR/VR, heavy on-device ML training and deep system integration</text>
+</svg>

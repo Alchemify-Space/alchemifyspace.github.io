@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 330" role="img" aria-labelledby="t d" font-family="Inter, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title id="t">How a passkey sign-in works</title>
+  <desc id="d">The server sends a challenge to the device. The device signs it with its private key and returns a signature. The server checks the signature with the public key. No password is sent or stored.</desc>
+  <defs>
+    <marker id="pk-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#6d28d9"/>
+    </marker>
+  </defs>
+  <rect width="640" height="330" rx="16" fill="#f8f7fc"/>
+  <text x="24" y="42" font-size="18" font-weight="700" fill="#1e1b4b">How a passkey sign-in works</text>
+
+  <rect x="24" y="70" width="190" height="130" rx="12" fill="#ffffff" stroke="#1e1b4b" stroke-width="1.5"/>
+  <text x="119" y="122" text-anchor="middle" font-size="17" font-weight="700" fill="#1e1b4b">Your device</text>
+  <text x="119" y="148" text-anchor="middle" font-size="14" fill="#475569">keeps the private key</text>
+  <text x="119" y="168" text-anchor="middle" font-size="14" fill="#475569">unlocks with biometrics</text>
+
+  <rect x="426" y="70" width="190" height="130" rx="12" fill="#ffffff" stroke="#1e1b4b" stroke-width="1.5"/>
+  <text x="521" y="122" text-anchor="middle" font-size="17" font-weight="700" fill="#1e1b4b">Your server</text>
+  <text x="521" y="148" text-anchor="middle" font-size="14" fill="#475569">keeps the public key</text>
+  <text x="521" y="168" text-anchor="middle" font-size="14" fill="#475569">stores no password</text>
+
+  <text x="320" y="102" text-anchor="middle" font-size="14" font-weight="600" fill="#1e1b4b">1. Sends a challenge</text>
+  <line x1="420" y1="114" x2="222" y2="114" stroke="#6d28d9" stroke-width="2" marker-end="url(#pk-arrow)"/>
+  <text x="320" y="152" text-anchor="middle" font-size="14" font-weight="600" fill="#1e1b4b">2. Returns a signature</text>
+  <line x1="220" y1="164" x2="418" y2="164" stroke="#6d28d9" stroke-width="2" marker-end="url(#pk-arrow)"/>
+
+  <text x="320" y="238" text-anchor="middle" font-size="15" fill="#1e1b4b">3. The server checks the signature with the public key.</text>
+
+  <rect x="24" y="262" width="592" height="46" rx="10" fill="#f5f3ff"/>
+  <text x="320" y="290" text-anchor="middle" font-size="15" font-weight="600" fill="#5b21b6">No shared secret is sent or stored, so there is nothing to phish.</text>
+</svg>
