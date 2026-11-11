@@ -40,7 +40,9 @@ Updated 11 Nov 2026. The redesigned site builds and runs; these are the things o
 
 ## 4. SEO and visibility
 
-- [ ] **Google Search Console:** add the alchemify.space property, verify it, and submit `https://alchemify.space/sitemap.xml`.
+- [x] **Google Search Console:** domain property verified for alchemifyspace@ and ishaqjaveed1@ (both owners; keep both google-site-verification TXT records).
+- [ ] Submit `sitemap.xml` and request indexing for /, /agencies/, /ai-features/, /products/.
+- [ ] **Google Analytics 4:** ID G-GJQCGYXPPD is in `.env.local`. Deploy, check Reports → Realtime, link to Search Console (Admin → Product links), mark the contact enquiry as a key event.
 - [ ] **Bing Webmaster Tools:** import the site from Search Console.
 - [ ] **Google Business Profile:** optional, for the registered company in Sahiwal.
 - [ ] **Clutch and GoodFirms profiles** for Alchemify Space, linking to the site. Ask every client for a review there.

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import { site } from "@/app/lib/site";
+import { Analytics } from "@/app/components/Analytics";
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -99,6 +100,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         {children}
+        <Analytics />
       </body>
     </html>
   );
