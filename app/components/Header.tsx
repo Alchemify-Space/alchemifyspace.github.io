@@ -1,149 +1,109 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { Menu, Mail, Youtube, Linkedin, Twitter } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { Menu } from "lucide-react";
 import {
   Sheet,
   SheetContent,
+  SheetTitle,
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
+import { mainNav, site } from "@/app/lib/site";
 
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Services", href: "/services/" },
-  { name: "Portfolio", href: "/portfolio/" },
-  { name: "About Me", href: "/about/" },
-  { name: "Contact", href: "/contact/" },
-];
+function Logo() {
+  return (
+    <Link href="/" className="flex items-center gap-2.5 text-brand-indigo">
+      <Image
+        src="/images/logo/alchemify-logo-round.png"
+        alt=""
+        width={40}
+        height={40}
+        className="rounded-full"
+        priority
+      />
+      <span className="font-heading text-xl font-bold">Alchemify Space</span>
+    </Link>
+  );
+}
 
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const pathname = usePathname();
+  const isActive = (href: string) => pathname?.startsWith(href);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#1a365d] shadow-md`}
-    >
-      {/* Top Bar */}
-      <div
-        className={`border-b border-white/10 transition-colors duration-300 bg-[#152c4d]`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-2 text-sm">
-            <a
-              href="mailto:alchemifyspace@gmail.com"
-              className="flex items-center gap-2 text-white hover:text-[#ed8936] transition-colors"
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+        <Logo />
+
+        <nav aria-label="Main" className="hidden lg:flex items-center gap-7 text-[15px] font-medium">
+          {mainNav.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className={`py-2.5 transition-colors hover:text-brand-purple ${
+                isActive(item.href) ? "text-brand-purple font-semibold" : "text-brand-indigo"
+              }`}
             >
-              <Mail className="w-4 h-4" />
-              <span>alchemifyspace@gmail.com</span>
-            </a>
-            <div className="flex items-center gap-4">
-              <a
-                href="https://youtube.com/@AlchemifySpace"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white hover:text-[#ed8936] transition-colors"
-              >
-                <Youtube className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                className="text-white hover:text-[#ed8936] transition-colors"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                className="text-white hover:text-[#ed8936] transition-colors"
-              >
-                <Twitter className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Menu */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <span className="text-2xl font-bold text-white">
-              Alchemify<span className="text-[#ed8936]">.</span>Space
-            </span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="font-medium text-white transition-colors hover:text-[#ed8936]"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
-
-          {/* CTA Button & Mobile Menu */}
-          <div className="flex items-center gap-4">
-            <Link href="/contact/" className="hidden md:block">
-              <Button className="bg-[#ed8936] hover:bg-[#ed8936]/90 text-white">
-                Hire Me
-              </Button>
+              {item.name}
             </Link>
+          ))}
+          <Link
+            href={site.bookingUrl}
+            className="rounded-lg bg-brand-gold px-5 py-3 font-semibold text-brand-indigo transition-colors hover:bg-brand-gold/90"
+          >
+            Book a call
+          </Link>
+        </nav>
 
-            {/* Mobile Menu */}
-            <Sheet>
-              <SheetTrigger asChild className="md:hidden">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-white hover:bg-white/10"
-                >
-                  <Menu className="w-6 h-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] bg-white">
-                <div className="flex flex-col gap-8 mt-8">
-                  <Link href="/" className="text-2xl font-bold text-[#1a365d]">
-                    Alchemify<span className="text-[#ed8936]">.</span>Space
-                  </Link>
-                  <nav className="flex flex-col gap-4">
-                    {navigation.map((item) => (
-                      <SheetClose asChild key={item.name}>
-                        <Link
-                          href={item.href}
-                          className="text-lg font-medium text-[#1a365d] hover:text-[#ed8936] transition-colors py-2 border-b border-gray-100"
-                        >
-                          {item.name}
-                        </Link>
-                      </SheetClose>
-                    ))}
-                  </nav>
-                  <SheetClose asChild>
-                    <Link href="/contact/">
-                      <Button className="w-full bg-[#ed8936] hover:bg-[#ed8936]/90 text-white">
-                        Hire Me
-                      </Button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <button
+              type="button"
+              aria-label="Open menu"
+              className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-lg text-brand-indigo hover:bg-brand-tint"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[300px] bg-white p-6">
+            <SheetTitle className="sr-only">Menu</SheetTitle>
+            <div className="mt-6 flex flex-col gap-6">
+              <Logo />
+              <nav aria-label="Mobile" className="flex flex-col">
+                {mainNav.map((item) => (
+                  <SheetClose asChild key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="border-b border-slate-100 py-3 text-lg font-medium text-brand-indigo hover:text-brand-purple"
+                    >
+                      {item.name}
                     </Link>
                   </SheetClose>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
-        </div>
+                ))}
+                <SheetClose asChild>
+                  <Link
+                    href="/contact/"
+                    className="border-b border-slate-100 py-3 text-lg font-medium text-brand-indigo hover:text-brand-purple"
+                  >
+                    Contact
+                  </Link>
+                </SheetClose>
+              </nav>
+              <SheetClose asChild>
+                <Link
+                  href={site.bookingUrl}
+                  className="rounded-lg bg-brand-gold px-5 py-3 text-center font-semibold text-brand-indigo"
+                >
+                  Book a call
+                </Link>
+              </SheetClose>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
   );

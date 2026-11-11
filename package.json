@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "deploy": "next build && gh-pages -d dist"
+    "deploy": "next build && rm -rf dist/dev dist/cache && gh-pages -d dist -t",
+    "preview": "npx serve dist"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

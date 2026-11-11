@@ -1,28 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, User, ArrowRight } from "lucide-react";
-import { Metadata } from "next";
+import { pageMetadata } from "@/app/lib/seo";
 import { getAllPosts } from "@/app/lib/posts";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Blog",
   description:
-    "Insights, tutorials, and updates from Alchemify.Space on mobile development, web technologies, and cloud solutions.",
-  openGraph: {
-    title: "Blog | Alchemify.Space",
-    description:
-      "Insights, tutorials, and updates from Alchemify.Space on mobile development, web technologies, and cloud solutions.",
-    url: "https://alchemify.space/blog",
-    images: [
-      {
-        url: "/images/alchemify-hero-bg-v2.png",
-        width: 1200,
-        height: 630,
-        alt: "Alchemify.Space Blog",
-      },
-    ],
-  },
-};
+    "Guides on Flutter, Supabase and adding AI to mobile apps, from the Alchemify Space studio.",
+  path: "/blog/",
+});
 
 // Map categories to images
 const categoryImages: Record<string, string> = {
@@ -40,17 +27,17 @@ export default function BlogPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative py-32 bg-[#1a365d]">
+      <section className="relative py-32 bg-[#1e1b4b]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Our Blog
           </h1>
           <div className="flex items-center justify-center gap-2 text-white">
-            <Link href="/" className="hover:text-[#ed8936]">
+            <Link href="/" className="hover:text-[#6d28d9]">
               Home
             </Link>
             <span>/</span>
-            <span className="text-[#ed8936]">Blog</span>
+            <span className="text-[#6d28d9]">Blog</span>
           </div>
         </div>
       </section>
@@ -76,7 +63,7 @@ export default function BlogPage() {
                     className="object-cover"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-[#ed8936] text-white text-xs font-medium rounded-full">
+                    <span className="px-3 py-1 bg-[#f5b942] text-[#1e1b4b] text-xs font-medium rounded-full">
                       {post.category}
                     </span>
                   </div>
@@ -96,15 +83,15 @@ export default function BlogPage() {
                       {post.author}
                     </span>
                   </div>
-                  <h2 className="text-xl font-bold text-[#1a365d] mb-2 line-clamp-2">
+                  <h2 className="text-xl font-bold text-[#1e1b4b] mb-2 line-clamp-2">
                     {post.title}
                   </h2>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-2">
                     {post.excerpt}
                   </p>
                   <Link
-                    href={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-2 text-[#ed8936] font-medium hover:gap-3 transition-all"
+                    href={`/blog/${post.slug}/`}
+                    className="inline-flex items-center gap-2 text-[#6d28d9] font-medium hover:gap-3 transition-all"
                   >
                     Read More
                     <ArrowRight className="w-4 h-4" />

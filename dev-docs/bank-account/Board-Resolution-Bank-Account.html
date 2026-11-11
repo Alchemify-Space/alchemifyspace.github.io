@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Board Resolution — Bank Account</title>
+<style>
+  @page { size: A4; margin: 9mm 13mm 7mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 8.8pt; line-height: 1.34; color: #16202b; margin: 0;
+  }
+
+  /* ---------- LETTERHEAD ---------- */
+  .letterhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 14pt; }
+  .brand { display: flex; align-items: center; gap: 9pt; }
+  .wordmark { font-size: 19pt; font-weight: 600; letter-spacing: -0.4pt; color: #0f2740; line-height: 1; }
+  .wordmark .dot { color: #3f6fd8; font-weight: 400; }
+  .tagline { font-size: 7.2pt; letter-spacing: 1.5pt; text-transform: uppercase; color: #7c8a99; margin-top: 3pt; }
+  .legal { text-align: right; font-size: 8.1pt; line-height: 1.5; color: #4a5866; padding-top: 2pt; }
+  .legal .name { font-weight: 600; color: #0f2740; font-size: 8.6pt; letter-spacing: .2pt; }
+  .rule { height: 2.2pt; background: linear-gradient(90deg,#0f2740 0%,#0f2740 62%,#3f6fd8 62%,#3f6fd8 100%); margin: 9pt 0 0; }
+
+  /* ---------- DOCUMENT ---------- */
+  .doctitle { text-align: center; margin: 9pt 0 2pt; }
+  .doctitle h1 { font-size: 12pt; letter-spacing: 1.1pt; text-transform: uppercase; margin: 0; color: #0f2740; }
+  .doctitle .sub { font-size: 8.4pt; color: #55636f; margin-top: 3pt; }
+  .meta { margin: 10pt 0 2pt; }
+  .meta table { width: 100%; border-collapse: collapse; }
+  .meta td { padding: 2.1pt 0; vertical-align: top; font-size: 9pt; }
+  .meta td.k { width: 31%; color: #55636f; }
+  .meta td.v { font-weight: 600; color: #0f2740; }
+
+  h2.sec { font-size: 8.8pt; text-transform: uppercase; letter-spacing: .9pt; color: #3f6fd8;
+           margin: 11pt 0 5pt; padding-bottom: 2.5pt; border-bottom: .8pt solid #dde4ec; }
+  p { margin: 5pt 0; text-align: justify; }
+  .res { margin: 6pt 0; padding-left: 12pt; }
+  .res li { margin: 4.6pt 0; text-align: justify; }
+  .res li::marker { font-weight: 600; color: #3f6fd8; }
+  .kw { font-weight: 600; }
+  .fill { display: inline-block; min-width: 190pt; border-bottom: .9pt solid #9aa7b4; }
+  .fill.sm { min-width: 105pt; }
+
+  /* ---------- SIGNATURE ---------- */
+  .sign { margin-top: 10pt; page-break-inside: avoid; overflow: hidden; }
+  .sign .line { width: 215pt; border-bottom: .9pt solid #16202b; margin-bottom: 4pt; height: 26pt; }
+  .sign .who { font-weight: 600; color: #0f2740; }
+  .sign .role { font-size: 8.4pt; color: #55636f; }
+  .seal { float: right; width: 108pt; height: 62pt; border: .9pt dashed #b7c2cd; border-radius: 4pt;
+          color: #9aa7b4; font-size: 7.2pt; text-align: center; padding-top: 24pt; letter-spacing: .6pt; }
+
+  /* ---------- FOOTER ---------- */
+  .foot { margin-top: 7pt; border-top: .8pt solid #dde4ec; padding-top: 4pt;
+          font-size: 7pt; color: #7c8a99; line-height: 1.4; display: flex; justify-content: space-between; gap: 10pt; }
+  .note { margin-top: 6pt; font-size: 7.2pt; color: #7c8a99; font-style: italic; line-height: 1.35; }
+</style>
+</head>
+<body>
+
+  <!-- ============ LETTERHEAD ============ -->
+  <div class="letterhead">
+    <div class="brand">
+      <svg width="46" height="46" viewBox="0 0 64 64" aria-label="Alchemify.Space mark">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"  stop-color="#17365c"/>
+            <stop offset="100%" stop-color="#0f2740"/>
+          </linearGradient>
+        </defs>
+        <rect x="1.5" y="1.5" width="61" height="61" rx="15" fill="url(#g)"/>
+        <!-- alchemical triangle -->
+        <path d="M32 17 L45 40 L19 40 Z" fill="none" stroke="#ffffff" stroke-width="2.6"
+              stroke-linejoin="round"/>
+        <!-- orbit -->
+        <ellipse cx="32" cy="36" rx="22" ry="8.6" fill="none" stroke="#3f6fd8"
+                 stroke-width="2.4" transform="rotate(-21 32 36)"/>
+        <circle cx="50.5" cy="28.5" r="3.1" fill="#3f6fd8"/>
+      </svg>
+      <div>
+        <div class="wordmark">Alchemify<span class="dot">.Space</span></div>
+        <div class="tagline">Software &middot; Mobile Applications &middot; IT Consultancy</div>
+      </div>
+    </div>
+    <div class="legal">
+      <div class="name">ALCHEMIFYSPACE (SMC-PRIVATE) LIMITED</div>
+      CUIN 0357394 &nbsp;|&nbsp; NTN K025400<br>
+      Chak No. 60-61 GD, Post Office Chak No. 66 GD<br>
+      Tehsil and District Sahiwal, Sahiwal 57000<br>
+      Punjab, Pakistan
+    </div>
+  </div>
+  <div class="rule"></div>
+
+  <!-- ============ DOCUMENT ============ -->
+  <div class="doctitle">
+    <h1>Board Resolution</h1>
+    <div class="sub">Certified true copy of the resolution passed by the Board of Directors<br>
+      (sole director) of the Company</div>
+  </div>
+
+  <div class="meta">
+    <table>
+      <tr><td class="k">Company</td><td class="v">ALCHEMIFYSPACE (SMC-PRIVATE) LIMITED</td></tr>
+      <tr><td class="k">Corporate Unique Identification No.</td><td class="v">0357394</td></tr>
+      <tr><td class="k">National Tax Number (FBR)</td><td class="v">K025400</td></tr>
+      <tr><td class="k">Date of resolution</td><td class="v"><span class="fill sm">&nbsp;</span></td></tr>
+      <tr><td class="k">Place</td><td class="v">Registered office, Sahiwal, Punjab, Pakistan</td></tr>
+      <tr><td class="k">Present</td><td class="v">Muhammad Javeed — Sole Director, Chief Executive Officer<br>
+          and sole member (CNIC 35201-1066806-9)</td></tr>
+    </table>
+  </div>
+
+  <p>The Company is a single member company incorporated under the Companies Act, 2017 (XIX of 2017).
+     Muhammad Javeed is its sole member and sole director and, being the only director, constitutes the
+     Board of Directors. The following resolutions were passed and recorded in the minutes of the Company
+     on the date stated above.</p>
+
+  <h2 class="sec">Resolutions passed</h2>
+
+  <ol class="res">
+    <li><span class="kw">Opening of account.</span> RESOLVED THAT a bank account be opened and maintained
+        in the name of the Company with <span class="fill">&nbsp;</span>
+        (the &ldquo;Bank&rdquo;), at its <span class="fill sm">&nbsp;</span> Branch, and that such further
+        accounts, in Pakistan Rupees or in foreign currency, be opened with the Bank as the business of
+        the Company may require.</li>
+
+    <li><span class="kw">Authorised signatory.</span> RESOLVED THAT <span class="kw">Muhammad Javeed</span>,
+        Chief Executive Officer and Director, holding CNIC No. 35201-1066806-9, be and is hereby authorised
+        to operate the said account(s) <span class="kw">singly</span>, and that his specimen signature
+        appearing below be registered with the Bank as the authorised signature of the Company.</li>
+
+    <li><span class="kw">Mandate.</span> RESOLVED THAT the authorised signatory be empowered, on behalf of
+        the Company, to sign, draw, accept, endorse and negotiate cheques, drafts, bills of exchange and
+        other instruments; to give instructions in writing or through the Bank&rsquo;s approved electronic,
+        internet and mobile banking channels; to deposit and withdraw funds; and to give discharge for
+        monies received.</li>
+
+    <li><span class="kw">Receipt of export proceeds.</span> RESOLVED THAT the account(s) be used to receive
+        the Company&rsquo;s revenue from the export of software, mobile applications and information
+        technology services, including remittances received from international application marketplaces and
+        digital distribution platforms, and that the authorised signatory be empowered to complete any
+        documentation the Bank requires in respect of such inward remittances.</li>
+
+    <li><span class="kw">Documents and formalities.</span> RESOLVED THAT the authorised signatory be
+        empowered to sign the account opening form, the specimen signature card, all know-your-customer
+        and due diligence documentation and any other form the Bank may require, and to furnish certified
+        copies of the Certificate of Incorporation, Memorandum and Articles of Association, National Tax
+        Number certificate and such other records as may be requested.</li>
+
+    <li><span class="kw">Continuing authority.</span> RESOLVED THAT the Bank be and is hereby authorised to
+        act upon this resolution and to honour all instructions given in accordance with it until written
+        notice of its amendment or revocation is delivered to the Bank by the Company.</li>
+  </ol>
+
+  <h2 class="sec">Certification</h2>
+  <p>I certify that the foregoing is a true and correct copy of the resolution duly passed and recorded in
+     the minutes of the Company, that it conforms to the Memorandum and Articles of Association of the
+     Company and the Companies Act, 2017, and that it remains in full force and effect.</p>
+
+  <div class="sign">
+    <div class="seal">COMPANY<br>STAMP / SEAL</div>
+    <div class="line"></div>
+    <div class="who">Muhammad Javeed</div>
+    <div class="role">Chief Executive Officer &amp; Director (sole director and sole member)</div>
+    <div class="role">CNIC 35201-1066806-9 &nbsp;&middot;&nbsp; Specimen signature above</div>
+  </div>
+
+  <div class="note">Most banks in Pakistan issue their own board-resolution format with the account opening
+    pack &mdash; where they do, use the bank&rsquo;s format and keep this copy in the Company&rsquo;s minute
+    book. Not legal advice.</div>
+
+  <div class="foot">
+    <div>ALCHEMIFYSPACE (SMC-PRIVATE) LIMITED &middot; CUIN 0357394 &middot; NTN K025400<br>
+         Verify: leap.secp.gov.pk/#/verify-company-info/0357394</div>
+    <div style="text-align:right">+92 310 1556061 &middot; alchemifyspace@gmail.com<br>www.alchemify.space</div>
+  </div>
+
+</body>
+</html>

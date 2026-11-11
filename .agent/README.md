@@ -1,4 +1,4 @@
-# OpenCode Skills & Workflows Index
+# Migration Skills & Workflows Index
 
 ## Project: Alchemify.Space Next.js Migration
 
@@ -163,8 +163,8 @@ This directory contains specialized skills and workflows for the HTML to Next.js
 
 ### Key Configuration Files
 ```
-AGENTS.md                    # Project overview & architecture
-.opencode/opencode.toml      # OpenCode CLI configuration
+AGENTS.md                    # Project code-style conventions
+CLAUDE.md                    # Project overview & architecture
 ```
 
 ---

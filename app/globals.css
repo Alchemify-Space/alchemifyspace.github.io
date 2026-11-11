@@ -52,6 +52,18 @@
   --color-alchemify-orange: var(--alchemify-orange);
   --color-alchemify-gold: var(--alchemify-gold);
   --color-alchemify-purple: var(--alchemify-purple);
+
+  /* Brand palette from the flask logo (Nov 2026 redesign) */
+  --color-brand-indigo: #1e1b4b;
+  --color-brand-ink: #0c0a24;
+  --color-brand-line: #2e2b63;
+  --color-brand-chip: #4c4a8a;
+  --color-brand-gold: #f5b942;
+  --color-brand-purple: #6d28d9;
+  --color-brand-purple-dark: #5b21b6;
+  --color-brand-cyan: #67e8f9;
+  --color-brand-mist: #f8f7fc;
+  --color-brand-tint: #f5f3ff;
 }
 
 :root {

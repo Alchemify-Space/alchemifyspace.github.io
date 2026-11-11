@@ -1,484 +1,395 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { pageMetadata } from "@/app/lib/seo";
+import { ArrowRight, Check } from "lucide-react";
 import {
-  Smartphone,
-  Globe,
-  Cloud,
-  Zap,
-  Check,
-  ArrowRight,
-  Play,
-  Quote,
-  Calendar,
-  User,
-  ChevronRight
-} from "lucide-react";
+  ButtonLink,
+  Card,
+  Container,
+  CtaBand,
+  Eyebrow,
+  SectionTitle,
+} from "@/app/components/marketing";
+import { site } from "@/app/lib/site";
+import { JsonLd } from "@/app/components/JsonLd";
 
-// Animation variants
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
+export const metadata = pageMetadata({
+  title: "Alchemify Space | Flutter + AI App Studio for Agencies",
+  absoluteTitle: true,
+  description:
+    "White-label Flutter development for agencies, AI features for existing apps, and ready-made booking apps. A registered software company in Pakistan.",
+  path: "/",
+});
 
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1,
-    },
+// Fill these in as real projects and quotes come in. Empty lists hide their section.
+const shippedApps: { name: string; summary: string; href: string; linkLabel: string }[] = [];
+const testimonials: { quote: string; name: string; role: string }[] = [];
+
+const trustFacts = [
+  `Registered company in Pakistan · SECP CUIN ${site.secpCuin}`,
+  `D-U-N-S ${site.duns}`,
+  "Verified Google Play developer",
+  "NDA and white-label friendly",
+  "4+ hours overlap with UK and EU",
+];
+
+const offers = [
+  {
+    eyebrow: "For agencies",
+    title: "Your Flutter team, under your brand",
+    points: [
+      "New apps and feature work on existing ones",
+      "NDA, your repo, your client stays yours",
+      "Start with a small paid trial task",
+    ],
+    href: "/agencies/",
+    link: "How white-label works",
   },
-};
+  {
+    eyebrow: "AI for your app",
+    title: "Add AI to the app you already have",
+    points: [
+      "Support assistant trained on your own content",
+      "Natural-language search and booking",
+      "Fixed-scope packages, fixed prices",
+    ],
+    href: "/ai-features/",
+    link: "See the AI packages",
+  },
+  {
+    eyebrow: "Ready-made apps",
+    title: "Launch a booking app in weeks",
+    points: [
+      "Full source: Flutter app and web admin",
+      "Runs on Supabase, no PHP server",
+      "Buy as-is or have us brand it for you",
+    ],
+    href: "/products/",
+    link: "Browse products",
+  },
+];
+
+const glamioFeatures = [
+  "Live free-time booking, no double bookings",
+  "Staff schedules that update live",
+  "Walk-in and phone bookings",
+  "Push reminders 24 h and 1 h before",
+  "Owner dashboard and calendar",
+  "Set up in minutes on Supabase",
+];
+
+const steps = [
+  { title: "20-minute call", text: "You tell us the goal. We tell you honestly if we are the right fit." },
+  { title: "Fixed quote", text: "Scope, milestones and price in writing. Small trial task first if you prefer." },
+  { title: "Build in the open", text: "Code in your repo, a written update every week, test builds as we go." },
+  { title: "Launch and support", text: "Store release, handover docs, and a support period agreed up front." },
+];
+
+const stack = [
+  "Flutter and Dart",
+  "Supabase",
+  "Firebase",
+  "Next.js admin panels",
+  "Claude and OpenAI APIs",
+  "On-device ML",
+  "App Store and Google Play release",
+];
+
+const faqs = [
+  {
+    q: "Will our client know you exist?",
+    a: "Only if you want them to. We sign your NDA, work under your brand and never contact your client directly.",
+  },
+  { q: "Who owns the code?", a: "You do, once paid. It lives in your repository from day one." },
+  {
+    q: "How do payments work?",
+    a: "Milestone payments for projects, monthly for retainers. We invoice as a registered company.",
+  },
+  {
+    q: "What time zone do you work in?",
+    a: "Pakistan (UTC+5). We keep at least 4 hours of overlap with your working day.",
+  },
+];
+
+function PhoneMockup() {
+  return (
+    <div className="flex-[0_1_320px] flex justify-center" aria-hidden="true">
+      <div className="w-[300px] h-[600px] rounded-[44px] bg-brand-ink p-3">
+        <div className="flex h-full flex-col gap-3.5 rounded-[34px] bg-white px-5 py-7 text-slate-900">
+          <p className="text-xs text-slate-600">Book at</p>
+          <p className="-mt-2.5 font-heading text-[22px] font-bold text-brand-indigo">Studio Nine</p>
+          <div className="flex flex-col gap-2 text-sm">
+            <div className="flex justify-between rounded-xl border-[1.5px] border-brand-gold bg-brand-tint p-3">
+              <span className="font-semibold">Skin fade</span>
+              <span className="text-slate-600">45 min</span>
+            </div>
+            <div className="flex justify-between rounded-xl border border-slate-200 p-3">
+              <span className="font-semibold">Beard trim</span>
+              <span className="text-slate-600">20 min</span>
+            </div>
+          </div>
+          <p className="mt-1.5 text-[13px] font-semibold">Saturday, 14 Nov</p>
+          <div className="grid grid-cols-3 gap-2 text-center text-[13px]">
+            <span className="rounded-lg border border-slate-200 py-2">10:00</span>
+            <span className="rounded-lg bg-brand-indigo py-2 text-white">14:30</span>
+            <span className="rounded-lg border border-slate-200 py-2">16:00</span>
+          </div>
+          <div className="mt-1.5 rounded-xl bg-brand-mist p-3 text-[13px] leading-normal">
+            <p className="mb-1 font-semibold text-brand-indigo">AI assistant</p>
+            <p className="text-slate-700">&ldquo;Ali is free at 14:30 for a skin fade. Book it?&rdquo;</p>
+          </div>
+          <div className="mt-auto rounded-xl bg-brand-gold p-3.5 text-center text-[15px] font-semibold text-brand-indigo">
+            Confirm booking
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function HomePage() {
   return (
-    <motion.div
-      initial="initial"
-      animate="animate"
-      variants={staggerContainer}
-    >
-      {/* Hero Section */}
-      <HeroSection />
-
-      {/* About Section */}
-      <AboutSection />
-
-      {/* YouTube Video Section */}
-      <YouTubeSection />
-
-      {/* Work Process Section */}
-      <WorkProcessSection />
-
-      {/* FAQ Section */}
-      <FAQSection />
-
-      {/* Testimonials Section */}
-      <TestimonialsSection />
-
-      {/* Blog Section */}
-      <BlogSection />
-
-      {/* CTA Section */}
-      <CTASection />
-    </motion.div>
-  );
-}
-
-function HeroSection() {
-  return (
-    <section
-      className="relative min-h-screen flex items-center justify-center bg-cover bg-center"
-      style={{
-        backgroundImage: "url('/images/alchemify-hero-bg-v2.png')",
-      }}
-    >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#1a365d]/80 to-[#1a365d]/60" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-32">
-        <motion.p
-          variants={fadeInUp}
-          className="text-[#ed8936] font-medium text-lg mb-4 tracking-wider uppercase"
-        >
-          Cosmic Alchemy for Digital Products
-        </motion.p>
-
-        <motion.h1
-          variants={fadeInUp}
-          className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight"
-        >
-          Transforming Ideas<br />into Reality.
-        </motion.h1>
-
-        {/* Feature Items */}
-        <motion.div
-          variants={fadeInUp}
-          className="flex flex-wrap justify-center gap-6 md:gap-12 mt-12"
-        >
-          {[
-            { icon: Smartphone, label: "Mobile Apps" },
-            { icon: Globe, label: "Web Apps" },
-            { icon: Cloud, label: "Cloud Solutions" },
-            { icon: Zap, label: "Rapid Prototyping" },
-          ].map((item, index) => (
-            <div key={index} className="flex items-center gap-3 text-white">
-              <item.icon className="w-8 h-8 text-[#ed8936]" />
-              <span className="font-semibold text-lg">{item.label}</span>
-            </div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function AboutSection() {
-  return (
-    <section className="py-20 md:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Left - Image */}
-          <motion.div
-            variants={fadeInUp}
-            className="relative"
-          >
-            <div className="relative aspect-[4/5] rounded-lg overflow-hidden shadow-2xl">
-              <Image
-                src="/images/home-1/about.png"
-                alt="Javeed Ishaq - Founder & Alchemist"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </motion.div>
-
-          {/* Right - Content */}
-          <motion.div variants={fadeInUp}>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a365d] mb-6">
-              Crafting Digital<br />Experiences That Matter
-            </h2>
-
-            <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-              Welcome to Alchemify.Space, where abstract ideas transform into concrete digital realities.
-              I specialize in building high-quality mobile apps, web applications, and cloud solutions that
-              bring your vision to life. From concept to deployment, I apply cosmic alchemy to every line of code.
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: site.name,
+          url: site.url,
+        }}
+      />
+      {/* Hero */}
+      <section className="bg-brand-indigo text-white">
+        <Container className="py-20 md:py-24 flex flex-wrap items-center gap-16">
+          <div className="flex-[1_1_520px] min-w-0">
+            <Eyebrow onDark>Flutter + AI studio</Eyebrow>
+            <h1 className="font-heading text-4xl md:text-[56px] leading-[1.05] font-bold mb-6">
+              Flutter apps with AI built in, delivered for agencies and growing businesses.
+            </h1>
+            <p className="mb-9 max-w-[560px] text-lg md:text-[19px] leading-relaxed text-slate-200">
+              White-label mobile development, AI features for apps you already run, and ready-made
+              booking apps you can launch in weeks.
             </p>
+            <div className="flex flex-wrap gap-4">
+              <ButtonLink href={site.bookingUrl}>Book a 20-minute call</ButtonLink>
+              <ButtonLink href="/products/" variant="outline-light">
+                See the Glamio demo
+              </ButtonLink>
+            </div>
+          </div>
+          <PhoneMockup />
+        </Container>
+      </section>
 
-            {/* Feature Points */}
-            <div className="space-y-3 mb-8">
-              {[
-                "Full-stack Development",
-                "Cloud Architecture",
-                "UI/UX Design",
-                "Innovative Solutions",
-                "Dedicated Support",
-              ].map((item, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-[#ed8936]" />
-                  <span className="text-[#1a365d] font-medium">{item}</span>
+      {/* Trust strip */}
+      <section aria-label="Company facts" className="border-b border-slate-200 bg-brand-mist">
+        <Container className="py-6 flex flex-wrap justify-between gap-x-8 gap-y-3 text-sm font-medium text-slate-700">
+          {trustFacts.map((fact) => (
+            <span key={fact}>{fact}</span>
+          ))}
+        </Container>
+      </section>
+
+      {/* Three ways */}
+      <section>
+        <Container className="py-20 md:py-24">
+          <SectionTitle className="mb-3">Three ways to work with us</SectionTitle>
+          <p className="mb-12 max-w-[640px] text-lg text-slate-600">
+            Pick the one that matches where you are. Each starts with a short call and a fixed quote.
+          </p>
+          <div className="grid gap-6 md:grid-cols-3">
+            {offers.map((o) => (
+              <Card key={o.href}>
+                <p className="text-[13px] font-semibold uppercase tracking-[0.06em] text-brand-purple">
+                  {o.eyebrow}
+                </p>
+                <h3 className="font-heading text-2xl font-bold text-brand-indigo">{o.title}</h3>
+                <ul className="list-disc pl-5 leading-loose text-slate-700">
+                  {o.points.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+                <Link
+                  href={o.href}
+                  className="mt-auto inline-flex items-center gap-1.5 font-semibold text-brand-purple hover:text-brand-purple-dark"
+                >
+                  {o.link} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </Card>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Glamio */}
+      <section id="work" className="bg-brand-mist">
+        <Container className="py-20 md:py-24 flex flex-wrap items-center gap-14">
+          <div className="flex-[1_1_480px] min-w-0">
+            <Eyebrow>Our product · launching January 2027</Eyebrow>
+            <SectionTitle className="mb-4">Glamio: salon and barber booking</SectionTitle>
+            <p className="mb-6 text-lg leading-relaxed text-slate-600">
+              A complete booking system we built and run ourselves: customer app, staff app and owner
+              admin. It is the same engine we use for client projects.
+            </p>
+            <ul className="mb-8 grid gap-x-6 gap-y-3 text-slate-700 sm:grid-cols-2">
+              {glamioFeatures.map((f) => (
+                <li key={f} className="flex gap-2">
+                  <Check className="mt-0.5 h-5 w-5 flex-none text-brand-purple" aria-hidden="true" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <div className="flex flex-wrap gap-4">
+              <ButtonLink href="/products/" variant="indigo">
+                View Glamio
+              </ButtonLink>
+              <ButtonLink href="/contact/" variant="outline">
+                Need it customised?
+              </ButtonLink>
+            </div>
+          </div>
+          <div className="flex-[1_1_400px] min-w-0 grid grid-cols-2 gap-4" aria-hidden="true">
+            <div className="aspect-[9/16] rounded-[20px] bg-slate-200 flex items-center justify-center p-4 text-center text-sm text-slate-600">
+              Glamio customer app
+            </div>
+            <div className="mt-12 aspect-[9/16] rounded-[20px] bg-slate-200 flex items-center justify-center p-4 text-center text-sm text-slate-600">
+              Glamio owner calendar
+            </div>
+          </div>
+        </Container>
+
+        {shippedApps.length > 0 && (
+          <Container className="pb-20 md:pb-24">
+            <h3 className="mb-6 font-heading text-2xl font-bold text-brand-indigo">Apps we have shipped</h3>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {shippedApps.map((app) => (
+                <div key={app.name} className="rounded-2xl border border-slate-200 bg-white p-6">
+                  <p className="mb-2 font-semibold text-brand-indigo">{app.name}</p>
+                  <p className="mb-4 leading-normal text-slate-600">{app.summary}</p>
+                  <a href={app.href} className="text-sm font-semibold text-brand-purple hover:text-brand-purple-dark">
+                    {app.linkLabel} →
+                  </a>
                 </div>
               ))}
             </div>
+          </Container>
+        )}
+      </section>
 
-            {/* Author Info */}
-            <div className="mb-8">
-              <p className="text-[#1a365d] font-bold text-xl">Javeed Ishaq</p>
-              <p className="text-gray-500">Founder & Alchemist</p>
-            </div>
+      {/* Process */}
+      <section>
+        <Container className="py-20 md:py-24">
+          <SectionTitle className="mb-12">How a project runs</SectionTitle>
+          <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((s, i) => (
+              <li key={s.title} className="border-t-[3px] border-brand-gold pt-5">
+                <p className="mb-2 font-heading text-[15px] font-semibold text-brand-purple">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mb-2 text-xl font-semibold text-brand-indigo">{s.title}</h3>
+                <p className="leading-relaxed text-slate-600">{s.text}</p>
+              </li>
+            ))}
+          </ol>
+        </Container>
+      </section>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4">
-              <Link href="/services/">
-                <Button className="bg-[#1a365d] hover:bg-[#1a365d]/90 text-white">
-                  View Services
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-              <Link href="/contact/">
-                <Button variant="outline" className="border-[#ed8936] text-[#ed8936] hover:bg-[#ed8936] hover:text-white">
-                  Hire Me
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
+      {/* Stack */}
+      <section className="bg-brand-indigo text-white">
+        <Container className="py-16 md:py-[72px] flex flex-wrap items-center justify-between gap-8">
+          <div className="flex-[1_1_480px] min-w-0">
+            <h2 className="mb-3 font-heading text-3xl font-bold">The stack we specialise in</h2>
+            <p className="leading-relaxed text-slate-200">
+              We go deep on a few tools instead of claiming all of them.
+            </p>
+          </div>
+          <div className="flex-[1_1_480px] flex flex-wrap gap-2.5">
+            {stack.map((s) => (
+              <span key={s} className="rounded-full border border-brand-chip px-4 py-2 text-[15px]">
+                {s}
+              </span>
+            ))}
+          </div>
+        </Container>
+      </section>
 
-function YouTubeSection() {
-  return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div variants={fadeInUp} className="text-center mb-12">
-          <p className="text-[#ed8936] font-medium mb-2 uppercase tracking-wider">Latest Content</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a365d]">Watch My Latest Videos</h2>
-        </motion.div>
-
-        <motion.div variants={fadeInUp} className="max-w-4xl mx-auto">
-          <div className="aspect-video rounded-xl overflow-hidden shadow-2xl">
-            <iframe
-              src="https://www.youtube.com/embed/videoseries?list=PL7Rh-8_0-4aD3J-K4yL-5P4l7_9-2K_1_"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full"
+      {/* About */}
+      <section id="about">
+        <Container className="py-20 md:py-24 flex flex-wrap items-center gap-14">
+          <div className="relative flex-[0_1_380px] aspect-square overflow-hidden rounded-[20px]">
+            <Image
+              src={site.founder.studioPhoto}
+              alt="Javeed Ishaq, founder of Alchemify Space, at his studio desk"
+              fill
+              sizes="(max-width: 768px) 100vw, 380px"
+              className="object-cover"
             />
           </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function WorkProcessSection() {
-  const steps = [
-    {
-      number: "01",
-      title: "Discovery & Planning",
-      description: "Understanding your vision, requirements, and goals to create a comprehensive project roadmap.",
-    },
-    {
-      number: "02",
-      title: "Design & Prototyping",
-      description: "Creating intuitive UI/UX designs and interactive prototypes for your approval.",
-    },
-    {
-      number: "03",
-      title: "Development",
-      description: "Building your solution with clean, scalable code using modern technologies.",
-    },
-    {
-      number: "04",
-      title: "Launch & Support",
-      description: "Deploying your product and providing ongoing maintenance and support.",
-    },
-  ];
-
-  return (
-    <section className="py-20 md:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div variants={fadeInUp} className="text-center mb-16">
-          <p className="text-[#ed8936] font-medium mb-2 uppercase tracking-wider">How It Works</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a365d]">
-            Let Us Take The Stress<br />Out Of Your Project
-          </h2>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {steps.map((step, index) => (
-            <motion.div
-              key={index}
-              variants={fadeInUp}
-              className="relative"
-            >
-              <div className="text-6xl font-bold text-gray-100 mb-4">{step.number}</div>
-              <h3 className="text-xl font-bold text-[#1a365d] mb-3">{step.title}</h3>
-              <p className="text-gray-600">{step.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FAQSection() {
-  const faqs = [
-    {
-      question: "What technologies do you specialize in?",
-      answer: "I specialize in React, React Native, Node.js, TypeScript, AWS, and various modern web and mobile technologies. I stay current with industry trends to deliver cutting-edge solutions.",
-    },
-    {
-      question: "How long does a typical project take?",
-      answer: "Project timelines vary based on complexity. A simple website might take 2-4 weeks, while a complex mobile app could take 3-6 months. I provide detailed timelines during our initial consultation.",
-    },
-    {
-      question: "Do you offer ongoing support after launch?",
-      answer: "Yes! I offer maintenance packages that include bug fixes, updates, and feature enhancements. Your digital product needs continuous care to stay competitive.",
-    },
-    {
-      question: "What is your pricing structure?",
-      answer: "I offer both project-based and hourly pricing depending on your needs. After understanding your requirements, I provide a transparent quote with no hidden fees.",
-    },
-  ];
-
-  return (
-    <section className="py-20 md:py-32 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-start">
-          <motion.div variants={fadeInUp}>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a365d] mb-8">
-              Frequently Asked<br />Questions
-            </h2>
-            <p className="text-gray-600 mb-8">
-              Have questions about working with me? Here are some common inquiries from clients.
+          <div className="flex-[1_1_480px] min-w-0">
+            <Eyebrow>Who you work with</Eyebrow>
+            <SectionTitle className="mb-4">Javeed Ishaq, founder and lead developer</SectionTitle>
+            <p className="mb-4 text-lg leading-relaxed text-slate-700">
+              Javeed builds Flutter apps, Supabase backends and AI features, and shares how on the
+              Alchemify Space YouTube channel.
             </p>
-            <Link href="/faq/">
-              <Button className="bg-[#ed8936] hover:bg-[#ed8936]/90 text-white">
-                View All FAQs
-              </Button>
-            </Link>
-          </motion.div>
-
-          <motion.div variants={fadeInUp} className="space-y-4">
-            {faqs.map((faq, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="font-bold text-[#1a365d] mb-2">{faq.question}</h3>
-                <p className="text-gray-600 text-sm">{faq.answer}</p>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TestimonialsSection() {
-  const testimonials = [
-    {
-      quote: "Javeed transformed our vague idea into a fully functional mobile app. His technical expertise and attention to detail exceeded our expectations.",
-      author: "Ahmed Khan",
-      role: "Startup Founder",
-    },
-    {
-      quote: "Working with Alchemify.Space was a game-changer for our business. The web application they built streamlined our operations significantly.",
-      author: "Sarah Johnson",
-      role: "Business Owner",
-    },
-    {
-      quote: "Professional, responsive, and incredibly skilled. The cloud infrastructure solution has saved us thousands in operational costs.",
-      author: "Muhammad Ali",
-      role: "CTO, TechCorp",
-    },
-  ];
-
-  return (
-    <section className="py-20 md:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div variants={fadeInUp} className="text-center mb-16">
-          <p className="text-[#ed8936] font-medium mb-2 uppercase tracking-wider">Testimonials</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a365d]">What Clients Say</h2>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={index}
-              variants={fadeInUp}
-              className="bg-gray-50 rounded-xl p-8 relative"
+            <p className="mb-6 text-lg leading-relaxed text-slate-700">
+              You talk to the person who writes the code. No account managers, no hand-offs.
+            </p>
+            <a
+              href={site.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 font-semibold text-brand-purple hover:text-brand-purple-dark"
             >
-              <Quote className="w-10 h-10 text-[#ed8936] mb-4" />
-              <p className="text-gray-700 mb-6 italic">"{testimonial.quote}"</p>
-              <div>
-                <p className="font-bold text-[#1a365d]">{testimonial.author}</p>
-                <p className="text-gray-500 text-sm">{testimonial.role}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+              Watch us build on YouTube <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
+          </div>
+        </Container>
+      </section>
 
-function BlogSection() {
-  const posts = [
-    {
-      title: "The Future of Mobile App Development in 2025",
-      excerpt: "Exploring emerging trends and technologies shaping the mobile landscape.",
-      date: "Jan 15, 2025",
-      author: "Javeed Ishaq",
-      image: "/images/home-1/blog-1.png",
-    },
-    {
-      title: "Building Scalable Cloud Architecture",
-      excerpt: "Best practices for designing cloud infrastructure that grows with your business.",
-      date: "Jan 10, 2025",
-      author: "Javeed Ishaq",
-      image: "/images/home-1/blog-2.png",
-    },
-    {
-      title: "React vs Vue: Choosing the Right Framework",
-      excerpt: "A comprehensive comparison to help you make the right decision for your project.",
-      date: "Jan 5, 2025",
-      author: "Javeed Ishaq",
-      image: "/images/home-1/blog-3.png",
-    },
-  ];
+      {testimonials.length > 0 && (
+        <section className="bg-brand-mist">
+          <Container className="py-20 md:py-24">
+            <SectionTitle className="mb-10">What clients say</SectionTitle>
+            <div className="grid gap-6 md:grid-cols-2">
+              {testimonials.map((t) => (
+                <figure key={t.name} className="rounded-2xl border border-slate-200 bg-white p-7">
+                  <blockquote className="mb-5 text-[17px] leading-relaxed text-slate-700">
+                    &ldquo;{t.quote}&rdquo;
+                  </blockquote>
+                  <figcaption className="text-sm text-slate-600">
+                    {t.name}, {t.role}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
 
-  return (
-    <section className="py-20 md:py-32 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div variants={fadeInUp} className="flex justify-between items-end mb-12">
+      {/* FAQ */}
+      <section className={testimonials.length > 0 ? "" : "bg-brand-mist"}>
+        <Container className="max-w-[880px] py-20 md:py-24">
+          <SectionTitle className="mb-8">Questions agencies ask</SectionTitle>
           <div>
-            <p className="text-[#ed8936] font-medium mb-2 uppercase tracking-wider">Our Blog</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a365d]">Latest Articles</h2>
+            {faqs.map((f, i) => (
+              <details
+                key={f.q}
+                open={i === 0}
+                className={`border-t border-slate-200 py-5 ${i === faqs.length - 1 ? "border-b" : ""}`}
+              >
+                <summary className="cursor-pointer text-lg font-semibold text-brand-indigo">{f.q}</summary>
+                <p className="mt-3 leading-relaxed text-slate-600">{f.a}</p>
+              </details>
+            ))}
           </div>
-          <Link href="/blog/" className="hidden md:flex items-center gap-2 text-[#ed8936] hover:text-[#ed8936]/80 font-medium">
-            View All Posts
-            <ChevronRight className="w-4 h-4" />
+          <Link href="/faq/" className="mt-6 inline-block font-semibold text-brand-purple hover:text-brand-purple-dark">
+            More questions →
           </Link>
-        </motion.div>
+        </Container>
+      </section>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {posts.map((post, index) => (
-            <motion.div
-              key={index}
-              variants={fadeInUp}
-              className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-            >
-              <div className="aspect-video relative">
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                  <span className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    {post.date}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <User className="w-4 h-4" />
-                    {post.author}
-                  </span>
-                </div>
-                <h3 className="font-bold text-[#1a365d] mb-2 line-clamp-2">{post.title}</h3>
-                <p className="text-gray-600 text-sm line-clamp-2">{post.excerpt}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="mt-8 text-center md:hidden">
-          <Link href="/blog/">
-            <Button variant="outline" className="border-[#ed8936] text-[#ed8936]">
-              View All Posts
-            </Button>
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CTASection() {
-  return (
-    <section className="py-20 md:py-32 bg-[#1a365d]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div variants={fadeInUp}>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-            Ready to Transform Your Ideas?
-          </h2>
-          <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
-            Let's collaborate to bring your vision to life. Whether it's a mobile app, web application,
-            or cloud solution, I'm here to help you succeed.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/contact/">
-              <Button size="lg" className="bg-[#ed8936] hover:bg-[#ed8936]/90 text-white">
-                Start Your Project
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-            <Link href="/portfolio/">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-[#1a365d]">
-                <Play className="w-4 h-4 mr-2" />
-                View Portfolio
-              </Button>
-            </Link>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+      <CtaBand title="Have a project or an overflow problem? Let's talk." buttonLabel="Book a 20-minute call" />
+    </>
   );
 }

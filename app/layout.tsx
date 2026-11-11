@@ -1,6 +1,33 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
+import { site } from "@/app/lib/site";
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.name,
+  legalName: site.legalName,
+  url: site.url,
+  logo: `${site.url}/images/logo/alchemify-logo-round.png`,
+  email: site.email,
+  telephone: "+923101556061",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Chak No. 60-61 GD",
+    addressLocality: "Sahiwal",
+    postalCode: "57000",
+    addressRegion: "Punjab",
+    addressCountry: "PK",
+  },
+  sameAs: [site.youtube],
+  founder: {
+    "@type": "Person",
+    name: site.founder.name,
+    jobTitle: site.founder.role,
+    image: `${site.url}${site.founder.headshot}`,
+  },
+};
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
@@ -16,43 +43,35 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://alchemify.space"),
   title: {
-    template: "%s | Alchemify.Space",
-    default: "Alchemify.Space - Transforming Ideas into Reality",
+    template: "%s | Alchemify Space",
+    default: "Alchemify Space | Flutter + AI App Studio",
   },
   description:
-    "Cosmic Alchemy for Digital Products. We transform ideas into reality through mobile app development, web solutions, and cloud services.",
+    "White-label Flutter development for agencies, AI features for existing apps, and ready-made booking apps from a registered software company in Pakistan.",
   keywords: [
-    "mobile app development",
-    "web development",
-    "cloud solutions",
-    "digital products",
-    "Alchemify",
+    "Flutter development",
+    "white-label app development",
+    "AI features for mobile apps",
+    "Supabase",
+    "salon booking app",
+    "Alchemify Space",
   ],
-  authors: [{ name: "Alchemify.Space" }],
+  authors: [{ name: "Alchemify Space" }],
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://alchemify.space",
-    siteName: "Alchemify.Space",
-    title: "Alchemify.Space - Transforming Ideas into Reality",
+    siteName: "Alchemify Space",
+    title: "Alchemify Space | Flutter + AI App Studio",
     description:
-      "Cosmic Alchemy for Digital Products. We transform ideas into reality through mobile app development, web solutions, and cloud services.",
-    images: [
-      {
-        url: "/images/alchemify-hero-bg-v2.png",
-        width: 1200,
-        height: 630,
-        alt: "Alchemify.Space Hero Image",
-      },
-    ],
+      "White-label Flutter development for agencies, AI features for existing apps, and ready-made booking apps from a registered software company in Pakistan.",
+    images: [{ url: "/images/og-image.png", width: 1200, height: 630, alt: "Alchemify Space" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alchemify.Space - Transforming Ideas into Reality",
+    title: "Alchemify Space | Flutter + AI App Studio",
     description:
-      "Cosmic Alchemy for Digital Products. We transform ideas into reality through mobile app development, web solutions, and cloud services.",
-    images: ["/images/alchemify-hero-bg-v2.png"],
-    creator: "@alchemifyspace",
+      "White-label Flutter development for agencies, AI features for existing apps, and ready-made booking apps from a registered software company in Pakistan.",
+    images: ["/images/og-image.png"],
   },
   robots: {
     index: true,
@@ -75,6 +94,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${spaceGrotesk.variable} ${inter.variable} font-body antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         {children}
       </body>
     </html>

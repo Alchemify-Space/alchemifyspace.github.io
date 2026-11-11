@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Next.js dev-server cache (lives inside distDir), never commit or publish
+/dist/dev/
+/dist/cache/

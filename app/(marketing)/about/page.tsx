@@ -1,140 +1,109 @@
 import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Check, ArrowRight, Code, Rocket } from "lucide-react";
-import { Metadata } from "next";
+import { pageMetadata } from "@/app/lib/seo";
+import { ButtonLink, CheckList, Container, CtaBand, Eyebrow, SectionTitle } from "@/app/components/marketing";
+import { site } from "@/app/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "About",
-  description: "Meet Javeed Ishaq, founder of Alchemify.Space. Transforming ideas into digital reality through expert mobile, web, and cloud development services.",
-};
+  description:
+    "Alchemify Space is a registered Flutter + AI app studio in Pakistan, founded by Javeed Ishaq. You work directly with the developer who writes the code.",
+  path: "/about/",
+});
+
+const facts = [
+  { label: "Legal name", value: site.legalName },
+  { label: "SECP CUIN", value: site.secpCuin },
+  { label: "NTN", value: site.ntn },
+  { label: "D-U-N-S", value: site.duns },
+  { label: "Google Play", value: "Verified organisation developer: Alchemify Space" },
+  { label: "Registered office", value: `${site.address[0]}, ${site.address[1]}` },
+];
+
+const principles = [
+  "Specialise: Flutter, Supabase, Firebase, Next.js and AI APIs, done well.",
+  "Honest scope: we say no to work we are not the right fit for.",
+  "Ship and show: our own products are public, so you can judge the code.",
+  "Write it down: weekly updates, setup docs and clean handover.",
+];
 
 export default function AboutPage() {
   return (
-    <div>
-      {/* Hero/Breadcrumb Section */}
-      <section 
-        className="relative py-32 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/inner/portfolio-banner.jpg')" }}
-      >
-        <div className="absolute inset-0 bg-[#1a365d]/80" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">About Company</h1>
-          <div className="flex items-center justify-center gap-2 text-white">
-            <Link href="/" className="hover:text-[#ed8936]">Home</Link>
-            <span>/</span>
-            <span className="text-[#ed8936]">About</span>
+    <>
+      <section className="bg-brand-indigo text-white">
+        <Container className="py-20 md:py-24 flex flex-wrap items-center gap-14">
+          <div className="flex-[1_1_520px] min-w-0">
+            <Eyebrow onDark>About Alchemify Space</Eyebrow>
+            <h1 className="mb-6 font-heading text-4xl md:text-[52px] leading-[1.05] font-bold">
+              A small studio that ships Flutter apps with AI built in.
+            </h1>
+            <p className="max-w-[580px] text-lg leading-relaxed text-slate-200">
+              We work for agencies that need a reliable mobile developer, for businesses adding AI to
+              their apps, and on our own booking products.
+            </p>
           </div>
-        </div>
+          <div className="relative flex-[0_1_380px] aspect-square overflow-hidden rounded-[20px]">
+            <Image
+              src={site.founder.studioPhoto}
+              alt="Javeed Ishaq, founder of Alchemify Space, at his studio desk"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 380px"
+              className="object-cover"
+            />
+          </div>
+        </Container>
       </section>
 
-      {/* About Content Section */}
-      <section className="py-20 md:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Left - Image */}
-            <div className="relative">
-              <div className="relative aspect-[4/5] rounded-lg overflow-hidden shadow-2xl">
-                <Image
-                  src="/images/home-1/about.png"
-                  alt="Javeed Ishaq - Founder & Digital Alchemist"
-                  fill
-                  className="object-cover"
-                />
+      <section>
+        <Container className="py-20 md:py-24 grid gap-16 md:grid-cols-2">
+          <div>
+            <div className="mb-5 flex items-center gap-5">
+              <Image
+                src={site.founder.headshot}
+                alt="Javeed Ishaq"
+                width={96}
+                height={96}
+                className="h-24 w-24 flex-none rounded-full object-cover ring-4 ring-brand-tint"
+              />
+              <div>
+                <Eyebrow>Founder</Eyebrow>
+                <SectionTitle className="-mt-2">Javeed Ishaq</SectionTitle>
+                <p className="mt-1 font-medium text-slate-600">Founder and lead developer</p>
               </div>
             </div>
-
-            {/* Right - Content */}
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#1a365d] mb-6">
-                Hello, I&apos;m Javeed Ishaq<br />
-                Founder & Digital Alchemist
-              </h2>
-
-              <p className="text-gray-600 text-lg mb-4 leading-relaxed">
-                Welcome to Alchemify.Space, where abstract ideas transform into concrete digital realities. With over
-                a decade of experience in software development, I specialize in building high-quality mobile apps,
-                web applications, and cloud solutions that bring visions to life.
-              </p>
-
-              <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-                My approach combines technical expertise with creative problem-solving, applying what I call
-                "cosmic alchemy" to every line of code. From concept to deployment, I'm passionate about
-                creating digital products that not only meet requirements but exceed expectations.
-              </p>
-
-              {/* Features */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="flex items-center gap-3">
-                  <Code className="w-8 h-8 text-[#ed8936]" />
-                  <span className="font-bold text-[#1a365d]">Clean Code</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Rocket className="w-8 h-8 text-[#ed8936]" />
-                  <span className="font-bold text-[#1a365d]">Fast Delivery</span>
-                </div>
-              </div>
-
-              {/* Skills */}
-              <div className="space-y-3 mb-8">
-                {[
-                  "Full-stack development: Mobile, Web, and Cloud",
-                  "Modern tech stack: React, Node.js, AWS, Flutter",
-                  "From MVP to enterprise-scale solutions",
-                ].map((item, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-[#ed8936]" />
-                    <span className="text-[#1a365d] font-medium">{item}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Author Info */}
-              <div className="mb-8">
-                <p className="text-[#1a365d] font-bold text-xl">Javeed Ishaq</p>
-                <p className="text-gray-500">Founder & Alchemist</p>
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-4">
-                <Link href="/services/">
-                  <Button className="bg-[#1a365d] hover:bg-[#1a365d]/90 text-white">
-                    View Services
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </Link>
-                <Link href="/contact/">
-                  <Button variant="outline" className="border-[#ed8936] text-[#ed8936] hover:bg-[#ed8936] hover:text-white">
-                    Hire Me
-                  </Button>
-                </Link>
-              </div>
-            </div>
+            <p className="mb-4 text-lg leading-relaxed text-slate-700">
+              Javeed builds Flutter apps, Supabase backends and AI features, and shares how on the
+              Alchemify Space YouTube channel.
+            </p>
+            <p className="mb-8 text-lg leading-relaxed text-slate-700">
+              You talk to the person who writes the code. No account managers, no hand-offs.
+            </p>
+            <ButtonLink href={site.youtube} variant="outline">
+              Watch us build on YouTube
+            </ButtonLink>
           </div>
-        </div>
+          <div>
+            <SectionTitle className="mb-6 md:text-4xl">How we work</SectionTitle>
+            <CheckList items={principles} />
+          </div>
+        </Container>
       </section>
 
-      {/* Mission/Vision Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="bg-white p-8 rounded-xl shadow-sm">
-              <h3 className="text-2xl font-bold text-[#1a365d] mb-4">Our Mission</h3>
-              <p className="text-gray-600">
-                To empower businesses and individuals by transforming their innovative ideas into robust, 
-                scalable digital solutions that drive growth and create meaningful impact in the world.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-xl shadow-sm">
-              <h3 className="text-2xl font-bold text-[#1a365d] mb-4">Our Vision</h3>
-              <p className="text-gray-600">
-                To become a leading force in digital transformation, known for our commitment to excellence, 
-                innovation, and the success of our clients' ventures.
-              </p>
-            </div>
-          </div>
-        </div>
+      <section className="bg-brand-mist">
+        <Container className="py-20 md:py-24">
+          <SectionTitle className="mb-8">Company details</SectionTitle>
+          <dl className="grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+            {facts.map((f) => (
+              <div key={f.label} className="rounded-2xl border border-slate-200 bg-white p-6">
+                <dt className="mb-1 text-[13px] font-semibold text-slate-600">{f.label}</dt>
+                <dd className="font-medium text-brand-indigo">{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </Container>
       </section>
-    </div>
+
+      <CtaBand title="Want to see if we are the right fit?" buttonLabel="Book a 20-minute call" />
+    </>
   );
 }
