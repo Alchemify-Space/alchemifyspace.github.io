@@ -2,5 +2,5 @@
 2:I[81931,["/_next/static/chunks/744355e03808d4c7.js","/_next/static/chunks/e99ee63045197601.js","/_next/static/chunks/6a05fc5fdacab9f2.js","/_next/static/chunks/3d77a01e2f8b3258.js"],"Redirect"]
 3:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
 4:"$Sreact.suspense"
-0:{"buildId":"xImMb2RZPEnZBOEtOmMbs","rsc":["$","$1","c",{"children":[["$","$L2",null,{"to":"/products/","label":"Products"}],[["$","script","script-0",{"src":"/_next/static/chunks/3d77a01e2f8b3258.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+0:{"buildId":"3NQpL1QRy9fXu0v5Y-FXH","rsc":["$","$1","c",{"children":[["$","$L2",null,{"to":"/products/","label":"Products"}],[["$","script","script-0",{"src":"/_next/static/chunks/3d77a01e2f8b3258.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
 5:null
