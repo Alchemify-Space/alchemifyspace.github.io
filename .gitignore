@@ -43,3 +43,9 @@ next-env.d.ts
 # Next.js dev-server cache (lives inside distDir), never commit or publish
 /dist/dev/
 /dist/cache/
+
+# Private company papers (originals live in ../company/)
+dev-docs/bank-account/
+
+# Build output, published to gh-pages by npm run deploy
+/dist/
