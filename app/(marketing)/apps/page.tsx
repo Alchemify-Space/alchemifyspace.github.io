@@ -5,11 +5,17 @@ import { Badge, Container, Eyebrow } from "@/app/components/marketing";
 export const metadata = pageMetadata({
   title: "Apps by Alchemify Space",
   description:
-    "Simple, private mobile apps from Alchemify Space. No accounts, no ads, no tracking. StampWallet tracks stamp cards. Bijli Unit Tracker keeps your electricity units under 200.",
+    "Simple, private mobile apps from Alchemify Space. No ads, no selling your data. WarrantIQ tracks warranties and receipts. StampWallet tracks stamp cards. Bijli Unit Tracker keeps your electricity units under 200.",
   path: "/apps/",
 });
 
 const apps = [
+  {
+    slug: "warrantiq",
+    name: "WarrantIQ",
+    tagline: "Keep warranties, receipts and manuals in one place, and get a reminder before cover ends.",
+    status: "Android",
+  },
   {
     slug: "stampwallet",
     name: "StampWallet",
@@ -33,7 +39,7 @@ export default function AppsPage() {
           Small apps that respect your privacy.
         </h1>
         <p className="mb-12 max-w-[640px] text-lg md:text-[19px] leading-relaxed text-slate-600">
-          Made by Alchemify Space. No accounts, no ads, no tracking. Your data stays on your phone.
+          Made by Alchemify Space. No ads, and we never sell your data.
         </p>
         <div className="grid gap-6 md:grid-cols-3">
           {apps.map((app) => (
