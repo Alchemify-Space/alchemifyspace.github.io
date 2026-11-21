@@ -39,6 +39,15 @@ In 2026, you are likely describing your UI in natural language or generating it 
 *   **Choose React** if you are building a massive enterprise system where you want to leverage the widest possible pool of generated components and libraries.
 *   **Choose Vue** if you want a lean, highly performant application where the generated code remains delightful for your human team to maintain and polish.
 
+### React and Vue at a glance
+
+| | React | Vue |
+| --- | --- | --- |
+| **With AI tools** | LLMs write it best, thanks to the most training data | Generated code is easier for people to review and correct |
+| **Ecosystem** | The largest: a wrapper exists for almost anything | Cohesive, with little fragmentation |
+| **Performance** | The React compiler automates most tuning | Vapor Mode (no Virtual DOM) is very fast for high-frequency dashboards |
+| **Best for** | Large enterprise systems | Lean, high-performance apps a human team maintains |
+
 ## Verdict
 
 There is no wrong choice, only different trade-offs. 

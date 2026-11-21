@@ -153,7 +153,7 @@ export default function Error({ error, reset }: {
 ## Migration Context
 
 This project is migrating from static HTML (Bootstrap/jQuery) to Next.js 15:
-- Legacy files are in `/html-template/`
+- Legacy files are in `../archive/website-html-template/`
 - New Next.js app is in `/app/`
 - Assets moved from `assets/` to `public/`
 - Replace `<a>` with Next.js `<Link>`

@@ -54,7 +54,7 @@ export function ContactForm() {
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
           subject,
-          from_name: "alchemify.space",
+          from_name: "alchemifyspace.com",
           replyto: email,
           name,
           email,

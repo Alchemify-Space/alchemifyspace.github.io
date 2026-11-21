@@ -19,7 +19,8 @@ export function Footer() {
     <footer className="bg-brand-ink text-sm text-slate-300">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 pt-14 pb-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <p className="mb-2 font-heading text-lg font-bold text-white">{site.name}</p>
+          <p className="font-heading text-lg font-bold text-white">{site.name}</p>
+          <p className="mb-3 text-brand-gold">{site.tagline}</p>
           <p className="leading-relaxed">
             {site.legalName}
             <br />

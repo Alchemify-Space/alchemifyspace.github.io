@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/private/",
     },
-    sitemap: "https://alchemify.space/sitemap.xml",
+    sitemap: "https://www.alchemifyspace.com/sitemap.xml",
   };
 }

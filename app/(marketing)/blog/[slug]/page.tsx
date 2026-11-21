@@ -2,9 +2,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar, User } from "lucide-react";
 import { Metadata } from "next";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { getPostBySlug, getAllSlugs } from "@/app/lib/posts";
+import { PostBody } from "@/app/components/PostBody";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -59,55 +58,52 @@ export default async function BlogPostPage({ params }: PageProps) {
     return (
         <div>
             {/* Hero Section */}
-            <section className="relative py-32 bg-[#1e1b4b]">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 max-w-4xl mx-auto">
+            <section className="bg-brand-indigo text-white">
+                <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 md:py-20">
+                    <nav aria-label="Breadcrumb" className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-300">
+                        <Link href="/" className="hover:text-white">
+                            Home
+                        </Link>
+                        <span aria-hidden="true">/</span>
+                        <Link href="/blog/" className="hover:text-white">
+                            Blog
+                        </Link>
+                        <span aria-hidden="true">/</span>
+                        <span className="text-brand-cyan">{post.category}</span>
+                    </nav>
+                    <h1 className="mb-5 font-heading text-3xl md:text-[44px] leading-[1.1] font-bold">
                         {post.title}
                     </h1>
-                    <div className="flex items-center justify-center gap-4 text-white/80">
-                        <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
+                    <p className="mb-6 text-lg leading-relaxed text-slate-200">{post.excerpt}</p>
+                    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-300">
+                        <span className="flex items-center gap-1.5">
+                            <User className="w-4 h-4" aria-hidden="true" />
+                            {post.author}
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                            <Calendar className="w-4 h-4" aria-hidden="true" />
                             {new Date(post.date).toLocaleDateString("en-US", {
                                 year: "numeric",
                                 month: "long",
                                 day: "numeric",
                             })}
                         </span>
-                        <span className="flex items-center gap-1">
-                            <User className="w-4 h-4" />
-                            {post.author}
-                        </span>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 text-white mt-4">
-                        <Link href="/" className="hover:text-brand-cyan">
-                            Home
-                        </Link>
-                        <span>/</span>
-                        <Link href="/blog/" className="hover:text-brand-cyan">
-                            Blog
-                        </Link>
-                        <span>/</span>
-                        <span className="text-brand-cyan">{post.category}</span>
                     </div>
                 </div>
             </section>
 
             {/* Content Section */}
-            <section className="py-16 md:py-24 bg-white">
-                <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className="bg-white py-12 md:py-16">
+                <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                    <PostBody content={post.content} />
+
                     <Link
                         href="/blog/"
-                        className="inline-flex items-center gap-2 text-[#6d28d9] font-medium mb-8 hover:gap-3 transition-all"
+                        className="mt-10 inline-flex items-center gap-2 border-t border-slate-200 pt-8 font-medium text-brand-purple hover:text-brand-purple-dark"
                     >
-                        <ArrowLeft className="w-4 h-4" />
-                        Back to Blog
+                        <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+                        Back to all articles
                     </Link>
-
-                    <article className="prose prose-lg max-w-none prose-headings:text-[#1e1b4b] prose-a:text-[#6d28d9] prose-strong:text-[#1e1b4b]">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                            {post.content}
-                        </ReactMarkdown>
-                    </article>
                 </div>
             </section>
         </div>

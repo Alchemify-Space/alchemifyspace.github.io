@@ -65,7 +65,7 @@ export default function BlogPage() {
                     className="object-cover"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-[#f5b942] text-[#1e1b4b] text-xs font-medium rounded-full">
+                    <span className="px-3 py-1 bg-brand-gold text-brand-indigo text-xs font-medium rounded-full">
                       {post.category}
                     </span>
                   </div>
@@ -85,7 +85,7 @@ export default function BlogPage() {
                       {post.author}
                     </span>
                   </div>
-                  <h2 className="text-xl font-bold text-[#1e1b4b] mb-2 line-clamp-2">
+                  <h2 className="text-xl font-bold text-brand-indigo mb-2 line-clamp-2">
                     {post.title}
                   </h2>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-2">
@@ -93,7 +93,7 @@ export default function BlogPage() {
                   </p>
                   <Link
                     href={`/blog/${post.slug}/`}
-                    className="inline-flex items-center gap-2 text-[#6d28d9] font-medium hover:gap-3 transition-all"
+                    className="inline-flex items-center gap-2 text-brand-purple font-medium hover:gap-3 transition-all"
                   >
                     Read More
                     <ArrowRight className="w-4 h-4" />

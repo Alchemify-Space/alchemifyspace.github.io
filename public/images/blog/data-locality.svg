@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 372" role="img" aria-labelledby="t d" font-family="Inter, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title id="t">Data locality: bring the compute to the data</title>
+  <desc id="d">Before: gigabytes of data travel from the database to a separate inference engine on every request. Now: the vector database, similarity search and compute sit together, and only the answer travels.</desc>
+  <defs>
+    <marker id="dl-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="640" height="372" rx="16" fill="#f8f7fc"/>
+  <text x="24" y="42" font-size="18" font-weight="700" fill="#1e1b4b">Data locality: bring the compute to the data</text>
+
+  <text x="24" y="80" font-size="13" font-weight="700" letter-spacing="1" fill="#475569">BEFORE · DATA TRAVELS TO THE MODEL</text>
+  <rect x="24" y="94" width="170" height="64" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="109" y="132" text-anchor="middle" font-size="16" font-weight="600" fill="#1e1b4b">Database</text>
+  <rect x="446" y="94" width="170" height="64" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="531" y="132" text-anchor="middle" font-size="16" font-weight="600" fill="#1e1b4b">Inference engine</text>
+  <text x="320" y="116" text-anchor="middle" font-size="14" fill="#475569">gigabytes on every request</text>
+  <line x1="202" y1="126" x2="438" y2="126" stroke="#64748b" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#dl-grey)"/>
+  <text x="320" y="148" text-anchor="middle" font-size="13" fill="#475569">slow and costly</text>
+
+  <text x="24" y="204" font-size="13" font-weight="700" letter-spacing="1" fill="#6d28d9">NOW · THE MODEL WORKS NEXT TO THE DATA</text>
+  <rect x="24" y="218" width="592" height="100" rx="12" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <rect x="40" y="236" width="176" height="64" rx="10" fill="#ffffff" stroke="#1e1b4b" stroke-width="1.5"/>
+  <text x="128" y="274" text-anchor="middle" font-size="16" font-weight="600" fill="#1e1b4b">Vector database</text>
+  <line x1="216" y1="268" x2="232" y2="268" stroke="#1e1b4b" stroke-width="2"/>
+  <rect x="232" y="236" width="176" height="64" rx="10" fill="#ffffff" stroke="#1e1b4b" stroke-width="1.5"/>
+  <text x="320" y="264" text-anchor="middle" font-size="16" font-weight="600" fill="#1e1b4b">Similarity search</text>
+  <text x="320" y="286" text-anchor="middle" font-size="16" font-weight="600" fill="#1e1b4b">and RAG</text>
+  <line x1="408" y1="268" x2="424" y2="268" stroke="#1e1b4b" stroke-width="2"/>
+  <rect x="424" y="236" width="176" height="64" rx="10" fill="#ffffff" stroke="#1e1b4b" stroke-width="1.5"/>
+  <text x="512" y="274" text-anchor="middle" font-size="16" font-weight="600" fill="#1e1b4b">Compute</text>
+
+  <text x="320" y="348" text-anchor="middle" font-size="15" fill="#1e1b4b">Only the answer travels to the user.</text>
+</svg>

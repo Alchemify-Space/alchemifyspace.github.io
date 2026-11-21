@@ -17,7 +17,7 @@ function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2.5 text-brand-indigo">
       <Image
-        src="/images/logo/alchemify-logo-round.png"
+        src="/images/logo/alchemify-icon.png"
         alt=""
         width={40}
         height={40}

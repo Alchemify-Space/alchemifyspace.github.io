@@ -10,7 +10,7 @@ Updated 11 Nov 2026. The redesigned site builds and runs; these are the things o
     - [x] `support` (Glamio and CodeCanyon buyers)
 - [x] **Send a test email to each alias** from another account and check that all three arrive in Gmail.
 - [x] **Gmail "Send mail as"** for hello@, javeed@ and support@ (done 11 Nov 2026): hello@ is the default, and replies go out from the address the message was sent to. Tested: replies arrive in the recipient's inbox, shown as "via gmail.com".
-- [ ] **Gmail filter:** messages to support@alchemify.space get the label "Glamio support".
+- [ ] **Gmail filter:** messages to support@alchemifyspace.com get the label "Glamio support".
 - [x] **DNS:** DMARC TXT `_dmarc` added. SPF is locked by Namecheap email forwarding, which is fine (Gmail send-as is checked against gmail.com anyway).
 - [ ] **Email signature** in Gmail for hello@ and javeed@: name, "Alchemify Space · Flutter + AI app studio", alchemify.space, WhatsApp number.
 - [ ] **Before cold outreach in volume:** move to Zoho Mail Lite (~$1/user/month) or Google Workspace (~$7/user/month) so mail is DKIM-signed by alchemify.space and recipients stop seeing "via gmail.com".

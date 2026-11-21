@@ -29,6 +29,8 @@ For a startup, this is a superpower. It allows your product developers to own th
 
 Every Pull Request in 2026 automatically spins up a full-stack ephemeral environment. It has its own isolated database key, its own URL, and it is a byte-for-byte replica of production. Product managers can test features before they merge. Designers can verify pixels on real devices. When the PR merges, the environment vanishes. If you aren't doing this, you are developing in the dark.
 
+![Four-step flow of a preview environment, from pull request to deletion](/images/blog/preview-environment.svg "A preview environment lives only as long as its pull request.")
+
 ## 3. Predictive Observability
 
 We used to set alert thresholds: "Page me if CPU > 80%." 

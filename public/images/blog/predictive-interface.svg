@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 334" role="img" aria-labelledby="t d" font-family="Inter, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title id="t">Predictive interfaces: from three steps to none</title>
+  <desc id="d">Old way, three actions: open the map, type Home, tap Navigate. New way, no actions: the user opens the map at 5:30 PM and the route home is already calculated with traffic highlighted.</desc>
+  <defs>
+    <marker id="pi-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#1e1b4b"/>
+    </marker>
+  </defs>
+  <rect width="640" height="334" rx="16" fill="#f8f7fc"/>
+  <text x="24" y="42" font-size="18" font-weight="700" fill="#1e1b4b">Predictive interfaces: from three steps to none</text>
+
+  <text x="24" y="80" font-size="13" font-weight="700" letter-spacing="1" fill="#475569">OLD WAY · 3 ACTIONS</text>
+  <rect x="24" y="92" width="176" height="60" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="112" y="128" text-anchor="middle" font-size="15" font-weight="600" fill="#1e1b4b">Open the map</text>
+  <line x1="204" y1="122" x2="227" y2="122" stroke="#1e1b4b" stroke-width="2" marker-end="url(#pi-arrow)"/>
+  <rect x="232" y="92" width="176" height="60" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="320" y="128" text-anchor="middle" font-size="15" font-weight="600" fill="#1e1b4b">Type “Home”</text>
+  <line x1="412" y1="122" x2="435" y2="122" stroke="#1e1b4b" stroke-width="2" marker-end="url(#pi-arrow)"/>
+  <rect x="440" y="92" width="176" height="60" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="528" y="128" text-anchor="middle" font-size="15" font-weight="600" fill="#1e1b4b">Tap “Navigate”</text>
+
+  <text x="24" y="198" font-size="13" font-weight="700" letter-spacing="1" fill="#6d28d9">NEW WAY · 0 ACTIONS</text>
+  <rect x="24" y="210" width="176" height="72" rx="12" fill="#ffffff" stroke="#1e1b4b" stroke-width="1.5"/>
+  <text x="112" y="242" text-anchor="middle" font-size="15" font-weight="600" fill="#1e1b4b">Open the map</text>
+  <text x="112" y="263" text-anchor="middle" font-size="13.5" fill="#475569">at 5:30 PM</text>
+  <line x1="204" y1="246" x2="227" y2="246" stroke="#1e1b4b" stroke-width="2" marker-end="url(#pi-arrow)"/>
+  <rect x="232" y="210" width="384" height="72" rx="12" fill="#fdf3d7" stroke="#f5b942" stroke-width="2"/>
+  <text x="424" y="242" text-anchor="middle" font-size="15" font-weight="700" fill="#1e1b4b">Route home is already calculated</text>
+  <text x="424" y="263" text-anchor="middle" font-size="13.5" fill="#475569">traffic highlighted, nothing to tap</text>
+
+  <text x="320" y="312" text-anchor="middle" font-size="14" fill="#1e1b4b">If the user has to tap, treat it as a failed prediction.</text>
+</svg>

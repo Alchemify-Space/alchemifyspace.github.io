@@ -32,6 +32,8 @@ The native vs. cross-platform war is largely over. Flutter and React Native (and
 
 With hardware so powerful, the overhead of a bridge or a rendering engine is imperceptible. In 2026, writing pure native code (Swift/SwiftUI or Kotlin/Jetpack Compose) is reserved for platform-specific entrenchment—AR/VR experiences, heavy on-device ML training, or deep system integration. For everything else, write once, deploy everywhere is finally a reality that doesn't suck.
 
+![Diagram of one codebase producing an iOS app and an Android app](/images/blog/one-codebase.svg "One cross-platform codebase covers both stores; native code is the exception.")
+
 ## The Rise of "Super Apps" and Micro-Frontends
 
 The app store model is changing. Users are tired of downloading a 200MB app for a one-time use case. We are seeing a resurgence of "mini-apps" or "app clips" living inside super-apps or operating systems themselves. 

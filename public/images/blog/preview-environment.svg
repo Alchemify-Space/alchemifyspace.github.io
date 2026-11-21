@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" role="img" aria-labelledby="t d" font-family="Inter, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title id="t">The life of a preview environment</title>
+  <desc id="d">Four steps: a pull request is opened, a preview environment goes live with its own URL and database, the team tests it, and when the pull request merges the environment is deleted.</desc>
+  <defs>
+    <marker id="pe-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#1e1b4b"/>
+    </marker>
+  </defs>
+  <rect width="640" height="250" rx="16" fill="#f8f7fc"/>
+  <text x="24" y="42" font-size="18" font-weight="700" fill="#1e1b4b">The life of a preview environment</text>
+
+  <rect x="14" y="70" width="134" height="124" rx="12" fill="#ffffff" stroke="#1e1b4b" stroke-width="1.5"/>
+  <circle cx="38" cy="94" r="13" fill="#1e1b4b"/>
+  <text x="38" y="99" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">1</text>
+  <text x="81" y="138" text-anchor="middle" font-size="14" font-weight="700" fill="#1e1b4b">Pull request</text>
+  <text x="81" y="160" text-anchor="middle" font-size="13" fill="#475569">is opened</text>
+  <line x1="150" y1="132" x2="169" y2="132" stroke="#1e1b4b" stroke-width="2" marker-end="url(#pe-arrow)"/>
+
+  <rect x="172" y="70" width="134" height="124" rx="12" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <circle cx="196" cy="94" r="13" fill="#6d28d9"/>
+  <text x="196" y="99" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">2</text>
+  <text x="239" y="138" text-anchor="middle" font-size="14" font-weight="700" fill="#1e1b4b">Preview is live</text>
+  <text x="239" y="160" text-anchor="middle" font-size="13" fill="#475569">own URL and</text>
+  <text x="239" y="178" text-anchor="middle" font-size="13" fill="#475569">own database</text>
+  <line x1="308" y1="132" x2="327" y2="132" stroke="#1e1b4b" stroke-width="2" marker-end="url(#pe-arrow)"/>
+
+  <rect x="330" y="70" width="134" height="124" rx="12" fill="#ffffff" stroke="#1e1b4b" stroke-width="1.5"/>
+  <circle cx="354" cy="94" r="13" fill="#1e1b4b"/>
+  <text x="354" y="99" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">3</text>
+  <text x="397" y="138" text-anchor="middle" font-size="14" font-weight="700" fill="#1e1b4b">Team tests it</text>
+  <text x="397" y="160" text-anchor="middle" font-size="13" fill="#475569">PMs and designers,</text>
+  <text x="397" y="178" text-anchor="middle" font-size="13" fill="#475569">on real devices</text>
+  <line x1="466" y1="132" x2="485" y2="132" stroke="#1e1b4b" stroke-width="2" marker-end="url(#pe-arrow)"/>
+
+  <rect x="488" y="70" width="134" height="124" rx="12" fill="#ffffff" stroke="#1e1b4b" stroke-width="1.5"/>
+  <circle cx="512" cy="94" r="13" fill="#1e1b4b"/>
+  <text x="512" y="99" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">4</text>
+  <text x="555" y="138" text-anchor="middle" font-size="14" font-weight="700" fill="#1e1b4b">PR merges</text>
+  <text x="555" y="160" text-anchor="middle" font-size="13" fill="#475569">environment</text>
+  <text x="555" y="178" text-anchor="middle" font-size="13" fill="#475569">is deleted</text>
+
+  <text x="320" y="226" text-anchor="middle" font-size="14" fill="#1e1b4b">Every pull request gets its own copy of production, then cleans up after itself.</text>
+</svg>

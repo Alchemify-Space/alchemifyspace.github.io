@@ -163,7 +163,7 @@ export default function HomePage() {
       <section className="bg-brand-indigo text-white">
         <Container className="py-20 md:py-24 flex flex-wrap items-center gap-16">
           <div className="flex-[1_1_520px] min-w-0">
-            <Eyebrow onDark>Flutter + AI studio</Eyebrow>
+            <Eyebrow onDark>{site.tagline}</Eyebrow>
             <h1 className="font-heading text-4xl md:text-[56px] leading-[1.05] font-bold mb-6">
               Flutter apps with AI built in, delivered for agencies and growing businesses.
             </h1>

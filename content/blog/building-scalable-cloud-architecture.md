@@ -32,6 +32,8 @@ With LLMs requiring massive context windows, moving data is the most expensive o
 
 We are seeing a shift towards "Vector-Native" architectures, where the database isn't just a storage locker, but an intelligent engine that performs similarity searches and RAG (Retrieval-Augmented Generation) right next to the compute. If your architecture requires moving gigabytes of data to an inference engine for every request, you have already failed.
 
+![Diagram comparing moving data to the model with running the model next to the data](/images/blog/data-locality.svg "Moving data is the expensive step, so keep the compute beside it.")
+
 ## Cost Efficiency as a Code Metric
 
 FinOps isn't a separate department anymore; it's part of the CI/CD pipeline. 

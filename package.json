@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "deploy": "next build && rm -rf dist/dev dist/cache && gh-pages -d dist -t",
+    "deploy": "next build --webpack && rm -rf dist/dev dist/cache && gh-pages -d dist -t",
     "preview": "npx serve dist"
   },
   "dependencies": {

@@ -20,6 +20,8 @@ In the early 2020s, we focused on minimizing clicks. Now, we focus on *zero* cli
 *   **Old Way:** User opens map -> types "Home" -> taps "Navigate".
 *   **New Way:** User opens map at 5:30 PM -> App automatically calculates route to Home and highlights traffic.
 
+![Comparison of a three-step map flow with a predictive flow that needs no taps](/images/blog/predictive-interface.svg "The same task, before and after the app predicts intent.")
+
 As a developer, your job is to expose the right state to the AI so it can make these predictions. If a user *has* to tap a button, treat it as a failure of prediction.
 
 ## 2. Micro-Interactions are the "Soul"

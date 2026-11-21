@@ -10,12 +10,12 @@ const organizationJsonLd = {
   name: site.name,
   legalName: site.legalName,
   url: site.url,
-  logo: `${site.url}/images/logo/alchemify-logo-round.png`,
+  logo: `${site.url}/images/logo/alchemify-icon.png`,
   email: site.email,
   telephone: "+923101556061",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Chak No. 60-61 GD",
+    streetAddress: "Chak No. 60-61 GD, Post Office Chak No. 66 GD, Tehsil and District Sahiwal",
     addressLocality: "Sahiwal",
     postalCode: "57000",
     addressRegion: "Punjab",
@@ -42,7 +42,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://alchemify.space"),
+  metadataBase: new URL("https://www.alchemifyspace.com"),
   title: {
     template: "%s | Alchemify Space",
     default: "Alchemify Space | Flutter + AI App Studio",

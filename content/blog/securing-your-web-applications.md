@@ -18,6 +18,8 @@ If your app still asks for a password in 2026, you are building technical debt.
 
 **Passkeys** and **Biometrics** are the standard. With the WebAuthn API fully matured and supported by every major browser and OS, there is no excuse for storing hashed secrets. Authentication today is a cryptographic handshake between the user's device (which holds the private key) and your server (which holds the public key). Phishing is mathematically impossible when there is no shared secret to steal.
 
+![Diagram of a passkey sign-in between a device and a server](/images/blog/passkey-sign-in.svg "A passkey sign-in: the private key never leaves the device.")
+
 ## 2. Supply Chain Provenance
 
 Remember the `left-pad` incident? Or the `xz` backdoor? Those were wake-up calls.

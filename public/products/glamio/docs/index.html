@@ -1,0 +1,1436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glamio Documentation</title>
+<meta name="description" content="Step-by-step guide to install, set up, rebrand and publish Glamio, the salon and barber booking app (Flutter + Supabase + Next.js).">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238E3B6B'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='18' font-weight='700' fill='white' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+  --brand: #8E3B6B;
+  --brand-ink: #ffffff;
+  --brand-soft: #f6e9f0;
+  --bg: #fbf8fa;
+  --surface: #ffffff;
+  --surface-2: #f3eef1;
+  --text: #1f1a1d;
+  --muted: #5f565b;
+  --border: #e5dce1;
+  --code-bg: #2a2228;
+  --code-text: #f4ecf0;
+  --tip: #e7f4ec;   --tip-border: #2f8a57;   --tip-text: #17462c;
+  --warn: #fdf3e1;  --warn-border: #c27c0e;  --warn-text: #5b3a06;
+  --stop: #fbe9e9;  --stop-border: #c0392b;  --stop-text: #5c1a13;
+  --info: #eaf0fb;  --info-border: #3a63b8;  --info-text: #1c3366;
+  --sidebar-w: 290px;
+  --radius: 12px;
+  --shadow: 0 1px 2px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.05);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --brand: #e7a6c9; --brand-ink: #3a1029; --brand-soft: #3a2632;
+    --bg: #161215; --surface: #1f191d; --surface-2: #2a2227;
+    --text: #f1e9ee; --muted: #b5a8b0; --border: #3a3036;
+    --code-bg: #0f0c0e; --code-text: #f1e9ee;
+    --tip: #15281d; --tip-border: #4cb87b; --tip-text: #cdeedb;
+    --warn: #2d2210; --warn-border: #e0a13c; --warn-text: #f6e2bd;
+    --stop: #2e1513; --stop-border: #e0675a; --stop-text: #f7d3ce;
+    --info: #142036; --info-border: #6f97e6; --info-text: #d3e0fa;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --brand: #e7a6c9; --brand-ink: #3a1029; --brand-soft: #3a2632;
+  --bg: #161215; --surface: #1f191d; --surface-2: #2a2227;
+  --text: #f1e9ee; --muted: #b5a8b0; --border: #3a3036;
+  --code-bg: #0f0c0e; --code-text: #f1e9ee;
+  --tip: #15281d; --tip-border: #4cb87b; --tip-text: #cdeedb;
+  --warn: #2d2210; --warn-border: #e0a13c; --warn-text: #f6e2bd;
+  --stop: #2e1513; --stop-border: #e0675a; --stop-text: #f7d3ce;
+  --info: #142036; --info-border: #6f97e6; --info-text: #d3e0fa;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--brand); text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+img { max-width: 100%; }
+
+/* ---------- Top bar ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 30; height: 60px;
+  display: flex; align-items: center; gap: 12px; padding: 0 16px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); text-decoration: none; }
+.brand-mark { width: 32px; height: 32px; border-radius: 9px; background: #8E3B6B; color: #fff; display: grid; place-items: center; font-weight: 800; }
+.brand small { font-weight: 500; color: var(--muted); }
+.topbar .spacer { flex: 1; }
+.icon-btn {
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  height: 40px; min-width: 40px; padding: 0 12px; border-radius: 10px; cursor: pointer; font: inherit; font-size: 14px;
+}
+.icon-btn:hover { background: var(--surface-2); }
+.icon-btn:focus-visible, button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid color-mix(in srgb, var(--brand) 50%, transparent); outline-offset: 2px; }
+#menuBtn { display: none; }
+
+/* ---------- Layout ---------- */
+.layout { display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); }
+.sidebar {
+  position: sticky; top: 60px; height: calc(100vh - 60px); overflow-y: auto;
+  border-right: 1px solid var(--border); background: var(--surface); padding: 16px 12px 40px;
+}
+.search { width: 100%; height: 40px; border: 1px solid var(--border); border-radius: 10px; padding: 0 12px; background: var(--bg); color: var(--text); font: inherit; font-size: 14px; margin-bottom: 12px; }
+.nav-group { margin: 14px 0 4px; padding: 0 10px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.sidebar a.nav {
+  display: block; padding: 6px 10px; border-radius: 8px; color: var(--text); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+}
+.sidebar a.nav:hover { background: var(--surface-2); }
+.sidebar a.nav.sub { padding-left: 24px; font-size: 13.5px; color: var(--muted); }
+.sidebar a.nav.active { background: var(--brand-soft); color: var(--brand); font-weight: 600; }
+.sidebar a.nav.hidden { display: none; }
+.no-results { display: none; padding: 8px 10px; color: var(--muted); font-size: 14px; }
+
+main { min-width: 0; padding: 32px 48px 120px; max-width: 920px; }
+section { padding-bottom: 8px; }
+section + section { border-top: 1px solid var(--border); margin-top: 40px; padding-top: 32px; }
+h1 { font-size: 34px; line-height: 1.2; margin: 0 0 8px; letter-spacing: -.01em; }
+h2 { font-size: 26px; line-height: 1.25; margin: 0 0 12px; letter-spacing: -.01em; }
+h3 { font-size: 19px; margin: 28px 0 8px; }
+h4 { font-size: 16px; margin: 20px 0 6px; }
+.lead { font-size: 18px; color: var(--muted); margin-top: 0; }
+.kicker { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--brand); margin-bottom: 6px; }
+p, li { max-width: 72ch; }
+ol, ul { padding-left: 1.4em; }
+li { margin: 4px 0; }
+li > ol, li > ul { margin-top: 4px; }
+hr { border: 0; border-top: 1px solid var(--border); margin: 28px 0; }
+kbd { font: 600 13px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--surface-2); border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 6px; padding: 2px 6px; }
+code { font: 14px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--surface-2); border: 1px solid var(--border); padding: 1px 5px; border-radius: 6px; overflow-wrap: anywhere; }
+.ui { font-weight: 600; } /* names of buttons and menus you click */
+
+/* ---------- Code blocks ---------- */
+.code { position: relative; margin: 12px 0 18px; }
+.code pre {
+  margin: 0; background: var(--code-bg); color: var(--code-text); border-radius: var(--radius);
+  padding: 42px 18px 16px; overflow-x: auto; font: 14px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.code pre code { background: none; border: 0; padding: 0; color: inherit; overflow-wrap: normal; }
+.code .label { position: absolute; top: -10px; left: 14px; background: var(--brand); color: var(--brand-ink); font: 700 11px/1 -apple-system, "Segoe UI", sans-serif; letter-spacing: .04em; text-transform: uppercase; padding: 5px 8px; border-radius: 6px; }
+.copy {
+  position: absolute; top: 8px; right: 8px; height: 30px; padding: 0 10px; border-radius: 8px; cursor: pointer;
+  border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08); color: #fff; font: 600 12px/1 -apple-system, "Segoe UI", sans-serif;
+}
+.copy:hover { background: rgba(255,255,255,.18); }
+.comment { color: #b9a6b2; }
+
+/* ---------- Callouts ---------- */
+.callout { border-left: 4px solid; border-radius: 10px; padding: 12px 16px; margin: 16px 0; }
+.callout > :first-child { margin-top: 0; }
+.callout > :last-child { margin-bottom: 0; }
+.callout strong.title { display: block; margin-bottom: 2px; }
+.tip { background: var(--tip); border-color: var(--tip-border); color: var(--tip-text); }
+.warn { background: var(--warn); border-color: var(--warn-border); color: var(--warn-text); }
+.stop { background: var(--stop); border-color: var(--stop-border); color: var(--stop-text); }
+.info { background: var(--info); border-color: var(--info-border); color: var(--info-text); }
+.callout code { background: color-mix(in srgb, currentColor 8%, transparent); border-color: color-mix(in srgb, currentColor 20%, transparent); }
+
+/* ---------- Cards, tables, steps ---------- */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 18px 0; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); }
+.card h4 { margin: 0 0 4px; }
+.card p { margin: 0; color: var(--muted); font-size: 15px; }
+.card .emoji { font-size: 22px; }
+.table-wrap { overflow-x: auto; margin: 14px 0 20px; border: 1px solid var(--border); border-radius: var(--radius); }
+table { border-collapse: collapse; width: 100%; font-size: 15px; background: var(--surface); }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+th { background: var(--surface-2); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+.steps { counter-reset: step; list-style: none; padding-left: 0; }
+.steps > li { counter-increment: step; position: relative; padding-left: 44px; margin: 14px 0; }
+.steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--brand); color: var(--brand-ink); font-weight: 700; font-size: 14px; display: grid; place-items: center;
+}
+.checklist { list-style: none; padding-left: 0; }
+.checklist li { padding-left: 30px; position: relative; }
+.checklist li::before { content: "☐"; position: absolute; left: 4px; color: var(--brand); font-size: 18px; line-height: 1.4; }
+.pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; vertical-align: middle; }
+.pill.req { background: var(--stop); color: var(--stop-text); }
+.pill.opt { background: var(--info); color: var(--info-text); }
+.pill.time { background: var(--surface-2); color: var(--muted); }
+
+/* ---------- OS tabs ---------- */
+.tabs { display: inline-flex; gap: 4px; padding: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; margin: 8px 0 4px; }
+.tabs button { border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 14px; font-weight: 600; padding: 6px 14px; border-radius: 8px; cursor: pointer; min-height: 36px; }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+.tab-panel[hidden] { display: none; }
+
+/* ---------- Diagram ---------- */
+.diagram { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin: 18px 0; }
+.diagram svg { width: 100%; height: auto; display: block; }
+.diagram text { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; fill: var(--text); }
+.diagram .muted { fill: var(--muted); }
+.diagram .box { fill: var(--surface-2); stroke: var(--border); }
+.diagram .box.brand { fill: var(--brand-soft); stroke: var(--brand); }
+.diagram .arrow { stroke: var(--muted); stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+.diagram .arrow.dash { stroke-dasharray: 6 5; }
+.diagram marker path { fill: var(--muted); }
+
+/* ---------- Screenshots ---------- */
+figure.shot { margin: 18px 0 24px; }
+figure.shot img { display: block; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); max-height: 640px; width: auto; }
+figure.shot .ph {
+  border: 2px dashed var(--border); border-radius: var(--radius); background: var(--surface);
+  min-height: 160px; display: grid; place-items: center; text-align: center; padding: 20px; color: var(--muted); font-size: 14px;
+}
+figure.shot .ph b { display: block; color: var(--text); font-size: 15px; margin-bottom: 4px; }
+figure.shot figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; }
+
+.foot { margin-top: 60px; color: var(--muted); font-size: 14px; }
+.to-top { position: fixed; right: 16px; bottom: 16px; z-index: 20; display: none; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 900px) {
+  #menuBtn { display: inline-block; }
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .sidebar {
+    position: fixed; top: 60px; left: 0; bottom: 0; width: min(88vw, 320px); height: auto; z-index: 25;
+    transform: translateX(-105%); transition: transform .2s ease; box-shadow: var(--shadow);
+  }
+  body.menu-open .sidebar { transform: none; }
+  body.menu-open .scrim { display: block; }
+  .scrim { display: none; position: fixed; inset: 60px 0 0 0; background: rgba(0,0,0,.35); z-index: 24; }
+  main { padding: 24px 16px 100px; }
+  h1 { font-size: 28px; }
+  h2 { font-size: 23px; }
+  .brand small { display: none; }
+}
+@media print {
+  .topbar, .sidebar, .copy, .to-top, .tabs { display: none !important; }
+  .layout { display: block; }
+  main { max-width: none; padding: 0; }
+  .tab-panel[hidden] { display: block; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="Open the menu" aria-expanded="false" aria-controls="sidebar">☰</button>
+  <a class="brand" href="#welcome"><span class="brand-mark" aria-hidden="true">G</span> Glamio <small>Documentation · v<span data-doc="version"></span></small></a>
+  <span class="spacer"></span>
+  <button class="icon-btn" id="themeBtn" aria-label="Switch light or dark mode">◐ Theme</button>
+</header>
+<div class="scrim" id="scrim"></div>
+
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Documentation sections">
+  <input class="search" id="search" type="search" placeholder="Search the menu…" aria-label="Search the menu">
+  <div class="no-results" id="noResults">No section matches.</div>
+
+  <div class="nav-group">Start here</div>
+  <a class="nav" href="#welcome">Welcome</a>
+  <a class="nav" href="#how-it-works">How Glamio works</a>
+  <a class="nav" href="#plan">The plan, at a glance</a>
+  <a class="nav" href="#accounts">Accounts you need</a>
+  <a class="nav" href="#terminal">The terminal, in 3 minutes</a>
+
+  <div class="nav-group">Install the tools</div>
+  <a class="nav" href="#install-editor">1. VS Code (editor)</a>
+  <a class="nav" href="#install-git">2. Git</a>
+  <a class="nav" href="#install-flutter">3. Flutter</a>
+  <a class="nav" href="#install-android">4. Android Studio</a>
+  <a class="nav" href="#install-xcode">5. Xcode (Mac only)</a>
+  <a class="nav" href="#install-node">6. Node.js</a>
+  <a class="nav" href="#install-supabase">7. Supabase CLI</a>
+  <a class="nav" href="#install-check">8. Check everything</a>
+
+  <div class="nav-group">Set up your salon</div>
+  <a class="nav" href="#files">What's in the download</a>
+  <a class="nav" href="#step-supabase">Step 1 · Create the database</a>
+  <a class="nav" href="#step-database">Step 2 · Fill the database</a>
+  <a class="nav" href="#step-email">Step 3 · Sign-in emails</a>
+  <a class="nav" href="#step-business">Step 4 · Your business</a>
+  <a class="nav" href="#step-functions">Step 5 · Server functions</a>
+  <a class="nav" href="#step-admin">Step 6 · Web admin online</a>
+  <a class="nav" href="#step-first-setup">Step 7 · Fill in your salon</a>
+  <a class="nav" href="#step-phone">Step 8 · Run the phone app</a>
+  <a class="nav" href="#step-test">Step 9 · Test it end to end</a>
+
+  <div class="nav-group">Using Glamio</div>
+  <a class="nav" href="#daily-use">Daily use (owner, staff, clients)</a>
+  <a class="nav sub" href="#booking-life">A booking's life</a>
+  <a class="nav sub" href="#staff-access">Staff app access</a>
+
+  <div class="nav-group">Make it yours</div>
+  <a class="nav" href="#rebrand">Rebrand: name, colors, logo</a>
+  <a class="nav" href="#push">Push notifications (optional)</a>
+  <a class="nav" href="#google">Google sign-in (optional)</a>
+  <a class="nav" href="#apple">Apple sign-in</a>
+
+  <div class="nav-group">Go live</div>
+  <a class="nav" href="#publish-android">Publish on Google Play</a>
+  <a class="nav" href="#publish-ios">Publish on the App Store</a>
+  <a class="nav" href="#updates">Installing updates</a>
+
+  <div class="nav-group">Help</div>
+  <a class="nav" href="#troubleshooting">Troubleshooting</a>
+  <a class="nav" href="#glossary">Glossary (plain words)</a>
+  <a class="nav" href="#support">Support &amp; customization</a>
+  <a class="nav" href="#credits">Credits &amp; licences</a>
+  <a class="nav sub" href="#ai-use">Use of AI tools</a>
+</nav>
+
+<main id="content">
+
+<!-- ======================================================= -->
+<section id="welcome">
+  <span class="kicker">Start here</span>
+  <h1>Welcome to Glamio</h1>
+  <p class="lead">Glamio is a booking app for one salon or barbershop. Clients book on their phone, stylists see their day on their phone, and the owner runs everything from a website.</p>
+  <p>This guide assumes you have <strong>never built an app before</strong>. It explains every step in plain words, from installing the tools to publishing in the app stores. Words that may be new to you are explained in the <a href="#glossary">Glossary</a>.</p>
+
+  <div class="cards">
+    <div class="card"><div class="emoji" aria-hidden="true">📱</div><h4>Phone app</h4><p>For clients (book, change, cancel) and stylists (their schedule). Android and iPhone. Folder <code>mobile/</code>.</p></div>
+    <div class="card"><div class="emoji" aria-hidden="true">🖥️</div><h4>Web admin</h4><p>A website for the owner: calendar, services, stylists, hours, clients, settings. Folder <code>admin/</code>.</p></div>
+    <div class="card"><div class="emoji" aria-hidden="true">🗄️</div><h4>Backend</h4><p>The database and the booking rules, hosted on Supabase. Folder <code>supabase/</code>.</p></div>
+  </div>
+
+  <div class="callout info">
+    <strong class="title">How long does this take?</strong>
+    Installing the tools: about 1–2 hours the first time (mostly waiting for downloads). Setting up your salon (Steps 1–9): about 1 hour. Publishing in the stores takes longer, because Google and Apple review your app.
+  </div>
+
+  <div class="callout info">
+    <strong class="title">Watch first: the 4-minute setup video</strong>
+    The <a href="https://youtu.be/LiaUbWhtMoM" target="_blank" rel="noopener">Glamio setup video</a> shows all 9 steps in order. Watch it once, then follow this guide; every command is here to copy.
+  </div>
+
+  <div class="callout tip">
+    <strong class="title">Prefer to have it done for you?</strong>
+    We offer paid installation, rebranding and custom features. See <a href="#support">Support &amp; customization</a>.
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<section id="how-it-works">
+  <span class="kicker">Start here</span>
+  <h2>How Glamio works</h2>
+  <p>Think of a salon's paper appointment book. Glamio puts that book <strong>online, in one safe place</strong> (the database). The phone app and the web admin are two windows onto the same book: whatever one writes, the other sees at once.</p>
+
+  <div class="diagram" role="img" aria-label="Diagram: the phone app and the web admin both talk to Supabase. Supabase sends emails through Resend and push messages through Firebase.">
+    <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker></defs>
+      <rect class="box" x="20" y="30" width="200" height="90" rx="12"/>
+      <text x="120" y="68" text-anchor="middle" font-size="17" font-weight="700">📱 Phone app</text>
+      <text x="120" y="94" text-anchor="middle" font-size="13" class="muted">clients &amp; stylists</text>
+      <rect class="box" x="20" y="180" width="200" height="90" rx="12"/>
+      <text x="120" y="218" text-anchor="middle" font-size="17" font-weight="700">🖥️ Web admin</text>
+      <text x="120" y="244" text-anchor="middle" font-size="13" class="muted">the owner (on Vercel)</text>
+      <rect class="box brand" x="290" y="85" width="190" height="130" rx="14"/>
+      <text x="385" y="132" text-anchor="middle" font-size="18" font-weight="700">🗄️ Supabase</text>
+      <text x="385" y="158" text-anchor="middle" font-size="13" class="muted">database, sign-in,</text>
+      <text x="385" y="176" text-anchor="middle" font-size="13" class="muted">booking rules</text>
+      <rect class="box" x="550" y="30" width="190" height="90" rx="12"/>
+      <text x="645" y="68" text-anchor="middle" font-size="17" font-weight="700">✉️ Resend</text>
+      <text x="645" y="94" text-anchor="middle" font-size="13" class="muted">sign-in code emails</text>
+      <rect class="box" x="550" y="180" width="190" height="90" rx="12"/>
+      <text x="645" y="218" text-anchor="middle" font-size="17" font-weight="700">🔔 Firebase</text>
+      <text x="645" y="244" text-anchor="middle" font-size="13" class="muted">push (optional)</text>
+      <path class="arrow" d="M222 80 C 255 80, 260 120, 288 125" marker-start="url(#arrowhead)"/>
+      <path class="arrow" d="M222 225 C 255 225, 260 180, 288 175" marker-start="url(#arrowhead)"/>
+      <path class="arrow" d="M482 125 C 515 120, 520 80, 548 78"/>
+      <path class="arrow dash" d="M482 175 C 515 180, 520 222, 548 224"/>
+    </svg>
+  </div>
+
+  <ul>
+    <li><strong>Supabase</strong> is a service that keeps your database online. The booking rules live there too: for example, two clients can never book the same stylist at the same time, even if they press "Book" at the same second.</li>
+    <li><strong>Resend</strong> sends the 6-digit sign-in codes by email. Nobody needs a password.</li>
+    <li><strong>Firebase</strong> (optional) delivers push messages: "Booking confirmed", "See you tomorrow".</li>
+    <li><strong>Vercel</strong> (or Netlify) puts the web admin on the internet, at an address like <code>your-salon.vercel.app</code>.</li>
+  </ul>
+
+  <h3>Who sees what</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Person</th><th>Uses</th><th>Can do</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Client</strong></td><td>Phone app</td><td>Browse services (no account needed), book one or more services, pick a stylist or "any", change or cancel before the cut-off time, see history, delete their account.</td></tr>
+      <tr><td><strong>Stylist</strong> (staff)</td><td>Phone app</td><td>See their own schedule live, add walk-in clients, mark bookings Completed or No-show.</td></tr>
+      <tr><td><strong>Owner</strong></td><td>Web admin (and the phone app)</td><td>Everything: services, stylists, working hours, time off, closures, calendar, phone and walk-in bookings, clients, settings, numbers.</td></tr>
+    </tbody>
+  </table></div>
+  <p>The app decides who someone is by their <strong>email address</strong>. There are no passwords to forget.</p>
+</section>
+
+<!-- ======================================================= -->
+<section id="plan">
+  <span class="kicker">Start here</span>
+  <h2>The plan, at a glance</h2>
+  <p>Here is the whole journey. Each line is a section of this guide; tick them off as you go.</p>
+  <ol class="steps">
+    <li><strong>Install the tools</strong> on your computer (once). <span class="pill time">1–2 h</span></li>
+    <li><strong>Create the database</strong> on Supabase and fill it with Glamio's tables. <span class="pill time">15 min</span></li>
+    <li><strong>Set up sign-in emails</strong> with Resend, so people receive their 6-digit code. <span class="pill time">15 min</span></li>
+    <li><strong>Add your business</strong>: name, time zone, currency, owner email. <span class="pill time">5 min</span></li>
+    <li><strong>Put the web admin online</strong> and sign in as the owner. <span class="pill time">15 min</span></li>
+    <li><strong>Fill in your salon</strong> in the web admin: services, stylists, working hours. <span class="pill time">15 min</span></li>
+    <li><strong>Run the phone app</strong> on an emulator or your own phone, and book a test appointment. <span class="pill time">20 min</span></li>
+    <li><strong>Make it yours</strong> (name, colors, logo) and <strong>publish</strong> in Google Play and the App Store.</li>
+  </ol>
+</section>
+
+<!-- ======================================================= -->
+<section id="accounts">
+  <span class="kicker">Start here</span>
+  <h2>Accounts you need</h2>
+  <p>Create these accounts before you start. Most are free to begin with.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Account</th><th>What for</th><th>Cost</th><th></th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a></td><td>Your database and sign-in</td><td>Free plan to start. <strong>For a real salon use the Pro plan</strong> (about $25/month): free projects pause after a week without use.</td><td><span class="pill req">Required</span></td></tr>
+      <tr><td><a href="https://resend.com" target="_blank" rel="noopener">Resend</a></td><td>Sending the sign-in code emails</td><td>Free for up to a few thousand emails a month</td><td><span class="pill req">Required</span></td></tr>
+      <tr><td>A domain name</td><td>Emails come from your own address, e.g. <code>no-reply@yoursalon.com</code></td><td>About $10–15/year from any domain seller</td><td><span class="pill req">Required</span></td></tr>
+      <tr><td><a href="https://github.com" target="_blank" rel="noopener">GitHub</a></td><td>A private online copy of your code; Vercel builds the web admin from it</td><td>Free</td><td><span class="pill req">Required</span></td></tr>
+      <tr><td><a href="https://vercel.com" target="_blank" rel="noopener">Vercel</a> (or Netlify)</td><td>Putting the web admin online</td><td>Free plan is enough to start</td><td><span class="pill req">Required</span></td></tr>
+      <tr><td><a href="https://play.google.com/console" target="_blank" rel="noopener">Google Play Console</a></td><td>Publishing the Android app</td><td>$25 once</td><td><span class="pill opt">To publish</span></td></tr>
+      <tr><td><a href="https://developer.apple.com/programs/" target="_blank" rel="noopener">Apple Developer Program</a></td><td>Publishing the iPhone app (and push on iPhone)</td><td>$99/year</td><td><span class="pill opt">To publish</span></td></tr>
+      <tr><td><a href="https://console.firebase.google.com" target="_blank" rel="noopener">Firebase</a> (Google account)</td><td>Push notifications</td><td>Free</td><td><span class="pill opt">Optional</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn" id="costs"><strong class="title">Third-party costs are not included</strong>
+    The purchase price covers the Glamio source code only. The services above (Supabase, Resend, Vercel or Netlify, Firebase, Google Play, the Apple Developer Program and your domain) are run by other companies and have their own prices. <strong>You are responsible for any overage fees</strong> if you go beyond the free usage tiers of Supabase, Vercel, Netlify, Firebase, Resend or any other third-party service. Check each service's pricing page and set spending limits or usage alerts where they offer them.</div>
+  <div class="callout tip"><strong class="title">Keep a notes file</strong>
+    During setup you will collect several addresses, keys and passwords. Keep them in one private notes file or password manager. Never send them in an email or put them in a public place.</div>
+
+  <h3>Your computer</h3>
+  <ul>
+    <li><strong>Windows 10/11 or macOS</strong>, at least 8 GB of memory (16 GB is more comfortable) and about 30 GB of free disk space.</li>
+    <li>To build the <strong>iPhone</strong> app you need a <strong>Mac</strong>. Apple does not allow building iPhone apps on Windows. With a Windows PC you can do everything else, including the Android app.</li>
+  </ul>
+</section>
+
+<!-- ======================================================= -->
+<section id="terminal">
+  <span class="kicker">Start here</span>
+  <h2>The terminal, in 3 minutes</h2>
+  <p>Some steps ask you to <strong>"run a command"</strong>. A command is a line of text you type into the <strong>terminal</strong>, a window where you talk to your computer by typing instead of clicking. You only need a few commands, and you can copy each one from this guide with the <span class="ui">Copy</span> button.</p>
+
+  <h3>Open a terminal</h3>
+  <div class="tabs" role="tablist" data-tabs="os">
+    <button role="tab" data-tab="mac">macOS</button>
+    <button role="tab" data-tab="win">Windows</button>
+  </div>
+  <div class="tab-panel" data-tab="mac">
+    <p>Press <kbd>⌘</kbd> + <kbd>Space</kbd>, type <strong>Terminal</strong>, press <kbd>Enter</kbd>.</p>
+  </div>
+  <div class="tab-panel" data-tab="win">
+    <p>Press the <kbd>Windows</kbd> key, type <strong>PowerShell</strong>, press <kbd>Enter</kbd>.</p>
+  </div>
+  <div class="callout tip"><strong class="title">Easiest way: the terminal inside VS Code</strong>
+    Once you have installed VS Code (next section) and opened the Glamio folder in it, choose <span class="ui">Terminal → New Terminal</span> from the menu. A terminal opens at the bottom, <strong>already in the right folder</strong>.</div>
+
+  <h3>Three things to know</h3>
+  <ol>
+    <li><strong>Paste and press Enter.</strong> Copy a command from this guide, paste it into the terminal (<kbd>⌘</kbd>+<kbd>V</kbd> on Mac, right-click or <kbd>Ctrl</kbd>+<kbd>V</kbd> on Windows), then press <kbd>Enter</kbd>.</li>
+    <li><strong>Folders matter.</strong> A command works on the folder the terminal is "in". To move into a folder, type <code>cd</code> and the folder name. For example <code>cd mobile</code> moves into the phone app folder, and <code>cd ..</code> goes back up one level.</li>
+    <li><strong>Wait for the prompt.</strong> When a command is finished, the terminal shows a new empty line to type on. Some commands take minutes the first time; that is normal.</li>
+  </ol>
+  <div class="code"><span class="label">Example</span><pre><code>cd mobile        <span class="comment"># go into the phone app folder</span>
+cd ..            <span class="comment"># go back to the main Glamio folder</span></code></pre></div>
+  <p>Text after a <code>#</code> is a note for you. You can paste it along; the terminal ignores it.</p>
+</section>
+
+<!-- ======================================================= -->
+<section id="install-editor">
+  <span class="kicker">Install the tools · 1 of 8</span>
+  <h2>VS Code, the editor</h2>
+  <p>VS Code is a free program for opening and editing code files, a bit like Word but for code. You will use it to change settings files and to run the app.</p>
+  <ol class="steps">
+    <li>Download it from <a href="https://code.visualstudio.com" target="_blank" rel="noopener">code.visualstudio.com</a> and install it like any program.</li>
+    <li>Open VS Code. Click the <span class="ui">Extensions</span> icon on the left (four small squares), search for <strong>Flutter</strong> and click <span class="ui">Install</span>. This also installs the Dart extension.</li>
+    <li>Unzip the Glamio download somewhere easy, for example <code>Documents/glamio</code>. In VS Code choose <span class="ui">File → Open Folder…</span> and pick the folder that contains <code>mobile</code>, <code>admin</code> and <code>supabase</code>.</li>
+  </ol>
+  <div class="callout warn"><strong class="title">Avoid spaces and special characters in the folder path</strong>
+    Some tools break on paths like <code>C:\My Files\Glamio (copy)</code>. Use something simple like <code>C:\dev\glamio</code> or <code>~/dev/glamio</code>.</div>
+</section>
+
+<section id="install-git">
+  <span class="kicker">Install the tools · 2 of 8</span>
+  <h2>Git</h2>
+  <p>Git keeps the history of your code and uploads it to GitHub. You need it in Step 6 to put the web admin online.</p>
+  <div class="tabs" role="tablist" data-tabs="os">
+    <button role="tab" data-tab="mac">macOS</button>
+    <button role="tab" data-tab="win">Windows</button>
+  </div>
+  <div class="tab-panel" data-tab="mac">
+    <p>Run this in the terminal. A window asks to install the "command line developer tools"; click <span class="ui">Install</span>. (If Git is already there, it says so; that's fine.)</p>
+    <div class="code"><pre><code>xcode-select --install</code></pre></div>
+  </div>
+  <div class="tab-panel" data-tab="win">
+    <p>Download <strong>Git for Windows</strong> from <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git-scm.com</a> and install it. The default options are fine: just keep clicking <span class="ui">Next</span>.</p>
+  </div>
+  <p>Then tell Git your name and email (used to label your changes):</p>
+  <div class="code"><pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"</code></pre></div>
+</section>
+
+<section id="install-flutter">
+  <span class="kicker">Install the tools · 3 of 8</span>
+  <h2>Flutter</h2>
+  <p>Flutter is Google's toolkit for building apps. One code base makes both the Android and the iPhone app. The easiest way to install it is from inside VS Code:</p>
+  <ol class="steps">
+    <li>In VS Code press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> (<kbd>⌘</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> on Mac). A search box opens at the top: the <strong>Command Palette</strong>.</li>
+    <li>Type <strong>Flutter: New Project</strong> and press <kbd>Enter</kbd>.</li>
+    <li>VS Code says it can't find the Flutter SDK. Click <span class="ui">Download SDK</span>.</li>
+    <li>Choose a folder for Flutter, for example <code>C:\dev</code> (Windows) or your <code>dev</code> folder (Mac). <strong>Not</strong> <code>Program Files</code>.</li>
+    <li>Wait for the download (several minutes). When VS Code asks <span class="ui">Add SDK to PATH</span>, click it. This lets the terminal find Flutter.</li>
+    <li>Close the "new project" box that may appear (you don't need a new project), then <strong>close and reopen VS Code and any terminal</strong>.</li>
+  </ol>
+  <p>Check that it worked. In a new terminal:</p>
+  <div class="code"><pre><code>flutter --version</code></pre></div>
+  <p>You should see something like <code>Flutter 3.x.x • channel stable</code>. Glamio is tested with the current stable Flutter.</p>
+  <div class="callout info"><strong class="title">Prefer the manual way?</strong>
+    Flutter's official guide covers every system in detail: <a href="https://docs.flutter.dev/get-started/install" target="_blank" rel="noopener">docs.flutter.dev/get-started/install</a>.</div>
+</section>
+
+<section id="install-android">
+  <span class="kicker">Install the tools · 4 of 8</span>
+  <h2>Android Studio</h2>
+  <p>You won't write code in Android Studio, but Flutter needs its <strong>Android SDK</strong> (the Android building blocks) and its <strong>emulator</strong> (a pretend Android phone that runs on your computer).</p>
+  <ol class="steps">
+    <li>Download Android Studio from <a href="https://developer.android.com/studio" target="_blank" rel="noopener">developer.android.com/studio</a> and install it with the standard options. On first start it downloads the Android SDK; let it finish.</li>
+    <li>On the welcome screen click <span class="ui">More Actions → SDK Manager</span>. Open the <span class="ui">SDK Tools</span> tab, tick <strong>Android SDK Command-line Tools</strong>, and click <span class="ui">OK</span>.</li>
+    <li>Accept Google's licences. In a terminal run the command below and type <kbd>y</kbd> + <kbd>Enter</kbd> every time it asks.
+      <div class="code"><pre><code>flutter doctor --android-licenses</code></pre></div></li>
+    <li>Create an emulator: on the welcome screen click <span class="ui">More Actions → Virtual Device Manager</span> → <span class="ui">+</span> (Create device) → pick a phone such as <strong>Pixel 8</strong> → <span class="ui">Next</span> → pick the newest system image (click the download icon next to it if needed) → <span class="ui">Finish</span>.</li>
+    <li>Press the ▶ play button next to the new device. A phone appears on your screen. Leave it open when you run the app later.</li>
+  </ol>
+  <figure class="shot" data-file="images/01-android-device-manager.png" data-caption="Android Studio's Virtual Device Manager with a Pixel emulator created."></figure>
+</section>
+
+<section id="install-xcode">
+  <span class="kicker">Install the tools · 5 of 8</span>
+  <h2>Xcode (Mac only)</h2>
+  <p>Xcode is Apple's tool for iPhone apps. Skip this section on Windows; you can still do everything for Android.</p>
+  <ol class="steps">
+    <li>Install <strong>Xcode</strong> from the Mac App Store (large download, about 10 GB). Open it once and let it install extra components.</li>
+    <li>In the terminal, finish Xcode's setup:
+      <div class="code"><pre><code>sudo xcodebuild -runFirstLaunch</code></pre></div>
+      It asks for your Mac password. While you type, nothing appears on screen; that's normal. Press <kbd>Enter</kbd> when done.</li>
+    <li>Install <strong>Homebrew</strong> (an installer for developer tools) by following the one-line command on <a href="https://brew.sh" target="_blank" rel="noopener">brew.sh</a>. At the end it may print two or three commands under "Next steps"; run those too.</li>
+    <li>Install <strong>CocoaPods</strong> (Flutter uses it to build iPhone apps):
+      <div class="code"><pre><code>brew install cocoapods</code></pre></div></li>
+    <li>For the iPhone simulator: open Xcode → <span class="ui">Settings → Components</span> (called <span class="ui">Platforms</span> in some versions) and download the newest <strong>iOS</strong> simulator.</li>
+  </ol>
+</section>
+
+<section id="install-node">
+  <span class="kicker">Install the tools · 6 of 8</span>
+  <h2>Node.js</h2>
+  <p>Node.js runs the web admin on your computer and installs its building blocks. You need <strong>version 22 or newer</strong>; the current <strong>LTS</strong> ("long-term support") version is the right choice.</p>
+  <ol class="steps">
+    <li>Download the <strong>LTS</strong> installer from <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a> and install it with the default options.</li>
+    <li>Close and reopen your terminal, then check:
+      <div class="code"><pre><code>node -v</code></pre></div>
+      You should see a version like <code>v22.x.x</code> or higher.</li>
+  </ol>
+</section>
+
+<section id="install-supabase">
+  <span class="kicker">Install the tools · 7 of 8</span>
+  <h2>Supabase CLI</h2>
+  <p>The Supabase CLI is a small command-line tool that sends Glamio's database tables, settings and server functions to your Supabase project.</p>
+  <div class="tabs" role="tablist" data-tabs="os">
+    <button role="tab" data-tab="mac">macOS</button>
+    <button role="tab" data-tab="win">Windows</button>
+  </div>
+  <div class="tab-panel" data-tab="mac">
+    <div class="code"><pre><code>brew install supabase/tap/supabase
+supabase --version</code></pre></div>
+  </div>
+  <div class="tab-panel" data-tab="win">
+    <p>On Windows the simplest way is to run it through Node.js, with nothing extra to install. <strong>Wherever this guide says <code>supabase</code>, type <code>npx supabase</code> instead.</strong> The first time, it asks <code>Ok to proceed? (y)</code>: type <kbd>y</kbd> and press <kbd>Enter</kbd>.</p>
+    <div class="code"><pre><code>npx supabase --version</code></pre></div>
+    <p>(Prefer a permanent install? See <a href="https://supabase.com/docs/guides/local-development/cli/getting-started" target="_blank" rel="noopener">Supabase's CLI guide</a>, "Windows" with Scoop.)</p>
+  </div>
+  <div class="callout info"><strong class="title">You do not need Docker</strong>
+    Some Supabase guides mention Docker. That is only for running a database on your own computer. This guide uses Supabase's online service, so you can skip Docker.</div>
+</section>
+
+<section id="install-check">
+  <span class="kicker">Install the tools · 8 of 8</span>
+  <h2>Check everything</h2>
+  <p>Flutter has a built-in health check. Run:</p>
+  <div class="code"><pre><code>flutter doctor</code></pre></div>
+  <p>It prints a list with ✓ (good) and ✗ or ! (needs attention). You need ✓ for:</p>
+  <ul class="checklist">
+    <li><strong>Flutter</strong></li>
+    <li><strong>Android toolchain</strong> (if not: run <code>flutter doctor --android-licenses</code> again)</li>
+    <li><strong>Xcode</strong> (Mac only, for iPhone)</li>
+    <li><strong>VS Code</strong></li>
+  </ul>
+  <p>A ✗ for "Chrome", "Visual Studio" or "Linux toolchain" is fine: Glamio doesn't use them.</p>
+  <p>Two warnings you can ignore: on an <strong>Intel Mac</strong> Flutter shows a "!" saying it will need an Apple Silicon Mac in a future version (it still works today), and "Connected device" may complain about an iPhone on Wi-Fi. That only matters when you run on that iPhone (Step 8d).</p>
+  <figure class="shot" data-file="images/02-flutter-doctor.png" data-caption="flutter doctor on a Mac: ticks for the Android toolchain and Xcode. The two warnings shown (Intel Mac, iPhone on Wi-Fi) are fine."></figure>
+</section>
+
+<!-- ======================================================= -->
+<section id="files">
+  <span class="kicker">Set up your salon</span>
+  <h2>What's in the download</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Folder or file</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td><code>mobile/</code></td><td>The phone app (Flutter). Your settings go in <code>mobile/.env</code>; name, colors and switches in <code>mobile/lib/vertical/</code>.</td></tr>
+      <tr><td><code>admin/</code></td><td>The owner's web admin (Next.js). Name and links in <code>admin/src/vertical/glamio.ts</code>.</td></tr>
+      <tr><td><code>supabase/migrations/</code></td><td>The database tables and booking rules. You send them to Supabase in Step 2 and never edit them.</td></tr>
+      <tr><td><code>supabase/setup.sql</code></td><td><strong>The only database file you edit:</strong> your business name, time zone, currency and the owner's email.</td></tr>
+      <tr><td><code>supabase/functions/</code></td><td>Two small server programs: account deletion and push notifications.</td></tr>
+      <tr><td><code>supabase/seed.sql</code></td><td>Sample salon data for the demo. Not used for your real salon.</td></tr>
+      <tr><td><code>supabase/tests/</code></td><td>Automatic checks for the database rules (for developers).</td></tr>
+      <tr><td><code>brand/</code></td><td>Logo, app icon and onboarding pictures as SVG source files, for rebranding.</td></tr>
+      <tr><td><code>documentation/</code></td><td>This guide.</td></tr>
+      <tr><td><code>CHANGELOG.md</code></td><td>What changed in each version.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout info"><strong class="title">Files that start with a dot are hidden</strong>
+    Files like <code>.env.example</code> are hidden in Finder and File Explorer by default, but VS Code shows them. Do your editing in VS Code.</div>
+</section>
+
+<!-- ======================================================= -->
+<section id="step-supabase">
+  <span class="kicker">Set up your salon · Step 1</span>
+  <h2>Create the database (Supabase project)</h2>
+  <ol class="steps">
+    <li>Sign in at <a href="https://supabase.com/dashboard" target="_blank" rel="noopener">supabase.com/dashboard</a> and click <span class="ui">New project</span>.</li>
+    <li>Fill in:
+      <ul>
+        <li><strong>Name:</strong> your salon's name, for example <em>Rosa Hair Studio</em>.</li>
+        <li><strong>Database password:</strong> click <span class="ui">Generate a password</span> and <strong>save it in your notes</strong>. You need it in Step 2.</li>
+        <li><strong>Region:</strong> <span class="ui">Auto</span> is fine, or click <span class="ui">Need a specific region?</span> and pick the one closest to your salon (shorter distance means a faster app).</li>
+        <li><strong>Security:</strong> leave <span class="ui">Enable Data API</span> and <span class="ui">Automatically expose new tables</span> <strong>ticked</strong>, as they are by default. <span class="ui">Enable automatic RLS</span> can stay as it is.</li>
+      </ul></li>
+    <li>Click <span class="ui">Create new project</span> and wait 1–2 minutes.</li>
+    <li>Collect three things for your notes:
+      <ul>
+        <li><strong>Project reference</strong> ("project ref"): <span class="ui">Project Settings → General → Project ID</span>. It looks like <code>abcdefghijklmnopqrst</code>.</li>
+        <li><strong>Project URL:</strong> <code>https://</code> + your project ref + <code>.supabase.co</code>.</li>
+        <li><strong>Publishable key:</strong> <span class="ui">Project Settings → API Keys</span>. It starts with <code>sb_publishable_</code>. (Older projects call it the <code>anon</code> key; that one works too.)</li>
+      </ul></li>
+  </ol>
+  <div class="callout warn"><strong class="title">Keep "Automatically expose new tables" ticked</strong>
+    Supabase suggests unticking it, but Glamio's app and web admin need it: without it every screen fails with "permission denied". Your data stays protected, because Glamio switches on row-level security for every table and its tests check that no one can see another person's data.</div>
+  <figure class="shot" data-file="images/03-supabase-new-project.png" data-caption="Supabase: the New project form. Name, generated password, region, and both Data API boxes ticked."></figure>
+  <figure class="shot" data-file="images/04-supabase-api-keys.png" data-caption="Supabase: Project Settings → API Keys. Copy the publishable key (top). Never use the secret key (bottom)."></figure>
+  <div class="callout stop"><strong class="title">Never share the "secret" or "service_role" key</strong>
+    The same page also shows a <strong>secret</strong> key. Glamio never needs it in the app or the web admin. Anyone who has it can read and change everything in your database.</div>
+</section>
+
+<!-- ======================================================= -->
+<section id="step-database">
+  <span class="kicker">Set up your salon · Step 2</span>
+  <h2>Fill the database with Glamio's tables</h2>
+  <p>Now you send Glamio's tables and booking rules to your new project. Open a terminal <strong>in the main Glamio folder</strong> (the one that contains <code>supabase</code>).</p>
+  <ol class="steps">
+    <li>Sign in to Supabase from the terminal. A browser window opens; click <span class="ui">Authorize</span>.
+      <div class="code"><pre><code>supabase login</code></pre></div></li>
+    <li>Connect this folder to your project. Replace <code>YOUR-PROJECT-REF</code> with your project ref. When it asks for the database password, paste the one from Step 1 (nothing shows while you paste; press <kbd>Enter</kbd>).
+      <div class="code"><pre><code>supabase link --project-ref YOUR-PROJECT-REF</code></pre></div></li>
+    <li>Send the tables and rules. When it lists the files and asks to continue, type <kbd>y</kbd> and press <kbd>Enter</kbd>.
+      <div class="code"><pre><code>supabase db push</code></pre></div></li>
+  </ol>
+  <p>When it ends with <code>Finished supabase db push.</code>, your database is ready. In the Supabase dashboard, <span class="ui">Table Editor</span> now lists tables such as <code>bookings</code>, <code>services</code> and <code>staff</code>.</p>
+  <div class="callout tip"><strong class="title">Windows reminder</strong> Type <code>npx supabase</code> instead of <code>supabase</code>.</div>
+</section>
+
+<!-- ======================================================= -->
+<section id="step-email">
+  <span class="kicker">Set up your salon · Step 3</span>
+  <h2>Sign-in emails (Resend)</h2>
+  <p>To sign in, a person types their email and receives a <strong>6-digit code</strong>. Supabase's built-in email sender is only for testing: it sends very few emails per hour, and it doesn't allow the code email Glamio needs. So you connect your own sender. We use <strong>Resend</strong>, which is free for small volumes.</p>
+
+  <h3>3a. Set up Resend</h3>
+  <ol class="steps">
+    <li>Sign up at <a href="https://resend.com" target="_blank" rel="noopener">resend.com</a>.</li>
+    <li>Go to <span class="ui">Domains → Add Domain</span> and enter your domain, for example <code>yoursalon.com</code>. For <strong>Region</strong>, pick the one closest to your clients (for example Ireland for Europe, or N. Virginia for the US).</li>
+    <li>Resend shows a few <strong>DNS records</strong> (lines of settings). Log in where you bought your domain, open its <strong>DNS settings</strong>, and add each record exactly as shown. Then click <span class="ui">Verify</span> in Resend. It can take from a few minutes to a few hours before it turns green.</li>
+    <li>Go to <span class="ui">API Keys → Create API Key</span>, give it a name, and copy the key (starts with <code>re_</code>) into your notes. It is shown only once.</li>
+  </ol>
+  <figure class="shot" data-file="images/05-resend-domain-verified.png" data-caption="Resend: the domain shows Verified."></figure>
+
+  <h3>3b. Connect Resend to Supabase</h3>
+  <ol class="steps">
+    <li>In the Supabase dashboard open <span class="ui">Authentication → Emails → SMTP Settings</span> and switch on <span class="ui">Enable custom SMTP</span>.</li>
+    <li>Fill in:
+      <div class="table-wrap"><table>
+        <tbody>
+          <tr><td>Sender email</td><td><code>no-reply@yoursalon.com</code> (your verified domain)</td></tr>
+          <tr><td>Sender name</td><td>Your salon's name</td></tr>
+          <tr><td>Host</td><td><code>smtp.resend.com</code></td></tr>
+          <tr><td>Port</td><td><code>465</code></td></tr>
+          <tr><td>Username</td><td><code>resend</code></td></tr>
+          <tr><td>Password</td><td>Your Resend API key (<code>re_…</code>)</td></tr>
+        </tbody>
+      </table></div></li>
+    <li>Click <span class="ui">Save</span>.</li>
+  </ol>
+  <figure class="shot" data-file="images/06-supabase-smtp.png" data-caption="Supabase: Authentication → Emails → SMTP Settings. Switch on Enable custom SMTP, then fill in the fields from the table above."></figure>
+
+  <h3>3c. Send Glamio's sign-in settings</h3>
+  <p>This sends the code email design and the sign-in settings (code length, expiry) to your project. In the terminal, in the main Glamio folder:</p>
+  <div class="code"><pre><code>supabase config push</code></pre></div>
+  <p>It lists the changes and asks to confirm; type <kbd>y</kbd> and press <kbd>Enter</kbd>.</p>
+  <div class="callout warn"><strong class="title">Do 3b before 3c</strong>
+    Supabase refuses custom email designs while its own built-in sender is in use. If <code>config push</code> complains about email templates, check that custom SMTP is switched on and saved.</div>
+</section>
+
+<!-- ======================================================= -->
+<section id="step-business">
+  <span class="kicker">Set up your salon · Step 4</span>
+  <h2>Add your business</h2>
+  <ol class="steps">
+    <li>In VS Code open <code>supabase/setup.sql</code>.</li>
+    <li>Change the values in quotes:
+      <div class="code"><span class="label">supabase/setup.sql</span><pre><code>insert into public.businesses (id, name, timezone, currency, phone, address)
+values ('00000000-0000-0000-0000-00000000b001', <strong>'Rosa Hair Studio'</strong>, <strong>'Europe/London'</strong>, <strong>'GBP'</strong>, <strong>'+44 20 1234 5678'</strong>, <strong>'1 High Street, London'</strong>);
+
+insert into public.invites (business_id, email, role)
+values ('00000000-0000-0000-0000-00000000b001', <strong>'owner@yoursalon.com'</strong>, 'owner');</code></pre></div>
+      <ul>
+        <li><strong>Time zone:</strong> the official name of your salon's time zone, such as <code>Europe/London</code>, <code>America/New_York</code>, <code>Asia/Dubai</code>, <code>Asia/Karachi</code> or <code>Australia/Sydney</code>. Full list: <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank" rel="noopener">tz database time zones</a> (column "TZ identifier"). It matters: all booking times are calculated in it, including daylight-saving changes.</li>
+        <li><strong>Currency:</strong> a 3-letter code: <code>USD</code>, <code>EUR</code>, <code>GBP</code>, <code>AED</code>, <code>PKR</code>, …</li>
+        <li><strong>Owner email:</strong> the email you will sign in to the web admin with. Use an inbox you can open right now.</li>
+        <li><strong>Leave the long id</strong> (<code>00000000-…-b001</code>) as it is. The phone app uses the same id.</li>
+      </ul></li>
+    <li>In the Supabase dashboard open <span class="ui">SQL Editor</span> → <span class="ui">New query</span>. Copy <strong>the whole file</strong> into it and click <span class="ui">Run</span>. You should see <code>Success. No rows returned</code>.</li>
+  </ol>
+  <figure class="shot" data-file="images/07-supabase-sql-editor.png" data-caption="Supabase: SQL Editor → New. Paste the whole setup.sql, then click Run (top right). The Results area below shows Success. No rows returned."></figure>
+  <div class="callout info"><strong class="title">Run it only once</strong>
+    Running it a second time shows "duplicate key", which only means your business already exists. You can change the name, time zone and currency later in the web admin's <span class="ui">Settings</span>.</div>
+</section>
+
+<!-- ======================================================= -->
+<section id="step-functions">
+  <span class="kicker">Set up your salon · Step 5</span>
+  <h2>Upload the two server functions</h2>
+  <p>Glamio has two small programs that run on Supabase's servers: <code>delete-account</code> (lets people delete their account, which Google and Apple require) and <code>send-notifications</code> (push messages). Upload both:</p>
+  <div class="code"><pre><code>supabase functions deploy delete-account send-notifications --use-api</code></pre></div>
+  <p>When it prints <code>Deployed Functions</code>, you'll see both under <span class="ui">Edge Functions</span> in the dashboard. (<code>--use-api</code> means "build them on Supabase's side", so nothing else is needed on your computer.)</p>
+</section>
+
+<!-- ======================================================= -->
+<section id="step-admin">
+  <span class="kicker">Set up your salon · Step 6</span>
+  <h2>Put the web admin online</h2>
+  <p>The web admin must be on the internet so you can open it from any computer or phone. Vercel builds it from a <strong>private</strong> copy of your code on GitHub.</p>
+
+  <h3>6a. Upload your code to a private GitHub repository</h3>
+  <ol class="steps">
+    <li>On <a href="https://github.com/new" target="_blank" rel="noopener">github.com/new</a> create a repository: give it a name, choose <strong>Private</strong>, and leave all the "Add a README / .gitignore / license" boxes unticked. Click <span class="ui">Create repository</span>.</li>
+    <li>In the terminal, in the main Glamio folder, run these lines one by one. In the 5th line, replace the address with the one GitHub shows you (it ends in <code>.git</code>).
+      <div class="code"><pre><code>git init
+git add .
+git commit -m "My Glamio salon"
+git branch -M main
+git remote add origin https://github.com/YOUR-NAME/YOUR-REPO.git
+git push -u origin main</code></pre></div>
+      If it asks you to sign in to GitHub, follow the browser window that opens.</li>
+  </ol>
+  <div class="callout stop"><strong class="title">Always private</strong>
+    Your Glamio licence does not allow publishing the source code. Keep the repository <strong>Private</strong>. Your secret settings files (<code>.env</code>) are left out automatically.</div>
+
+  <h3>6b. Deploy on Vercel</h3>
+  <ol class="steps">
+    <li>Sign up at <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a> with your GitHub account.</li>
+    <li>Click <span class="ui">Add New… → Project</span> and <span class="ui">Import</span> your Glamio repository.</li>
+    <li>Next to <span class="ui">Root Directory</span> click <span class="ui">Edit</span> and choose <code>admin</code>. Vercel then recognises it as a Next.js site.</li>
+    <li>Open <span class="ui">Environment Variables</span> and add two:
+      <div class="table-wrap"><table>
+        <thead><tr><th>Name</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td><code>NEXT_PUBLIC_SUPABASE_URL</code></td><td>Your Project URL (<code>https://….supabase.co</code>)</td></tr>
+          <tr><td><code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code></td><td>Your publishable key (<code>sb_publishable_…</code>)</td></tr>
+        </tbody>
+      </table></div></li>
+    <li>Click <span class="ui">Create Project</span>. If Vercel offers <span class="ui">Optional Integrations → Supabase → Add</span>, <strong>skip it</strong>: that would make a new, empty database instead of using yours.</li>
+    <li>Click <span class="ui">Deploy</span> and wait 2–3 minutes. You get an address like <code>https://rosa-hair.vercel.app</code>. Save it in your notes: this is your <strong>web admin address</strong>.</li>
+  </ol>
+  <figure class="shot" data-file="images/08-vercel-root-directory.png" data-caption="Vercel: Root Directory set to admin, and the two environment variables."></figure>
+  <p><strong>Deployment says "Blocked"?</strong> On Vercel's free Hobby plan, a private GitHub repository only deploys commits made by the same GitHub account you signed in to Vercel with. Make sure your Git name and email on your computer match that account (<code>git config user.email</code>), then push a new commit.</p>
+  <p><strong>Using Netlify instead?</strong> <span class="ui">Add new site → Import an existing project</span>, set <strong>Base directory</strong> to <code>admin</code> and the build command to <code>npm run build</code>, and add the same two variables.</p>
+
+  <h3>6c. Tell Supabase your web admin address</h3>
+  <ol class="steps">
+    <li>Supabase dashboard → <span class="ui">Authentication → URL Configuration</span>: set <strong>Site URL</strong> to your web admin address and add the same address under <strong>Redirect URLs</strong>. Save.</li>
+    <li>In VS Code open <code>supabase/config.toml</code>, find the line <code>site_url = "http://localhost:3000"</code> and put your web admin address there too. Then a later <code>supabase config push</code> won't change it back.</li>
+  </ol>
+
+  <h3>6d. Sign in as the owner</h3>
+  <ol class="steps">
+    <li>Open your web admin address. Enter the <strong>owner email</strong> from Step 4 and click <span class="ui">Send code</span>.</li>
+    <li>Check your inbox (and the spam folder) for "Your sign-in code". Type the 6 digits and click <span class="ui">Sign in</span>.</li>
+    <li>You see the <strong>Dashboard</strong> with a "Finish setting up" list. 🎉</li>
+  </ol>
+  <figure class="shot" data-file="images/09-admin-sign-in.png" data-caption="Web admin: the sign-in page (email, then the 6-digit code)."></figure>
+  <figure class="shot" data-file="images/10-admin-dashboard-setup.png" data-caption="Web admin: the dashboard for a new salon, with the Finish setting up list."></figure>
+</section>
+
+<!-- ======================================================= -->
+<section id="step-first-setup">
+  <span class="kicker">Set up your salon · Step 7</span>
+  <h2>Fill in your salon in the web admin</h2>
+  <p>The dashboard's "Finish setting up" list walks you through this. Clients can only book once there is at least one <strong>service</strong> and one <strong>stylist with working hours</strong> who does that service.</p>
+
+  <h3>Settings</h3>
+  <p>Your address, phone, about text and logo, plus the <strong>booking rules</strong>:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Setting</th><th>What it means</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Start times every</td><td>The gap between the times clients can choose</td><td>15 min → 9:00, 9:15, 9:30…</td></tr>
+      <tr><td>Book up to</td><td>How far ahead clients can book</td><td>30 days</td></tr>
+      <tr><td>Minimum notice</td><td>How soon a booking can start, counted from now</td><td>60 min: at 10:00 the first free time is 11:00</td></tr>
+      <tr><td>Clients can change or cancel until</td><td>After this, clients must call you</td><td>2 h before</td></tr>
+      <tr><td>Upcoming bookings per client</td><td>Stops one person from blocking many times</td><td>5</td></tr>
+    </tbody>
+  </table></div>
+  <p>Also on Settings: <strong>Closures</strong>, days the whole salon is closed (holidays). No one can book on those days.</p>
+  <figure class="shot" data-file="images/11-admin-settings.png" data-caption="Web admin: Settings, with business details, booking rules and closures."></figure>
+
+  <h3>Services</h3>
+  <p>Add what you sell. For each service:</p>
+  <ul>
+    <li><strong>Duration:</strong> how long it takes, for example 30 minutes.</li>
+    <li><strong>Extra time after:</strong> cleaning or drying time when the stylist is still busy but the client is gone. Clients don't see it; it only keeps the next booking from starting too early.</li>
+    <li><strong>Price</strong>, an optional <strong>photo</strong>, a <strong>category</strong> (Hair, Beard, Colour…), and which <strong>stylists</strong> do it.</li>
+    <li><strong>Active:</strong> switch it off to <strong>hide</strong> a service you no longer offer. It disappears for new bookings, but existing bookings keep it and can still be moved. Hiding is safer than deleting.</li>
+  </ul>
+  <figure class="shot" data-file="images/12-admin-service-form.png" data-caption="Web admin: the service form (duration, extra time, price, stylists, Active)."></figure>
+
+  <h3>Stylists</h3>
+  <p>Add each person who takes bookings: name, title, photo, short bio. Then, on their page:</p>
+  <ul>
+    <li><strong>Services:</strong> tick what they do.</li>
+    <li><strong>Working hours:</strong> per weekday; several periods a day are fine (for example 9–13 and 14–18 for a lunch break).</li>
+    <li><strong>Time off:</strong> holidays or appointments of this one person.</li>
+    <li><strong>Portfolio:</strong> photos of their work, which clients see when choosing a stylist.</li>
+    <li><strong>App access:</strong> see <a href="#staff-access">Staff app access</a>.</li>
+  </ul>
+  <figure class="shot" data-file="images/13-admin-stylist-page.png" data-caption="Web admin: a stylist's page with services, working hours, time off, portfolio and app access."></figure>
+</section>
+
+<!-- ======================================================= -->
+<section id="step-phone">
+  <span class="kicker">Set up your salon · Step 8</span>
+  <h2>Run the phone app</h2>
+
+  <h3>8a. Create the app's settings file</h3>
+  <p>The app reads its settings from a file called <code>.env</code> in the <code>mobile</code> folder. You make it by copying the example file:</p>
+  <div class="tabs" role="tablist" data-tabs="os">
+    <button role="tab" data-tab="mac">macOS</button>
+    <button role="tab" data-tab="win">Windows</button>
+  </div>
+  <div class="tab-panel" data-tab="mac"><div class="code"><pre><code>cd mobile
+cp .env.example .env</code></pre></div></div>
+  <div class="tab-panel" data-tab="win"><div class="code"><pre><code>cd mobile
+copy .env.example .env</code></pre></div></div>
+  <p>Open <code>mobile/.env</code> in VS Code and fill in the first lines:</p>
+  <div class="code"><span class="label">mobile/.env</span><pre><code>SUPABASE_URL=https://YOUR-PROJECT-REF.supabase.co
+SUPABASE_ANON_KEY=sb_publishable_xxxxxxxxxxxxxxxx
+BUSINESS_ID=00000000-0000-0000-0000-00000000b001
+
+ADMIN_URL=https://rosa-hair.vercel.app     <span class="comment"># your web admin address</span>
+GOOGLE_SIGN_IN=false
+GOOGLE_WEB_CLIENT_ID=
+GOOGLE_IOS_CLIENT_ID=
+PUSH_ENABLED=false
+DEMO_MODE=false</code></pre></div>
+  <p>Leave the other switches on <code>false</code> for now. You can turn on push and Google sign-in later (see <a href="#push">Push</a> and <a href="#google">Google sign-in</a>).</p>
+  <div class="callout warn"><strong class="title">No spaces, no quotes</strong>
+    Write <code>NAME=value</code> exactly like that: no spaces around <code>=</code> and no quotation marks.</div>
+
+  <h3>8b. Start a phone</h3>
+  <ul>
+    <li><strong>Android emulator:</strong> start it from Android Studio's Device Manager (▶).</li>
+    <li><strong>iPhone simulator (Mac):</strong> run <code>open -a Simulator</code>.</li>
+    <li><strong>Your own Android phone:</strong> in <span class="ui">Settings → About phone</span>, tap <span class="ui">Build number</span> 7 times to unlock <span class="ui">Developer options</span>. Turn on <span class="ui">USB debugging</span> there, connect the phone with a cable, and tap <span class="ui">Allow</span> on the phone.</li>
+    <li><strong>Your own iPhone:</strong> see 8d below.</li>
+  </ul>
+
+  <h3>8c. Run the app</h3>
+  <p>Still in the <code>mobile</code> folder:</p>
+  <div class="code"><pre><code>flutter pub get
+flutter run --dart-define-from-file=.env</code></pre></div>
+  <p>The first run takes 3–10 minutes; later runs are much faster. If several phones are connected, Flutter asks which one to use: type its number.</p>
+  <p><strong>Or with a click:</strong> in VS Code open the <span class="ui">Run and Debug</span> panel (▶ icon on the left), choose <strong>Glamio (mobile)</strong> and press the green ▶. It already includes the <code>.env</code> file.</p>
+  <figure class="shot" data-file="images/14-app-home.png" data-caption="The phone app's home screen with your services."></figure>
+  <div class="callout tip"><strong class="title">While the app runs</strong>
+    Press <kbd>r</kbd> in the terminal to reload after a code change, or <kbd>q</kbd> to stop. After changing <code>.env</code>, stop and run again.</div>
+
+  <h3>8d. On your own iPhone (Mac only)</h3>
+  <ol class="steps">
+    <li>Connect the iPhone with a cable and tap <span class="ui">Trust</span>. On iOS 16 and newer also turn on <span class="ui">Settings → Privacy &amp; Security → Developer Mode</span> (the phone restarts).</li>
+    <li>Open <code>mobile/ios/Runner.xcworkspace</code> in Xcode (the <strong>.xcworkspace</strong>, not the .xcodeproj).</li>
+    <li>Click <span class="ui">Runner</span> at the top of the left list → tab <span class="ui">Signing &amp; Capabilities</span> → <span class="ui">Team</span>: add your Apple ID and choose it. If Xcode says the bundle identifier is taken, change it to something unique such as <code>com.rosahair.app</code> (better: rebrand the app id first, see <a href="#rebrand">Rebrand</a>).</li>
+    <li>Back in the terminal run <code>flutter run --dart-define-from-file=.env</code> and pick the iPhone. <strong>The very first iPhone build can take 30–60 minutes</strong> (Xcode builds Firebase once). It is not frozen; later builds take a minute or two.</li>
+    <li>The first time, the iPhone may block the app: <span class="ui">Settings → General → VPN &amp; Device Management</span> → your Apple ID → <span class="ui">Trust</span>.</li>
+  </ol>
+</section>
+
+<!-- ======================================================= -->
+<section id="step-test">
+  <span class="kicker">Set up your salon · Step 9</span>
+  <h2>Test it end to end</h2>
+  <p>Do this once before you tell anyone about the app. Use a second email address for the "client" (a free Gmail is fine).</p>
+  <ul class="checklist">
+    <li>In the phone app, choose a service → a stylist (or "any") → a time → <span class="ui">Book</span>. It asks you to sign in: use the <strong>client</strong> email and the 6-digit code.</li>
+    <li>The booking shows under <span class="ui">My bookings</span>.</li>
+    <li>In the web admin, <span class="ui">Calendar</span> shows the same booking (the page updates by itself).</li>
+    <li>In the phone app, change the booking's time, then cancel it. The web admin follows both changes.</li>
+    <li>Sign out, then sign in with the <strong>owner</strong> email. You land on the schedule screen, not the client screens.</li>
+    <li>In the web admin, add a <strong>walk-in</strong> booking from <span class="ui">Calendar → New booking</span>.</li>
+  </ul>
+  <figure class="shot" data-file="images/15-app-booking-flow.png" data-caption="The booking flow on the phone: choose staff, choose a time, confirm."></figure>
+  <figure class="shot" data-file="images/16-admin-calendar.png" data-caption="Web admin: the day calendar with one column per stylist."></figure>
+</section>
+
+<!-- ======================================================= -->
+<section id="daily-use">
+  <span class="kicker">Using Glamio</span>
+  <h2>Daily use</h2>
+  <div class="cards">
+    <div class="card"><h4>Owner</h4><p>Checks the dashboard and calendar, adds phone and walk-in bookings, moves or cancels bookings, marks the day's bookings Completed or No-show, manages services, stylists, hours and closures.</p></div>
+    <div class="card"><h4>Stylist</h4><p>Opens the phone app to see today's bookings (they update live), adds a walk-in client, marks Completed or No-show after the start time.</p></div>
+    <div class="card"><h4>Client</h4><p>Books, gets a confirmation and reminders (with push switched on), changes or cancels before the cut-off, calls the salon after it.</p></div>
+  </div>
+
+  <h3 id="booking-life">A booking's life</h3>
+  <p>Every booking is in one of four states:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>State</th><th>Means</th><th>Who sets it</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Confirmed</strong></td><td>Booked and coming. Every new booking starts here.</td><td>Automatic</td></tr>
+      <tr><td><strong>Completed</strong></td><td>The client came. Only completed bookings count as <strong>revenue</strong>.</td><td>Owner or stylist, after the start time</td></tr>
+      <tr><td><strong>No-show</strong></td><td>The client didn't come. The time becomes free again.</td><td>Owner or stylist, after the start time</td></tr>
+      <tr><td><strong>Cancelled</strong></td><td>Called off by the client (before the cut-off) or the salon. Final.</td><td>Client, owner or stylist</td></tr>
+    </tbody>
+  </table></div>
+  <p>Completed and No-show have an <span class="ui">Undo</span> button for mistakes.</p>
+  <div class="callout tip"><strong class="title">Mark every past booking</strong>
+    Glamio never guesses whether a client came. Bookings stay "Confirmed" until someone marks them, and the dashboard shows <em>"N past bookings have no outcome yet"</em> with a link. Mark them, and the revenue and no-show numbers stay right.</div>
+
+  <h3 id="staff-access">Staff app access</h3>
+  <p>A stylist on the Stylists page is just a record (name, hours, services). To let that person <strong>open their own schedule in the phone app</strong>, give them access:</p>
+  <ol class="steps">
+    <li>Web admin → <span class="ui">Stylists</span> → the person → <span class="ui">App access</span>. Type their email and click <span class="ui">Give access</span>.</li>
+    <li>They install the app and sign in with that email. They now see their schedule instead of the client screens. The admin shows <strong>Joined</strong> (or <strong>Invited</strong> while they haven't signed in yet).</li>
+  </ol>
+  <ul>
+    <li><strong>Someone leaves:</strong> click <span class="ui">Remove access</span>. They become a normal client again: they can still book, but no longer see the salon's schedule or clients. Their past bookings stay.</li>
+    <li><strong>Short break</strong> (holiday, sick leave): switch the stylist's <span class="ui">Active</span> off. They disappear for new bookings, and the app shows them "Your schedule is paused" until you switch it back on.</li>
+    <li><strong>Wrong email?</strong> Each stylist has one invite: click <span class="ui">Remove access</span>, then give access with the right email.</li>
+  </ul>
+  <figure class="shot" data-file="images/17-admin-app-access.png" data-caption="Web admin: App access on a stylist's page (Joined, with Remove access)."></figure>
+</section>
+
+<!-- ======================================================= -->
+<section id="rebrand">
+  <span class="kicker">Make it yours</span>
+  <h2>Rebrand: name, colors, logo</h2>
+  <p>Do the app id first (if you plan to publish), then the rest in any order. After each change, run the app again to see it.</p>
+
+  <h3>1. App id (package name)</h3>
+  <p>Every app in the stores has a unique id, written like a reversed web address: <code>com.rosahair.app</code>. Glamio ships as <code>space.alchemify.glamio</code>; you must change it before publishing. In the <code>mobile</code> folder:</p>
+  <div class="code"><pre><code>dart run change_app_package_name:main com.rosahair.app</code></pre></div>
+  <div class="callout warn"><strong class="title">Choose it once</strong> After the app is in the stores, the id can never change. Set it up before Firebase and Google sign-in, because both are tied to it.</div>
+
+  <h3>2. App name</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Where it shows</th><th>File</th><th>What to change</th></tr></thead>
+    <tbody>
+      <tr><td>Under the icon on Android</td><td><code>mobile/android/app/src/main/AndroidManifest.xml</code></td><td><code>android:label="Glamio"</code></td></tr>
+      <tr><td>Under the icon on iPhone</td><td><code>mobile/ios/Runner/Info.plist</code></td><td>the <code>&lt;string&gt;</code> after <code>CFBundleDisplayName</code> and <code>CFBundleName</code></td></tr>
+      <tr><td>Inside the app</td><td><code>mobile/lib/vertical/glamio_config.dart</code></td><td><code>appName: 'Glamio'</code></td></tr>
+      <tr><td>Web admin</td><td><code>admin/src/vertical/glamio.ts</code></td><td><code>appName: 'Glamio'</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>3. Privacy policy and terms links</h3>
+  <p>Both stores require a privacy policy. Put your links in <code>privacyPolicyUrl</code> and <code>termsUrl</code> in <strong>both</strong> <code>mobile/lib/vertical/glamio_config.dart</code> and <code>admin/src/vertical/glamio.ts</code>. They point to <code>example.com</code> until you change them.</p>
+
+  <h3>4. Colors</h3>
+  <ol class="steps">
+    <li>Open the free <a href="https://material-foundation.github.io/material-theme-builder/" target="_blank" rel="noopener">Material Theme Builder</a> and enter your brand color.</li>
+    <li>Export <strong>Flutter (Dart)</strong>. Copy the light and dark values into <code>mobile/lib/vertical/glamio_theme.dart</code>. Each value there has the same name as in the export (<code>primary</code>, <code>surface</code>, …).</li>
+    <li>Put the same colors in <code>admin/src/app/globals.css</code>; the comments there name the matching values.</li>
+  </ol>
+
+  <h3>5. Logo, app icon and start screen</h3>
+  <ol class="steps">
+    <li>The source files are in <code>brand/</code> (SVG). Edit them in any design tool (Figma, Illustrator, Inkscape) or replace them with your own.</li>
+    <li>Export PNG files (1024 × 1024 px) and replace:
+      <ul>
+        <li><code>mobile/assets/images/logo.png</code>: the logo, one color on a transparent background (the app tints it).</li>
+        <li><code>mobile/assets/icon/app_icon.png</code>: the full app icon.</li>
+        <li><code>mobile/assets/icon/app_icon_foreground.png</code>: the icon's symbol only, for Android's shaped icons.</li>
+        <li><code>mobile/assets/icon/splash.png</code>: the picture on the start screen.</li>
+      </ul></li>
+    <li>Generate the icons and start screen (in <code>mobile</code>):
+      <div class="code"><pre><code>dart run flutter_launcher_icons
+dart run flutter_native_splash:create</code></pre></div>
+      The background color of the icon and start screen is set in <code>mobile/flutter_launcher_icons.yaml</code> and in <code>mobile/pubspec.yaml</code> (<code>flutter_native_splash</code>).</li>
+    <li>Onboarding pictures (the 3 intro slides): <code>mobile/assets/images/onboarding_1.png</code> to <code>_3.png</code>, 900 × 720 px.</li>
+    <li>Web admin: the browser tab icon is <code>admin/src/app/icon.svg</code> (plus <code>apple-icon.png</code>); the logo is in <code>admin/src/components/brand-mark.tsx</code>.</li>
+  </ol>
+
+  <h3>6. Font</h3>
+  <p>Glamio uses Poppins. To change it, put your <code>.ttf</code> files in <code>mobile/assets/fonts/</code>, list them under <code>fonts:</code> in <code>mobile/pubspec.yaml</code>, and set <code>fontFamily</code> in <code>glamio_config.dart</code>. For the web admin, copy the same files to <code>admin/src/app/fonts/</code> and update <code>admin/src/app/layout.tsx</code>.</p>
+
+  <h3>7. Words and languages</h3>
+  <p>All texts are in English, Spanish, French and Arabic:</p>
+  <ul>
+    <li>Phone app: <code>mobile/lib/i18n/en.i18n.json</code> (and <code>es</code>, <code>fr</code>, <code>ar</code>). After editing, run <code>dart run slang</code> in <code>mobile</code>.</li>
+    <li>Web admin: <code>admin/messages/en.json</code> (and the others).</li>
+  </ul>
+  <p>For example, to say "Barber" instead of "Stylist", change those words in these files.</p>
+
+  <h3>8. Feature switches</h3>
+  <p>In <code>glamio_config.dart</code>, <code>features</code> turns on the stylist <strong>portfolio</strong> and the <strong>onboarding</strong> slides. Remove one to hide it.</p>
+</section>
+
+<!-- ======================================================= -->
+<section id="push">
+  <span class="kicker">Make it yours · optional</span>
+  <h2>Push notifications</h2>
+  <p>With push on, clients get "Booking confirmed", a reminder 24 hours before and another 1 hour before; stylists and the owner get "New booking", "Booking moved" and "Booking cancelled". Glamio works fine without push: everything else stays the same.</p>
+  <div class="callout info"><strong class="title">You'll need</strong> A Google account (Firebase), and for iPhones an Apple Developer account. Do the <a href="#rebrand">app id</a> change first.</div>
+
+  <h3>1. Create a Firebase project and connect the app</h3>
+  <ol class="steps">
+    <li>At <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a> click <span class="ui">Create a project</span> (Google Analytics is not needed).</li>
+    <li>Install the Firebase tools and sign in:
+      <div class="code"><pre><code>npm install -g firebase-tools
+firebase login
+dart pub global activate flutterfire_cli</code></pre></div></li>
+    <li>In the <code>mobile</code> folder, connect the app to your project. Pick your project and tick <strong>android</strong> and <strong>ios</strong>:
+      <div class="code"><pre><code>flutterfire configure --out=lib/core/push/firebase_options.dart</code></pre></div>
+      This creates the Firebase files for both platforms. The Android build picks them up by itself.</li>
+  </ol>
+
+  <h3>2. iPhone only: Apple's push key</h3>
+  <ol class="steps">
+    <li>In <a href="https://developer.apple.com/account/resources/authkeys/list" target="_blank" rel="noopener">Apple Developer → Keys</a> create a key with <strong>Apple Push Notifications service (APNs)</strong>, download the <code>.p8</code> file, and note the Key ID and your Team ID.</li>
+    <li>Firebase → <span class="ui">Project settings → Cloud Messaging</span> → your iOS app → <span class="ui">APNs Authentication Key → Upload</span>.</li>
+    <li>In Xcode (<code>mobile/ios/Runner.xcworkspace</code>) → <span class="ui">Runner → Signing &amp; Capabilities → + Capability</span>: add <strong>Push Notifications</strong>, and <strong>Background Modes</strong> with <strong>Remote notifications</strong> ticked.</li>
+  </ol>
+
+  <h3>3. Give the server function its keys</h3>
+  <ol class="steps">
+    <li>Firebase → <span class="ui">Project settings → Service accounts → Generate new private key</span>. A <code>.json</code> file downloads. Keep it private.</li>
+    <li>Supabase dashboard → <span class="ui">Edge Functions → Secrets</span>. Add two secrets:
+      <div class="table-wrap"><table>
+        <tbody>
+          <tr><td><code>FCM_SERVICE_ACCOUNT</code></td><td>Open the <code>.json</code> file in VS Code, select everything, and paste it as the value.</td></tr>
+          <tr><td><code>CRON_SECRET</code></td><td>A long random text you make up, for example 40 letters and numbers. Keep it in your notes.</td></tr>
+        </tbody>
+      </table></div></li>
+  </ol>
+
+  <h3>4. Start the sender</h3>
+  <p>The server checks for new messages every minute. Start it once: in Supabase <span class="ui">SQL Editor</span>, paste the following, replace the two values in capitals, and click <span class="ui">Run</span>:</p>
+  <div class="code"><pre><code>select vault.create_secret('https://YOUR-PROJECT-REF.supabase.co', 'project_url');
+select vault.create_secret('THE-SAME-CRON-SECRET', 'cron_secret');
+
+select cron.schedule('glamio-send-push', '* * * * *', $$
+  select net.http_post(
+    url := (select decrypted_secret from vault.decrypted_secrets where name = 'project_url')
+           || '/functions/v1/send-notifications',
+    headers := jsonb_build_object(
+      'Content-Type', 'application/json',
+      'x-cron-secret', (select decrypted_secret from vault.decrypted_secrets where name = 'cron_secret')),
+    body := '{}'::jsonb
+  );
+$$);</code></pre></div>
+
+  <h3>5. Switch it on in the app</h3>
+  <p>In <code>mobile/.env</code> set <code>PUSH_ENABLED=true</code>, then run the app again. It asks for permission to send notifications: tap <span class="ui">Allow</span>.</p>
+  <p><strong>Test:</strong> sign in as a stylist on one phone, book as a client on another phone (or the emulator). The stylist's phone shows "New booking"; tapping it opens the booking.</p>
+  <div class="callout tip"><strong class="title">Messages are never sent twice or late</strong>
+    If a message can't be delivered within 2 hours, or the booking was cancelled meanwhile, Glamio drops it instead of sending old news.</div>
+</section>
+
+<!-- ======================================================= -->
+<section id="google">
+  <span class="kicker">Make it yours · optional</span>
+  <h2>Google sign-in</h2>
+  <p>Adds a "Continue with Google" button next to the email code. Do the <a href="#rebrand">app id</a> change first.</p>
+  <ol class="steps">
+    <li><a href="https://console.cloud.google.com" target="_blank" rel="noopener">Google Cloud Console</a> (use the same project as Firebase, if you have one) → <span class="ui">Google Auth Platform → Get started</span>: app name, support email, audience <strong>External</strong>, contact email → <span class="ui">Create</span>. While the app is in "Testing", add your Gmail under <span class="ui">Audience → Test users</span>. Publish it before your launch.</li>
+    <li><span class="ui">Clients → Create client → Web application</span>. Under <em>Authorized redirect URIs</em> add <code>https://YOUR-PROJECT-REF.supabase.co/auth/v1/callback</code>. Copy the <strong>Client ID</strong> and <strong>Client secret</strong>.</li>
+    <li><span class="ui">Clients → Create client → Android</span>: your app id and your computer's SHA-1 fingerprint, which this command prints (password: <code>android</code>):
+      <div class="code"><pre><code>keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android</code></pre></div>
+      On Windows use <code>%USERPROFILE%\.android\debug.keystore</code>. After publishing on Google Play, create a second Android client with the SHA-1 shown in Play Console → <span class="ui">App integrity</span>.</li>
+    <li>For iPhone: <span class="ui">Create client → iOS</span> with your bundle id (the app id).</li>
+    <li>Supabase → <span class="ui">Authentication → Sign In / Providers → Google</span>: enable it. <strong>Client IDs</strong>: the Web client ID (for iPhone, add a comma and the iOS client ID). <strong>Client Secret</strong>: the web secret. Turn on <strong>Skip nonce checks</strong>. Save.</li>
+    <li>In <code>mobile/.env</code>: <code>GOOGLE_SIGN_IN=true</code> and <code>GOOGLE_WEB_CLIENT_ID=…apps.googleusercontent.com</code>. For iPhone also <code>GOOGLE_IOS_CLIENT_ID</code>, and add the <em>reversed</em> iOS client id (it starts with <code>com.googleusercontent.apps.</code>) as a URL scheme in <code>ios/Runner/Info.plist</code>, following <a href="https://pub.dev/packages/google_sign_in_ios#ios-integration" target="_blank" rel="noopener">google_sign_in's iOS steps</a>.</li>
+  </ol>
+</section>
+
+<section id="apple">
+  <span class="kicker">Make it yours</span>
+  <h2>Apple sign-in</h2>
+  <p><strong>Sign in with Apple is not included in this version.</strong> Your clients sign in with an email code (all phones), or with Google on Android if you switch it on.</p>
+  <div class="callout warn"><strong class="title">Google sign-in on iPhone needs Apple sign-in</strong>
+    Apple's App Store rules say: if an iPhone app offers sign-in with Google (or another company), it must also offer Sign in with Apple or a similar private option. So for your <strong>iPhone</strong> build, keep <code>GOOGLE_SIGN_IN=false</code>. The email-code sign-in works for everyone. On Android you can turn Google sign-in on.</div>
+  <p>Need Apple sign-in? We can add it as paid customization; see <a href="#support">Support</a>.</p>
+</section>
+
+<!-- ======================================================= -->
+<section id="publish-android">
+  <span class="kicker">Go live</span>
+  <h2>Publish on Google Play</h2>
+  <div class="callout info"><strong class="title">Before you start</strong> Finish the <a href="#rebrand">rebrand</a> (at least the app id, name, icon and privacy policy link).</div>
+
+  <h3>1. Make your upload key (once)</h3>
+  <p>Google needs to know updates really come from you, so every upload is signed with your private <strong>upload key</strong>. Create it (it asks for a password and some details):</p>
+  <div class="tabs" role="tablist" data-tabs="os">
+    <button role="tab" data-tab="mac">macOS</button>
+    <button role="tab" data-tab="win">Windows</button>
+  </div>
+  <div class="tab-panel" data-tab="mac"><div class="code"><pre><code>keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload</code></pre></div></div>
+  <div class="tab-panel" data-tab="win"><div class="code"><pre><code>keytool -genkey -v -keystore $env:USERPROFILE\upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload</code></pre></div>
+    <p>If <code>keytool</code> is not found, use the one inside Android Studio: <code>"C:\Program Files\Android\Android Studio\jbr\bin\keytool"</code>.</p></div>
+  <p>Then create the file <code>mobile/android/key.properties</code> with your values:</p>
+  <div class="code"><span class="label">mobile/android/key.properties</span><pre><code>storePassword=THE-PASSWORD-YOU-CHOSE
+keyPassword=THE-PASSWORD-YOU-CHOSE
+keyAlias=upload
+storeFile=/Users/you/upload-keystore.jks</code></pre></div>
+  <p>On Windows write the path with double backslashes: <code>storeFile=C:\\Users\\you\\upload-keystore.jks</code>. Glamio uses this file automatically for release builds.</p>
+  <div class="callout stop"><strong class="title">Back up the key file and passwords</strong>
+    Keep <code>upload-keystore.jks</code> and its password somewhere safe (not in the project folder, never on GitHub). They are already excluded from Git.</div>
+
+  <h3>2. Build the app file</h3>
+  <p>Each upload needs a higher version number. In <code>mobile/pubspec.yaml</code>, <code>version: 1.0.0+1</code> means "version 1.0.0, build 1": raise the number after <code>+</code> for every upload. Then, in <code>mobile</code>:</p>
+  <div class="code"><pre><code>flutter build appbundle --dart-define-from-file=.env</code></pre></div>
+  <p>The file to upload is <code>mobile/build/app/outputs/bundle/release/app-release.aab</code>.</p>
+
+  <h3>3. Create the app in Play Console</h3>
+  <ol class="steps">
+    <li><a href="https://play.google.com/console" target="_blank" rel="noopener">Play Console</a> → <span class="ui">Create app</span>: name, language, App, Free.</li>
+    <li>Complete the <span class="ui">Set up your app</span> tasks. Two need Glamio-specific answers:
+      <ul>
+        <li><strong>Privacy policy:</strong> your policy link.</li>
+        <li><strong>Data safety → Data deletion:</strong> people can delete their account in the app (Profile → Delete account) and on the web at <code>YOUR-WEB-ADMIN-ADDRESS/delete-account</code>. Give that web link.</li>
+        <li><strong>App access:</strong> booking needs sign-in with an emailed code. Explain this, and give the reviewers a test email inbox they can use, or ask us about a demo login.</li>
+      </ul></li>
+    <li>Upload the <code>.aab</code> to <span class="ui">Testing → Internal testing</span> first, try it on your phone, then promote it to <span class="ui">Production</span>.</li>
+  </ol>
+  <p>Google's review usually takes a few days for a new app. New personal developer accounts must first run a closed test with a group of testers before they can publish; Play Console tells you if this applies to you.</p>
+</section>
+
+<section id="publish-ios">
+  <span class="kicker">Go live</span>
+  <h2>Publish on the App Store (Mac only)</h2>
+  <ol class="steps">
+    <li>Join the <a href="https://developer.apple.com/programs/" target="_blank" rel="noopener">Apple Developer Program</a> ($99/year).</li>
+    <li>In <a href="https://appstoreconnect.apple.com" target="_blank" rel="noopener">App Store Connect</a> → <span class="ui">Apps → +  New App</span>: choose your bundle id (the app id), name, language.</li>
+    <li>In Xcode set your Team under <span class="ui">Runner → Signing &amp; Capabilities</span> (see Step 8d).</li>
+    <li>Raise the version in <code>mobile/pubspec.yaml</code> as for Android, then build:
+      <div class="code"><pre><code>flutter build ipa --dart-define-from-file=.env</code></pre></div></li>
+    <li>Upload <code>mobile/build/ios/ipa/*.ipa</code> with Apple's free <strong>Transporter</strong> app (Mac App Store): drag the file in and click <span class="ui">Deliver</span>.</li>
+    <li>In App Store Connect add screenshots, description, privacy policy link and the App Privacy answers, then <span class="ui">Submit for Review</span>. Give the reviewers a way to sign in (see the Android note above).</li>
+  </ol>
+  <div class="callout warn"><strong class="title">Remember</strong> Keep <code>GOOGLE_SIGN_IN=false</code> for the iPhone build (see <a href="#apple">Apple sign-in</a>).</div>
+  <div class="callout info"><strong class="title">Privacy manifest</strong> Apple asks every app what data it collects. Glamio already includes this file: <code>mobile/ios/Runner/PrivacyInfo.xcprivacy</code>. It lists name, email, phone, user id and the push-notification device id, all used only to run the app and never for tracking. Answer the App Privacy questions in App Store Connect the same way. If you add a feature that collects more data (for example location or analytics), add it to this file too.</div>
+</section>
+
+<section id="updates">
+  <span class="kicker">Go live</span>
+  <h2>Installing updates</h2>
+  <p>When a new Glamio version comes out, read <code>CHANGELOG.md</code> first. Then:</p>
+  <ol class="steps">
+    <li>Copy the new files over your project, but keep <strong>your</strong> versions of: <code>mobile/.env</code>, <code>mobile/android/key.properties</code>, the Firebase files, and everything you changed while rebranding (<code>vertical/</code> folders, icons, colors, texts). Comparing the folders with a tool such as VS Code's compare, or Git, makes this easier.</li>
+    <li>Update the database (new tables or rules): <code>supabase db push</code></li>
+    <li>Update the server functions: <code>supabase functions deploy delete-account send-notifications --use-api</code></li>
+    <li>Web admin: commit and push to GitHub (<code>git add .</code>, <code>git commit -m "Update Glamio"</code>, <code>git push</code>). Vercel rebuilds by itself.</li>
+    <li>Phone app: raise the version number, build and upload as in <a href="#publish-android">Publish</a>.</li>
+  </ol>
+  <div class="callout tip"><strong class="title">Your data is safe</strong> Database updates only add or change rules and tables. Bookings, clients and settings stay.</div>
+</section>
+
+<!-- ======================================================= -->
+<section id="troubleshooting">
+  <span class="kicker">Help</span>
+  <h2>Troubleshooting</h2>
+
+  <h4>Every screen says "permission denied for table …"</h4>
+  <p>The project was created with <span class="ui">Automatically expose new tables</span> unticked (Step 1). The safe fix is a new Supabase project with that box ticked, then Steps 2–5 again (about 15 minutes). Don't try to fix it by granting access by hand: Glamio deliberately limits which columns people can change (for example, nobody can change their own role), and a broad grant would remove that protection.</p>
+
+  <h4>The app shows "Setup needed — Missing keys"</h4>
+  <p><code>mobile/.env</code> is missing or incomplete, or the app was started without it. Check the three required lines, and start with <code>flutter run --dart-define-from-file=.env</code> from inside the <code>mobile</code> folder.</p>
+
+  <h4>No sign-in email arrives</h4>
+  <ul>
+    <li>Look in the spam folder.</li>
+    <li>Check that your domain is <strong>Verified</strong> in Resend, and the SMTP settings in Supabase (Step 3b). Resend's <span class="ui">Emails</span> page shows each email it sent, or why it failed.</li>
+  </ul>
+
+  <h4>The email has a link instead of a 6-digit code</h4>
+  <p>The code design wasn't sent. Run Step 3c (<code>supabase config push</code>) again, after custom SMTP is switched on.</p>
+
+  <h4>The web admin says "Owners only"</h4>
+  <p>You signed in with a different email than the one in <code>setup.sql</code>. Either sign in with that email, or make your current email the owner: in Supabase SQL Editor run the following (with your email), then sign out and in again:</p>
+  <div class="code"><pre><code>insert into public.invites (business_id, email, role)
+values ('00000000-0000-0000-0000-00000000b001', 'your-email@example.com', 'owner');</code></pre></div>
+
+  <h4>The app shows no free times</h4>
+  <p>Check in the web admin, in this order: the stylist has <strong>working hours</strong> on that weekday; the stylist is ticked for <strong>that service</strong>; both the stylist and the service are <strong>Active</strong>; there is no <strong>closure</strong> or <strong>time off</strong> that day; the day is within <strong>Book up to</strong>; for today, <strong>Minimum notice</strong> may have pushed all times past closing time.</p>
+
+  <h4>Times look shifted by an hour or more</h4>
+  <p>The business <strong>time zone</strong> is wrong. Fix it in web admin → <span class="ui">Settings</span>. The app always shows times in the salon's time zone, wherever the client is.</p>
+
+  <h4>"supabase: command not found" (Windows: "not recognized")</h4>
+  <p>On Windows, use <code>npx supabase</code>. On Mac, run <code>brew install supabase/tap/supabase</code> again, then open a new terminal.</p>
+
+  <h4><code>supabase link</code> or <code>db push</code> fails with a password error</h4>
+  <p>Reset the database password in Supabase → <span class="ui">Project Settings → Database</span>, then run the command again with the new one.</p>
+
+  <h4>The app worked yesterday, today nothing loads</h4>
+  <p>On the free Supabase plan, projects <strong>pause</strong> after a week without use. Open the dashboard and click <span class="ui">Restore</span>. For a real salon, use the Pro plan.</p>
+
+  <h4>The Android build fails</h4>
+  <ul>
+    <li>Run <code>flutter doctor</code> and fix anything marked ✗ for Android.</li>
+    <li>Then clean and try again, in <code>mobile</code>: <code>flutter clean</code>, then <code>flutter pub get</code>, then run again.</li>
+  </ul>
+
+  <h4>The iPhone build fails with "Signing" or "No team"</h4>
+  <p>Set your Team in Xcode (Step 8d). With CocoaPods errors, run in <code>mobile/ios</code>: <code>pod repo update</code> and then <code>pod install</code>.</p>
+
+  <h4>Push notifications don't arrive</h4>
+  <ul>
+    <li><code>PUSH_ENABLED=true</code> in <code>.env</code>, the app was restarted, and you tapped <span class="ui">Allow</span>.</li>
+    <li>You don't get a push about your <strong>own</strong> action (book as a client, check the stylist's phone).</li>
+    <li>In Supabase SQL Editor, this shows the last messages and any error (<code>push_not_configured</code> means the Firebase secret is missing):
+      <div class="code"><pre><code>select kind, created_at, sent_at, attempts, last_error
+from public.notification_outbox order by id desc limit 10;</code></pre></div></li>
+  </ul>
+</section>
+
+<!-- ======================================================= -->
+<section id="glossary">
+  <span class="kicker">Help</span>
+  <h2>Glossary (plain words)</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td><strong>App id / package name / bundle id</strong></td><td>The app's unique name in the stores, like <code>com.rosahair.app</code>. Android and Apple use different words for the same thing.</td></tr>
+      <tr><td><strong>Build</strong></td><td>Turning the code into an app file you can install or upload.</td></tr>
+      <tr><td><strong>CLI</strong></td><td>"Command-line interface": a program you use by typing commands in the terminal.</td></tr>
+      <tr><td><strong>Database</strong></td><td>Where all the data lives: bookings, clients, services. Like a set of very organised spreadsheets.</td></tr>
+      <tr><td><strong>Deploy</strong></td><td>To put something online so others can use it.</td></tr>
+      <tr><td><strong>DNS records</strong></td><td>Settings of your domain name that tell the internet who may send email for it, among other things.</td></tr>
+      <tr><td><strong>Edge Function</strong></td><td>A small program that runs on Supabase's servers, not on the phone.</td></tr>
+      <tr><td><strong>Emulator / simulator</strong></td><td>A pretend phone on your computer, for testing.</td></tr>
+      <tr><td><strong><code>.env</code> file</strong></td><td>A small text file with the app's settings and keys. Private: never share or upload it.</td></tr>
+      <tr><td><strong>Key (API key)</strong></td><td>A long code that lets a program talk to a service. "Publishable" keys may sit in an app; "secret" keys must stay private.</td></tr>
+      <tr><td><strong>Migration</strong></td><td>A file that creates or changes database tables. Glamio's are in <code>supabase/migrations/</code>.</td></tr>
+      <tr><td><strong>Push notification</strong></td><td>A message that pops up on the phone, even when the app is closed.</td></tr>
+      <tr><td><strong>Repository (repo)</strong></td><td>A project folder whose history Git keeps, here stored privately on GitHub.</td></tr>
+      <tr><td><strong>SDK</strong></td><td>"Software development kit": the building blocks a tool needs, like the Android SDK.</td></tr>
+      <tr><td><strong>SMTP</strong></td><td>The standard way programs send email. Resend gives you an SMTP "post office" for your domain.</td></tr>
+      <tr><td><strong>SQL / SQL Editor</strong></td><td>SQL is the language for talking to a database. The SQL Editor is the box in Supabase where you paste and run it.</td></tr>
+      <tr><td><strong>Supabase</strong></td><td>The online service that hosts Glamio's database, sign-in and server functions.</td></tr>
+      <tr><td><strong>Terminal</strong></td><td>A window where you type commands. See <a href="#terminal">The terminal, in 3 minutes</a>.</td></tr>
+      <tr><td><strong>Time zone name</strong></td><td>The official name of a time zone, like <code>Europe/London</code>. It knows about summer and winter time.</td></tr>
+      <tr><td><strong>Walk-in</strong></td><td>A client who comes in without a booking; staff add them in the app so the time is blocked.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ======================================================= -->
+<section id="support">
+  <span class="kicker">Help</span>
+  <h2>Support &amp; customization</h2>
+  <p>Stuck? First check <a href="#troubleshooting">Troubleshooting</a>. Still stuck? Write to us. Please include your purchase code, what you did, what you expected, what happened, and a screenshot of any error.</p>
+  <div class="cards" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr))">
+    <div class="card"><h4>Email</h4><p><a data-doc-href="mailto:supportEmail"><span data-doc="supportEmail"></span></a></p></div>
+    <div class="card"><h4>Reply time</h4><p><span data-doc="replyTime"></span></p></div>
+    <div class="card"><h4>Contact page</h4><p><a data-doc-href="supportUrl" target="_blank" rel="noopener"><span data-doc="supportUrl"></span></a></p></div>
+    <div class="card"><h4>Website</h4><p><a data-doc-href="website" target="_blank" rel="noopener"><span data-doc="website"></span></a></p></div>
+  </div>
+  <h3>What support covers</h3>
+  <p>As with every CodeCanyon item, support covers: answering questions about the item, help with bugs and reported issues, and help with the included features. It does <strong>not</strong> cover customization, installation services, or problems caused by third-party services (stores, hosting, email).</p>
+  <h3>Want it done for you?</h3>
+  <p>We offer paid services: <strong>full installation</strong> on your accounts, <strong>rebranding</strong> (name, colors, logo, store listings), <strong>store publishing</strong>, and <strong>custom features</strong> (for example payments, Apple sign-in, loyalty points or SMS reminders). Email us with what you need, or book a free 20-minute call on our <a data-doc-href="supportUrl" target="_blank" rel="noopener">contact page</a>, for a quote.</p>
+</section>
+
+<!-- ======================================================= -->
+<section id="credits">
+  <span class="kicker">Help</span>
+  <h2>Credits &amp; licences</h2>
+  <p>Glamio is built on these open-source projects. Thank you to their authors.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Part</th><th>Licence</th></tr></thead>
+    <tbody>
+      <tr><td>Flutter, Dart, go_router, Material icons</td><td>BSD-3-Clause / Apache 2.0</td></tr>
+      <tr><td>Riverpod, slang, supabase_flutter, Firebase plugins</td><td>MIT / BSD-3-Clause</td></tr>
+      <tr><td>Next.js, React, Tailwind CSS, shadcn/ui, Base UI, next-intl, Zod, date-fns</td><td>MIT</td></tr>
+      <tr><td>Lucide icons</td><td>ISC</td></tr>
+      <tr><td>Poppins font (Indian Type Foundry)</td><td>SIL Open Font License 1.1 (<code>mobile/assets/fonts/OFL.txt</code>)</td></tr>
+    </tbody>
+  </table></div>
+  <p>Each package's full licence is in its own folder after <code>flutter pub get</code> / <code>npm install</code>. The photos in the online demo are <strong>not</strong> included in the download; add your own photos of your salon and work.</p>
+
+  <h3 id="ai-use">Use of AI tools</h3>
+  <p>AI tools were used to make this item:</p>
+  <ul>
+    <li><strong>Code and documentation:</strong> written with the help of an AI coding assistant (Claude by Anthropic). The author planned the app, reviewed the work and tested it on real Android phones and iPhones.</li>
+    <li><strong>Graphics</strong> (logo, app icon, screenshots and promo images): made with the help of AI tools and edited by the author.</li>
+  </ul>
+  <p>Every release passes automated checks: <code>flutter analyze</code> and Flutter tests, ESLint and TypeScript for the web admin, and database tests for security rules and bookings.</p>
+  <p class="foot">Glamio documentation · version <span data-doc="version"></span> · updated <span data-doc="updated"></span> · by <a data-doc-href="website" target="_blank" rel="noopener"><span data-doc="author"></span></a> · <a data-doc-href="mailto:supportEmail"><span data-doc="supportEmail"></span></a></p>
+</section>
+
+</main>
+</div>
+
+<button class="icon-btn to-top" id="toTop" aria-label="Back to top">↑ Top</button>
+
+<script>
+/* ============================================================
+   EDIT HERE: your details, shown throughout this page.
+   ============================================================ */
+const DOC = {
+  version: '1.0.1',
+  updated: '16 Nov 2026',
+  author: 'Alchemify',
+  website: 'https://alchemify.space',
+  supportEmail: 'support@alchemifyspace.com',
+  supportUrl: 'https://www.alchemifyspace.com/products/support/',
+  replyTime: 'Within 1–2 working days. We work from Pakistan (UTC+5), with at least 4 hours of overlap with the UK and Europe.',
+};
+
+/* ---------- Fill in the details above ---------- */
+document.querySelectorAll('[data-doc]').forEach((el) => { el.textContent = DOC[el.dataset.doc] ?? ''; });
+document.querySelectorAll('[data-doc-href]').forEach((el) => {
+  const v = el.dataset.docHref;
+  el.href = v.startsWith('mailto:') ? 'mailto:' + DOC[v.slice(7)] : DOC[v];
+});
+
+/* ---------- Storage helpers (may be blocked) ---------- */
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch { /* private mode */ } },
+};
+
+/* ---------- Theme ---------- */
+const root = document.documentElement;
+const savedTheme = store.get('glamio-docs-theme');
+if (savedTheme) root.dataset.theme = savedTheme;
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const dark = root.dataset.theme
+    ? root.dataset.theme === 'dark'
+    : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark ? 'light' : 'dark';
+  store.set('glamio-docs-theme', root.dataset.theme);
+});
+
+/* ---------- OS tabs (all groups switch together) ---------- */
+const guessOs = /Win/i.test(navigator.platform || navigator.userAgent) ? 'win' : 'mac';
+function showOs(os) {
+  document.querySelectorAll('[data-tabs="os"]').forEach((group) => {
+    group.querySelectorAll('button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === os)));
+    let el = group.nextElementSibling;
+    while (el && el.classList.contains('tab-panel')) { el.hidden = el.dataset.tab !== os; el = el.nextElementSibling; }
+  });
+  store.set('glamio-docs-os', os);
+}
+document.querySelectorAll('[data-tabs="os"] button').forEach((b) => b.addEventListener('click', () => showOs(b.dataset.tab)));
+showOs(store.get('glamio-docs-os') || guessOs);
+
+/* ---------- Copy buttons ---------- */
+document.querySelectorAll('.code').forEach((box) => {
+  const btn = document.createElement('button');
+  btn.className = 'copy'; btn.type = 'button'; btn.textContent = 'Copy';
+  btn.addEventListener('click', async () => {
+    const clone = box.querySelector('code').cloneNode(true);
+    clone.querySelectorAll('.comment').forEach((c) => c.remove());
+    const text = clone.textContent.split('\n').map((l) => l.replace(/\s+$/, '')).join('\n').trim();
+    try { await navigator.clipboard.writeText(text); btn.textContent = 'Copied ✓'; }
+    catch { btn.textContent = 'Select & copy'; }
+    setTimeout(() => { btn.textContent = 'Copy'; }, 1600);
+  });
+  box.appendChild(btn);
+});
+
+/* ---------- Screenshots: show the image if it exists, else a placeholder ---------- */
+document.querySelectorAll('figure.shot').forEach((fig) => {
+  const file = fig.dataset.file;
+  const caption = fig.dataset.caption || '';
+  const num = (file.match(/(\d+)-/) || [])[1] || '';
+  const img = new Image();
+  img.alt = caption; img.loading = 'lazy';
+  const cap = document.createElement('figcaption'); cap.textContent = caption;
+  img.onload = () => { fig.prepend(img); fig.appendChild(cap); };
+  img.onerror = () => {
+    const ph = document.createElement('div'); ph.className = 'ph';
+    ph.innerHTML = '<div><b>Screenshot ' + num + '</b>' + caption + '<br><code>documentation/' + file + '</code></div>';
+    fig.prepend(ph);
+  };
+  img.src = file;
+});
+
+/* ---------- Mobile menu ---------- */
+const body = document.body;
+const menuBtn = document.getElementById('menuBtn');
+function setMenu(open) { body.classList.toggle('menu-open', open); menuBtn.setAttribute('aria-expanded', String(open)); }
+menuBtn.addEventListener('click', () => setMenu(!body.classList.contains('menu-open')));
+document.getElementById('scrim').addEventListener('click', () => setMenu(false));
+document.querySelectorAll('.sidebar a.nav').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
+/* ---------- Menu search ---------- */
+const links = [...document.querySelectorAll('.sidebar a.nav')];
+document.getElementById('search').addEventListener('input', (e) => {
+  const q = e.target.value.trim().toLowerCase();
+  let shown = 0;
+  links.forEach((a) => {
+    const section = document.querySelector(a.getAttribute('href'));
+    const hay = (a.textContent + ' ' + (section ? section.textContent : '')).toLowerCase();
+    const hit = !q || hay.includes(q);
+    a.classList.toggle('hidden', !hit);
+    if (hit) shown++;
+  });
+  document.querySelectorAll('.nav-group').forEach((g) => { g.style.display = q ? 'none' : ''; });
+  document.getElementById('noResults').style.display = shown ? 'none' : 'block';
+});
+
+/* ---------- Highlight the section you're reading ---------- */
+const targets = links.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+function markActive() {
+  let current = targets[0];
+  for (const t of targets) { if (t.getBoundingClientRect().top <= 100) current = t; }
+  links.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + current.id));
+  const active = document.querySelector('.sidebar a.nav.active');
+  if (active && !body.classList.contains('menu-open')) {
+    const sb = document.getElementById('sidebar');
+    const r = active.getBoundingClientRect(), s = sb.getBoundingClientRect();
+    if (r.top < s.top + 40 || r.bottom > s.bottom - 40) sb.scrollTop += r.top - s.top - s.height / 2;
+  }
+  document.getElementById('toTop').style.display = scrollY > 800 ? 'block' : 'none';
+}
+addEventListener('scroll', markActive, { passive: true });
+markActive();
+document.getElementById('toTop').addEventListener('click', () => scrollTo({ top: 0 }));
+</script>
+</body>
+</html>

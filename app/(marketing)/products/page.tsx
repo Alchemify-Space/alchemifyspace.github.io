@@ -11,9 +11,10 @@ export const metadata = pageMetadata({
   path: "/products/",
 });
 
-// Set these when the demo and CodeCanyon listing go live.
-const GLAMIO_DEMO_URL = "";
-const GLAMIO_CODECANYON_URL = "";
+const GLAMIO_DEMO_URL = "/products/glamio/demo/";
+const GLAMIO_DOCS_URL = "/products/glamio/docs/";
+const GLAMIO_CODECANYON_URL =
+  "https://codecanyon.net/item/glamio-salon-and-barber-booking-app-with-admin-panel/65921144";
 
 const roles = [
   {
@@ -69,17 +70,17 @@ export default function ProductsPage() {
             launch it for you.
           </p>
           <div className="grid gap-6 md:grid-cols-3">
-            <Link
-              href="#glamio"
+            <a
+              href="/products/glamio/"
               className="flex flex-col gap-2.5 rounded-2xl border-2 border-brand-gold bg-white p-7 transition-shadow hover:shadow-md"
             >
-              <Badge>Launching January 2027</Badge>
+              <Badge>On CodeCanyon</Badge>
               <span className="font-heading text-2xl font-bold text-brand-indigo">Glamio</span>
               <span className="leading-relaxed text-slate-600">
                 Salon and barber booking: customer app, staff app, owner admin.
               </span>
               <span className="mt-2 font-semibold text-brand-purple">View details →</span>
-            </Link>
+            </a>
             {[
               { name: "Clinic booking", text: "Appointments for clinics and doctors, on the same engine." },
               { name: "Gym and studio", text: "Classes, trainers and member bookings." },
@@ -109,17 +110,18 @@ export default function ProductsPage() {
               Supabase. Set up in minutes, not days.
             </p>
             <div className="flex flex-wrap gap-4">
-              <ButtonLink href={GLAMIO_DEMO_URL || "/contact/"}>
-                {GLAMIO_DEMO_URL ? "Try the live demo" : "Ask for early demo access"}
+              <ButtonLink href={GLAMIO_DEMO_URL} staticPage>
+                Try the live demo
+              </ButtonLink>
+              <ButtonLink href={GLAMIO_DOCS_URL} variant="outline-light" staticPage>
+                Read the documentation
               </ButtonLink>
               <ButtonLink href="/contact/" variant="outline-light">
                 Need it customised?
               </ButtonLink>
             </div>
             <p className="mt-5 text-sm text-slate-300">
-              {GLAMIO_DEMO_URL
-                ? "The demo has one-tap logins for customer, staff and owner. Demo data resets every night."
-                : "The live demo opens at launch, with one-tap logins for customer, staff and owner."}
+              The demo has one-tap logins for customer, staff and owner. Demo data resets every night.
             </p>
           </div>
           <div className="flex-[1_1_420px] min-w-0 grid grid-cols-2 sm:grid-cols-3 gap-4 text-slate-200" aria-hidden="true">
@@ -169,12 +171,12 @@ export default function ProductsPage() {
           <div className="grid gap-6 md:grid-cols-3">
             <Card>
               <h3 className="font-heading text-[22px] font-bold text-brand-indigo">Source code</h3>
-              <p className="text-3xl font-bold">{GLAMIO_CODECANYON_URL ? "On CodeCanyon" : "January 2027"}</p>
+              <p className="text-3xl font-bold">$59</p>
               <p className="leading-relaxed text-slate-600">
                 Regular licence on CodeCanyon. Full source, docs, setup video and 6 months of support.
               </p>
-              <ButtonLink href={GLAMIO_CODECANYON_URL || "/contact/"} variant="outline" className="mt-auto">
-                {GLAMIO_CODECANYON_URL ? "Buy on CodeCanyon" : "Get notified at launch"}
+              <ButtonLink href={GLAMIO_CODECANYON_URL} variant="outline" className="mt-auto">
+                Buy on CodeCanyon
               </ButtonLink>
             </Card>
             <Card highlight>

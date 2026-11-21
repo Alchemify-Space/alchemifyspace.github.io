@@ -66,16 +66,26 @@ export function ButtonLink({
   children,
   variant = "gold",
   className = "",
+  staticPage = false,
 }: {
   href: string;
   children: React.ReactNode;
   variant?: ButtonVariant;
   className?: string;
+  /** Plain HTML page in public/ (not a Next.js route): load it with a normal link. */
+  staticPage?: boolean;
 }) {
   const classes = `inline-flex items-center justify-center min-h-12 px-7 py-3.5 rounded-[10px] font-semibold text-base transition-colors ${buttonStyles[variant]} ${className}`;
   if (href.startsWith("http") || href.startsWith("mailto:")) {
     return (
       <a href={href} className={classes} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+        {children}
+      </a>
+    );
+  }
+  if (staticPage) {
+    return (
+      <a href={href} className={classes}>
         {children}
       </a>
     );

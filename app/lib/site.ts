@@ -3,16 +3,21 @@
 export const site = {
   name: "Alchemify Space",
   legalName: "ALCHEMIFYSPACE (SMC-PRIVATE) LIMITED",
-  url: "https://alchemify.space",
-  // All three are Namecheap forwarding aliases that land in alchemifyspace@gmail.com.
-  email: "hello@alchemify.space", // public address: site, signature, LinkedIn, Clutch
-  supportEmail: "support@alchemify.space", // Glamio / CodeCanyon buyers
-  founderEmail: "javeed@alchemify.space", // personal outreach to agencies (not shown on the site)
+  url: "https://www.alchemifyspace.com",
+  tagline: "Mobile apps. Full-stack AI. Built to ship.",
+  // All three are Cloudflare Email Routing aliases that land in alchemifyspace@gmail.com.
+  email: "hello@alchemifyspace.com", // public address: site, signature, LinkedIn, Clutch
+  supportEmail: "support@alchemifyspace.com", // Glamio / CodeCanyon buyers
+  founderEmail: "javeed@alchemifyspace.com", // personal outreach to agencies (not shown on the site)
   phoneDisplay: "+92 310 1556061",
   phoneHref: "tel:+923101556061",
   whatsappHref: "https://wa.me/923101556061",
   youtube: "https://youtube.com/@AlchemifySpace",
-  address: ["Chak No. 60-61 GD, Sahiwal 57000", "Punjab, Pakistan"],
+  // Registered office exactly as on SECP / D&B records (Apple and Google match it).
+  address: [
+    "Chak No. 60-61 GD, Post Office Chak No. 66 GD",
+    "Tehsil and District Sahiwal, Sahiwal, Punjab 57000, Pakistan",
+  ],
   founder: {
     name: "Javeed Ishaq",
     role: "Founder and lead developer",

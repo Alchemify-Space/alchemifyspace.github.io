@@ -8,7 +8,7 @@ Also read [AGENTS.md](AGENTS.md) for the project's code-style conventions. Where
 
 ```bash
 npm run dev          # dev server (localhost:3000)
-npm run build        # static export -> dist/
+npm run build        # static export -> dist/ (uses --webpack: Turbopack in Next 16.1.6 fails on next/font/google URLs)
 npm run lint         # eslint (flat config, next core-web-vitals + typescript)
 npx tsc --noEmit     # type check
 npm run preview      # serve the built dist/ locally
@@ -21,7 +21,7 @@ No test runner is installed. The `npm test` commands in AGENTS.md are aspiration
 
 ## Architecture
 
-Next.js 16 App Router + React 19 + Tailwind 4, **statically exported** to `dist/` and served from GitHub Pages at alchemify.space (custom domain via `public/CNAME`).
+Next.js 16 App Router + React 19 + Tailwind 4, **statically exported** to `dist/` and served from GitHub Pages at www.alchemifyspace.com (custom domain via `public/CNAME`; the old alchemify.space 301-redirects here via Namecheap).
 
 ### Static export is the central constraint
 
@@ -44,7 +44,7 @@ Next.js 16 App Router + React 19 + Tailwind 4, **statically exported** to `dist/
 
 ### Content / blog pipeline
 
-Markdown files in [content/blog/](content/blog/) are the source of truth. [app/lib/posts.ts](app/lib/posts.ts) reads them with `fs` + `gray-matter` **at build time** and exposes `getAllPosts` / `getPostBySlug` / `getAllSlugs`. Rendering is `react-markdown` + `remark-gfm` inside a Tailwind `prose` block.
+Markdown files in [content/blog/](content/blog/) are the source of truth. [app/lib/posts.ts](app/lib/posts.ts) reads them with `fs` + `gray-matter` **at build time** and exposes `getAllPosts` / `getPostBySlug` / `getAllSlugs`. Rendering is `react-markdown` + `remark-gfm` through [app/components/PostBody.tsx](app/components/PostBody.tsx), which styles every Markdown element itself: `@tailwindcss/typography` is not installed, so `prose` classes do nothing. A post's `# Title` renders as an `<h2>` subtitle (the hero holds the one `<h1>`). Diagrams are hand-written SVGs in `public/images/blog/`, added as `![alt](/images/blog/file.svg "caption")` on their own line; the caption becomes the `<figcaption>`. GFM tables are styled too.
 
 Adding a post = drop a `.md` file in `content/blog/`; the filename is the slug, and the sitemap, listing page, and static params all pick it up automatically. Required frontmatter: `title`, `excerpt`, `date` (ISO), `author`, `category`; optional `image`.
 
@@ -63,7 +63,7 @@ Note: `app/sections/` exists but is empty. Pages compose shared building blocks 
 
 Tailwind 4 with CSS-first config in [app/globals.css](app/globals.css): `@theme inline` maps shadcn tokens plus brand colors `--alchemify-deep-blue`, `--alchemify-orange`, `--alchemify-gold`, `--alchemify-purple`. (AGENTS.md references `--trucker-*` variables — those don't exist here.)
 
-The Nov 2026 redesign uses a palette from the flask logo as `--color-brand-*` tokens (`bg-brand-indigo` #1e1b4b, `bg-brand-gold` #f5b942 for primary buttons with indigo text, `text-brand-purple` #6d28d9 for links, `text-brand-cyan` on dark, `bg-brand-mist` for alternate sections). Use these utilities in new code. The blog pages still use the same hexes inline; the old navy/orange (`#1a365d`/`#ed8936`) is retired.
+The Nov 14 2026 rebrand uses the teal/gold "A" mark (design sources and generator in `../marketing/google-play/`). Palette lives in `--color-brand-*` tokens whose names are kept from the earlier indigo/purple palette: `bg-brand-indigo` is now navy #123a56, `bg-brand-gold` #d9a55c for primary buttons with navy text, `text-brand-purple` is now teal #1f6a7c for links, `text-brand-cyan` light teal on dark, `bg-brand-mist` cream for alternate sections. Use these utilities, not raw hexes. Tagline: `site.tagline`. The old flask/galaxy images are still in `public/images/` but unused.
 
 ### Server vs client components
 
@@ -71,6 +71,6 @@ Defaults are server components. Only these opt into `"use client"`: `Header` (ac
 
 ## Legacy and reference directories
 
-- `html-template/` — the original Bootstrap/jQuery static site being ported. Reference for markup and assets; not part of the build.
+- `../archive/website-html-template/` — the original Bootstrap/jQuery static site that was ported. Reference only; not part of the build.
 - `.agent/` — migration skills for this port (`html-to-nextjs`, `jquery-to-react`, `bootstrap-ui`, `tailwind-migration`, `shadcn-components`, …) plus `rules-nextjs.md`. Worth consulting when porting a page from `html-template/`.
 - `dev-docs/` — PRD, migration task breakdowns, blog UI spec.
