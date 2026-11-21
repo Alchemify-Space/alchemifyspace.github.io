@@ -21,7 +21,7 @@ No test runner is installed. The `npm test` commands in AGENTS.md are aspiration
 
 ## Architecture
 
-Next.js 16 App Router + React 19 + Tailwind 4, **statically exported** to `dist/` and served from GitHub Pages at www.alchemifyspace.com (custom domain via `public/CNAME`; the old alchemify.space 301-redirects here via Namecheap).
+Next.js 16 App Router + React 19 + Tailwind 4, **statically exported** to `dist/` and served from GitHub Pages at www.alchemifyspace.com (custom domain via `public/CNAME`; the old alchemify.space and www.alchemify.space 301-redirect here, path kept, via a Cloudflare Redirect Rule on the alchemify.space zone — DNS moved from Namecheap to Cloudflare on 21 Nov 2026).
 
 ### Static export is the central constraint
 
