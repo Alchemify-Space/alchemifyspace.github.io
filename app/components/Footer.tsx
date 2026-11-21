@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site } from "@/app/lib/site";
+import { CopyEmail } from "@/app/components/CopyEmail";
 
 const workLinks = [
   { name: "For Agencies", href: "/agencies/" },
@@ -47,9 +48,10 @@ export function Footer() {
         </div>
         <div className="flex flex-col gap-2">
           <p className="mb-1 font-semibold text-white">Contact</p>
-          <a href={`mailto:${site.email}`} className="hover:text-white">
-            {site.email}
-          </a>
+          <CopyEmail
+            linkClassName="hover:text-white"
+            buttonClassName="text-slate-400 hover:bg-white/10 hover:text-white"
+          />
           <a href={site.whatsappHref} className="hover:text-white">
             WhatsApp {site.phoneDisplay}
           </a>

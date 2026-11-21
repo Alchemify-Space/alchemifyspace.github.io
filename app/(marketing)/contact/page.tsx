@@ -3,6 +3,7 @@ import { pageMetadata } from "@/app/lib/seo";
 import { ButtonLink, Container } from "@/app/components/marketing";
 import { ContactForm } from "@/app/components/ContactForm";
 import { site } from "@/app/lib/site";
+import { CopyEmail } from "@/app/components/CopyEmail";
 
 export const metadata = pageMetadata({
   title: "Contact",
@@ -57,9 +58,10 @@ export default function ContactPage() {
             <div className="flex flex-col gap-4.5 rounded-[20px] border border-slate-200 p-7">
               <div>
                 <p className="mb-1 text-[13px] font-semibold text-slate-600">Email</p>
-                <a href={`mailto:${site.email}`} className="font-semibold text-brand-purple hover:text-brand-purple-dark">
-                  {site.email}
-                </a>
+                <CopyEmail
+                  linkClassName="font-semibold text-brand-purple hover:text-brand-purple-dark"
+                  buttonClassName="text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+                />
               </div>
               <div>
                 <p className="mb-1 text-[13px] font-semibold text-slate-600">WhatsApp and phone</p>
