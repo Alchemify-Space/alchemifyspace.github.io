@@ -5,20 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glamio Documentation</title>
 <meta name="description" content="Step-by-step guide to install, set up, rebrand and publish Glamio, the salon and barber booking app (Flutter + Supabase + Next.js).">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238E3B6B'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='18' font-weight='700' fill='white' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315110E'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='18' font-weight='700' fill='%23D4B483' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
 <style>
 :root {
-  --brand: #8E3B6B;
+  --brand: #7C5A2B;
   --brand-ink: #ffffff;
-  --brand-soft: #f6e9f0;
-  --bg: #fbf8fa;
+  --brand-soft: #F1E4CC;
+  --bg: #FAF8F5;
   --surface: #ffffff;
   --surface-2: #f3eef1;
-  --text: #1f1a1d;
-  --muted: #5f565b;
-  --border: #e5dce1;
-  --code-bg: #2a2228;
-  --code-text: #f4ecf0;
+  --text: #1A1512;
+  --muted: #5E544C;
+  --border: #E3DAD0;
+  --code-bg: #15110E;
+  --code-text: #F2ECE4;
   --tip: #e7f4ec;   --tip-border: #2f8a57;   --tip-text: #17462c;
   --warn: #fdf3e1;  --warn-border: #c27c0e;  --warn-text: #5b3a06;
   --stop: #fbe9e9;  --stop-border: #c0392b;  --stop-text: #5c1a13;
@@ -30,10 +30,10 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --brand: #e7a6c9; --brand-ink: #3a1029; --brand-soft: #3a2632;
-    --bg: #161215; --surface: #1f191d; --surface-2: #2a2227;
-    --text: #f1e9ee; --muted: #b5a8b0; --border: #3a3036;
-    --code-bg: #0f0c0e; --code-text: #f1e9ee;
+    --brand: #D4B483; --brand-ink: #15110E; --brand-soft: #3A2F1F;
+    --bg: #0F0C0A; --surface: #1C1714; --surface-2: #262019;
+    --text: #F2ECE4; --muted: #B5AA9E; --border: #2E2621;
+    --code-bg: #0A0807; --code-text: #F2ECE4;
     --tip: #15281d; --tip-border: #4cb87b; --tip-text: #cdeedb;
     --warn: #2d2210; --warn-border: #e0a13c; --warn-text: #f6e2bd;
     --stop: #2e1513; --stop-border: #e0675a; --stop-text: #f7d3ce;
@@ -42,10 +42,10 @@
   }
 }
 :root[data-theme="dark"] {
-  --brand: #e7a6c9; --brand-ink: #3a1029; --brand-soft: #3a2632;
-  --bg: #161215; --surface: #1f191d; --surface-2: #2a2227;
-  --text: #f1e9ee; --muted: #b5a8b0; --border: #3a3036;
-  --code-bg: #0f0c0e; --code-text: #f1e9ee;
+  --brand: #D4B483; --brand-ink: #15110E; --brand-soft: #3A2F1F;
+  --bg: #0F0C0A; --surface: #1C1714; --surface-2: #262019;
+  --text: #F2ECE4; --muted: #B5AA9E; --border: #2E2621;
+  --code-bg: #0A0807; --code-text: #F2ECE4;
   --tip: #15281d; --tip-border: #4cb87b; --tip-text: #cdeedb;
   --warn: #2d2210; --warn-border: #e0a13c; --warn-text: #f6e2bd;
   --stop: #2e1513; --stop-border: #e0675a; --stop-text: #f7d3ce;
@@ -71,7 +71,7 @@ img { max-width: 100%; }
   backdrop-filter: blur(8px); border-bottom: 1px solid var(--border);
 }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); text-decoration: none; }
-.brand-mark { width: 32px; height: 32px; border-radius: 9px; background: #8E3B6B; color: #fff; display: grid; place-items: center; font-weight: 800; }
+.brand-mark { width: 32px; height: 32px; border-radius: 9px; background: #15110E; color: #D4B483; display: grid; place-items: center; font-weight: 800; }
 .brand small { font-weight: 500; color: var(--muted); }
 .topbar .spacer { flex: 1; }
 .icon-btn {
@@ -273,6 +273,7 @@ figure.shot figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; 
 
   <div class="nav-group">Make it yours</div>
   <a class="nav" href="#rebrand">Rebrand: name, colors, logo</a>
+  <a class="nav" href="#booking-emails">Booking emails (recommended)</a>
   <a class="nav" href="#push">Push notifications (optional)</a>
   <a class="nav" href="#google">Google sign-in (optional)</a>
   <a class="nav" href="#apple">Apple sign-in</a>
@@ -296,12 +297,12 @@ figure.shot figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; 
 <section id="welcome">
   <span class="kicker">Start here</span>
   <h1>Welcome to Glamio</h1>
-  <p class="lead">Glamio is a booking app for one salon or barbershop. Clients book on their phone, stylists see their day on their phone, and the owner runs everything from a website.</p>
+  <p class="lead">Glamio is a booking app for one salon or barbershop. Clients book on their phone or on the salon's own booking website, stylists see their day on their phone, and the owner runs everything from the same website.</p>
   <p>This guide assumes you have <strong>never built an app before</strong>. It explains every step in plain words, from installing the tools to publishing in the app stores. Words that may be new to you are explained in the <a href="#glossary">Glossary</a>.</p>
 
   <div class="cards">
     <div class="card"><div class="emoji" aria-hidden="true">📱</div><h4>Phone app</h4><p>For clients (book, change, cancel) and stylists (their schedule). Android and iPhone. Folder <code>mobile/</code>.</p></div>
-    <div class="card"><div class="emoji" aria-hidden="true">🖥️</div><h4>Web admin</h4><p>A website for the owner: calendar, services, stylists, hours, clients, settings. Folder <code>admin/</code>.</p></div>
+    <div class="card"><div class="emoji" aria-hidden="true">🖥️</div><h4>Website</h4><p>A booking page clients open from a link (no app needed), and the owner's web admin at <code>/admin</code>: calendar, services, stylists, hours, clients, settings. Folder <code>web/</code>.</p></div>
     <div class="card"><div class="emoji" aria-hidden="true">🗄️</div><h4>Backend</h4><p>The database and the booking rules, hosted on Supabase. Folder <code>supabase/</code>.</p></div>
   </div>
 
@@ -312,7 +313,7 @@ figure.shot figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; 
 
   <div class="callout info">
     <strong class="title">Watch first: the 4-minute setup video</strong>
-    The <a href="https://youtu.be/LiaUbWhtMoM" target="_blank" rel="noopener">Glamio setup video</a> shows all 9 steps in order. Watch it once, then follow this guide; every command is here to copy.
+    The <a href="https://youtu.be/mk-vCNwfF2s" target="_blank" rel="noopener">Glamio setup video</a> shows all 9 steps in order. Watch it once, then follow this guide; every command is here to copy.
   </div>
 
   <div class="callout tip">
@@ -327,22 +328,22 @@ figure.shot figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; 
   <h2>How Glamio works</h2>
   <p>Think of a salon's paper appointment book. Glamio puts that book <strong>online, in one safe place</strong> (the database). The phone app and the web admin are two windows onto the same book: whatever one writes, the other sees at once.</p>
 
-  <div class="diagram" role="img" aria-label="Diagram: the phone app and the web admin both talk to Supabase. Supabase sends emails through Resend and push messages through Firebase.">
+  <div class="diagram" role="img" aria-label="Diagram: the phone app and the website both talk to Supabase. Supabase sends emails through Resend and push messages through Firebase.">
     <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg">
       <defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker></defs>
       <rect class="box" x="20" y="30" width="200" height="90" rx="12"/>
       <text x="120" y="68" text-anchor="middle" font-size="17" font-weight="700">📱 Phone app</text>
       <text x="120" y="94" text-anchor="middle" font-size="13" class="muted">clients &amp; stylists</text>
       <rect class="box" x="20" y="180" width="200" height="90" rx="12"/>
-      <text x="120" y="218" text-anchor="middle" font-size="17" font-weight="700">🖥️ Web admin</text>
-      <text x="120" y="244" text-anchor="middle" font-size="13" class="muted">the owner (on Vercel)</text>
+      <text x="120" y="218" text-anchor="middle" font-size="17" font-weight="700">🖥️ Website</text>
+      <text x="120" y="244" text-anchor="middle" font-size="13" class="muted">booking + owner admin</text>
       <rect class="box brand" x="290" y="85" width="190" height="130" rx="14"/>
       <text x="385" y="132" text-anchor="middle" font-size="18" font-weight="700">🗄️ Supabase</text>
       <text x="385" y="158" text-anchor="middle" font-size="13" class="muted">database, sign-in,</text>
       <text x="385" y="176" text-anchor="middle" font-size="13" class="muted">booking rules</text>
       <rect class="box" x="550" y="30" width="190" height="90" rx="12"/>
       <text x="645" y="68" text-anchor="middle" font-size="17" font-weight="700">✉️ Resend</text>
-      <text x="645" y="94" text-anchor="middle" font-size="13" class="muted">sign-in code emails</text>
+      <text x="645" y="94" text-anchor="middle" font-size="13" class="muted">code &amp; booking emails</text>
       <rect class="box" x="550" y="180" width="190" height="90" rx="12"/>
       <text x="645" y="218" text-anchor="middle" font-size="17" font-weight="700">🔔 Firebase</text>
       <text x="645" y="244" text-anchor="middle" font-size="13" class="muted">push (optional)</text>
@@ -355,16 +356,16 @@ figure.shot figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; 
 
   <ul>
     <li><strong>Supabase</strong> is a service that keeps your database online. The booking rules live there too: for example, two clients can never book the same stylist at the same time, even if they press "Book" at the same second.</li>
-    <li><strong>Resend</strong> sends the 6-digit sign-in codes by email. Nobody needs a password.</li>
+    <li><strong>Resend</strong> sends the 6-digit sign-in codes by email (nobody needs a password), and booking confirmations and reminders to clients who book on the website.</li>
     <li><strong>Firebase</strong> (optional) delivers push messages: "Booking confirmed", "See you tomorrow".</li>
-    <li><strong>Vercel</strong> (or Netlify) puts the web admin on the internet, at an address like <code>your-salon.vercel.app</code>.</li>
+    <li><strong>Vercel</strong> (or Netlify) puts the website on the internet, at an address like <code>your-salon.vercel.app</code>: the booking page at that address, the web admin at <code>your-salon.vercel.app/admin</code>.</li>
   </ul>
 
   <h3>Who sees what</h3>
   <div class="table-wrap"><table>
     <thead><tr><th>Person</th><th>Uses</th><th>Can do</th></tr></thead>
     <tbody>
-      <tr><td><strong>Client</strong></td><td>Phone app</td><td>Browse services (no account needed), book one or more services, pick a stylist or "any", change or cancel before the cut-off time, see history, delete their account.</td></tr>
+      <tr><td><strong>Client</strong></td><td>Phone app or the booking website</td><td>Browse services (no account needed), book one or more services, pick a stylist or "any", change or cancel before the cut-off time, see history, delete their account.</td></tr>
       <tr><td><strong>Stylist</strong> (staff)</td><td>Phone app</td><td>See their own schedule live, add walk-in clients, mark bookings Completed or No-show.</td></tr>
       <tr><td><strong>Owner</strong></td><td>Web admin (and the phone app)</td><td>Everything: services, stylists, working hours, time off, closures, calendar, phone and walk-in bookings, clients, settings, numbers.</td></tr>
     </tbody>
@@ -398,7 +399,7 @@ figure.shot figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; 
     <thead><tr><th>Account</th><th>What for</th><th>Cost</th><th></th></tr></thead>
     <tbody>
       <tr><td><a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a></td><td>Your database and sign-in</td><td>Free plan to start. <strong>For a real salon use the Pro plan</strong> (about $25/month): free projects pause after a week without use.</td><td><span class="pill req">Required</span></td></tr>
-      <tr><td><a href="https://resend.com" target="_blank" rel="noopener">Resend</a></td><td>Sending the sign-in code emails</td><td>Free for up to a few thousand emails a month</td><td><span class="pill req">Required</span></td></tr>
+      <tr><td><a href="https://resend.com" target="_blank" rel="noopener">Resend</a></td><td>Sending the sign-in code emails and booking emails</td><td>Free for up to a few thousand emails a month</td><td><span class="pill req">Required</span></td></tr>
       <tr><td>A domain name</td><td>Emails come from your own address, e.g. <code>no-reply@yoursalon.com</code></td><td>About $10–15/year from any domain seller</td><td><span class="pill req">Required</span></td></tr>
       <tr><td><a href="https://github.com" target="_blank" rel="noopener">GitHub</a></td><td>A private online copy of your code; Vercel builds the web admin from it</td><td>Free</td><td><span class="pill req">Required</span></td></tr>
       <tr><td><a href="https://vercel.com" target="_blank" rel="noopener">Vercel</a> (or Netlify)</td><td>Putting the web admin online</td><td>Free plan is enough to start</td><td><span class="pill req">Required</span></td></tr>
@@ -458,7 +459,7 @@ cd ..            <span class="comment"># go back to the main Glamio folder</span
   <ol class="steps">
     <li>Download it from <a href="https://code.visualstudio.com" target="_blank" rel="noopener">code.visualstudio.com</a> and install it like any program.</li>
     <li>Open VS Code. Click the <span class="ui">Extensions</span> icon on the left (four small squares), search for <strong>Flutter</strong> and click <span class="ui">Install</span>. This also installs the Dart extension.</li>
-    <li>Unzip the Glamio download somewhere easy, for example <code>Documents/glamio</code>. In VS Code choose <span class="ui">File → Open Folder…</span> and pick the folder that contains <code>mobile</code>, <code>admin</code> and <code>supabase</code>.</li>
+    <li>Unzip the Glamio download somewhere easy, for example <code>Documents/glamio</code>. In VS Code choose <span class="ui">File → Open Folder…</span> and pick the folder that contains <code>mobile</code>, <code>web</code> and <code>supabase</code>.</li>
   </ol>
   <div class="callout warn"><strong class="title">Avoid spaces and special characters in the folder path</strong>
     Some tools break on paths like <code>C:\My Files\Glamio (copy)</code>. Use something simple like <code>C:\dev\glamio</code> or <code>~/dev/glamio</code>.</div>
@@ -592,10 +593,10 @@ supabase --version</code></pre></div>
     <thead><tr><th>Folder or file</th><th>What it is</th></tr></thead>
     <tbody>
       <tr><td><code>mobile/</code></td><td>The phone app (Flutter). Your settings go in <code>mobile/.env</code>; name, colors and switches in <code>mobile/lib/vertical/</code>.</td></tr>
-      <tr><td><code>admin/</code></td><td>The owner's web admin (Next.js). Name and links in <code>admin/src/vertical/glamio.ts</code>.</td></tr>
+      <tr><td><code>web/</code></td><td>The website (Next.js): the clients' booking page and the owner's web admin at <code>/admin</code>. Name and links in <code>web/src/vertical/glamio.ts</code>.</td></tr>
       <tr><td><code>supabase/migrations/</code></td><td>The database tables and booking rules. You send them to Supabase in Step 2 and never edit them.</td></tr>
       <tr><td><code>supabase/setup.sql</code></td><td><strong>The only database file you edit:</strong> your business name, time zone, currency and the owner's email.</td></tr>
-      <tr><td><code>supabase/functions/</code></td><td>Two small server programs: account deletion and push notifications.</td></tr>
+      <tr><td><code>supabase/functions/</code></td><td>Two small server programs: account deletion, and notifications (push and booking emails).</td></tr>
       <tr><td><code>supabase/seed.sql</code></td><td>Sample salon data for the demo. Not used for your real salon.</td></tr>
       <tr><td><code>supabase/tests/</code></td><td>Automatic checks for the database rules (for developers).</td></tr>
       <tr><td><code>brand/</code></td><td>Logo, app icon and onboarding pictures as SVG source files, for rebranding.</td></tr>
@@ -723,7 +724,7 @@ values ('00000000-0000-0000-0000-00000000b001', <strong>'owner@yoursalon.com'</s
 <section id="step-functions">
   <span class="kicker">Set up your salon · Step 5</span>
   <h2>Upload the two server functions</h2>
-  <p>Glamio has two small programs that run on Supabase's servers: <code>delete-account</code> (lets people delete their account, which Google and Apple require) and <code>send-notifications</code> (push messages). Upload both:</p>
+  <p>Glamio has two small programs that run on Supabase's servers: <code>delete-account</code> (lets people delete their account, which Google and Apple require) and <code>send-notifications</code> (push messages and booking emails). Upload both:</p>
   <div class="code"><pre><code>supabase functions deploy delete-account send-notifications --use-api</code></pre></div>
   <p>When it prints <code>Deployed Functions</code>, you'll see both under <span class="ui">Edge Functions</span> in the dashboard. (<code>--use-api</code> means "build them on Supabase's side", so nothing else is needed on your computer.)</p>
 </section>
@@ -753,36 +754,47 @@ git push -u origin main</code></pre></div>
   <ol class="steps">
     <li>Sign up at <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a> with your GitHub account.</li>
     <li>Click <span class="ui">Add New… → Project</span> and <span class="ui">Import</span> your Glamio repository.</li>
-    <li>Next to <span class="ui">Root Directory</span> click <span class="ui">Edit</span> and choose <code>admin</code>. Vercel then recognises it as a Next.js site.</li>
-    <li>Open <span class="ui">Environment Variables</span> and add two:
+    <li>Next to <span class="ui">Root Directory</span> click <span class="ui">Edit</span> and choose <code>web</code>. Vercel then recognises it as a Next.js site.</li>
+    <li>Open <span class="ui">Environment Variables</span> and add three:
       <div class="table-wrap"><table>
         <thead><tr><th>Name</th><th>Value</th></tr></thead>
         <tbody>
           <tr><td><code>NEXT_PUBLIC_SUPABASE_URL</code></td><td>Your Project URL (<code>https://….supabase.co</code>)</td></tr>
           <tr><td><code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code></td><td>Your publishable key (<code>sb_publishable_…</code>)</td></tr>
+          <tr><td><code>BUSINESS_ID</code></td><td>The same value as <code>BUSINESS_ID</code> in <code>mobile/.env</code>. Your customers book for this business on the website.</td></tr>
         </tbody>
       </table></div></li>
     <li>Click <span class="ui">Create Project</span>. If Vercel offers <span class="ui">Optional Integrations → Supabase → Add</span>, <strong>skip it</strong>: that would make a new, empty database instead of using yours.</li>
-    <li>Click <span class="ui">Deploy</span> and wait 2–3 minutes. You get an address like <code>https://rosa-hair.vercel.app</code>. Save it in your notes: this is your <strong>web admin address</strong>.</li>
+    <li>Click <span class="ui">Deploy</span> and wait 2–3 minutes. You get an address like <code>https://rosa-hair.vercel.app</code>. Save it in your notes: this is your <strong>website address</strong>. Customers book on it; your owner panel is the same address followed by <code>/admin</code> (your <strong>web admin address</strong>).</li>
   </ol>
-  <figure class="shot" data-file="images/08-vercel-root-directory.png" data-caption="Vercel: Root Directory set to admin, and the two environment variables."></figure>
+  <figure class="shot" data-file="images/08-vercel-root-directory.png" data-caption="Vercel: Root Directory set to web, and the environment variables."></figure>
   <p><strong>Deployment says "Blocked"?</strong> On Vercel's free Hobby plan, a private GitHub repository only deploys commits made by the same GitHub account you signed in to Vercel with. Make sure your Git name and email on your computer match that account (<code>git config user.email</code>), then push a new commit.</p>
-  <p><strong>Using Netlify instead?</strong> <span class="ui">Add new site → Import an existing project</span>, set <strong>Base directory</strong> to <code>admin</code> and the build command to <code>npm run build</code>, and add the same two variables.</p>
+  <p><strong>Using Netlify instead?</strong> <span class="ui">Add new site → Import an existing project</span>, set <strong>Base directory</strong> to <code>web</code> and the build command to <code>npm run build</code>, and add the same three variables.</p>
 
   <h3>6c. Tell Supabase your web admin address</h3>
   <ol class="steps">
-    <li>Supabase dashboard → <span class="ui">Authentication → URL Configuration</span>: set <strong>Site URL</strong> to your web admin address and add the same address under <strong>Redirect URLs</strong>. Save.</li>
-    <li>In VS Code open <code>supabase/config.toml</code>, find the line <code>site_url = "http://localhost:3000"</code> and put your web admin address there too. Then a later <code>supabase config push</code> won't change it back.</li>
+    <li>Supabase dashboard → <span class="ui">Authentication → URL Configuration</span>: set <strong>Site URL</strong> to your website address (without <code>/admin</code>) and add the same address under <strong>Redirect URLs</strong>. Save.</li>
+    <li>In VS Code open <code>supabase/config.toml</code>, find the line <code>site_url = "http://localhost:3000"</code> and put your website address there too. Then a later <code>supabase config push</code> won't change it back.</li>
   </ol>
 
   <h3>6d. Sign in as the owner</h3>
   <ol class="steps">
-    <li>Open your web admin address. Enter the <strong>owner email</strong> from Step 4 and click <span class="ui">Send code</span>.</li>
+    <li>Open your web admin address (ending in <code>/admin</code>). Enter the <strong>owner email</strong> from Step 4 and click <span class="ui">Send code</span>.</li>
     <li>Check your inbox (and the spam folder) for "Your sign-in code". Type the 6 digits and click <span class="ui">Sign in</span>.</li>
     <li>You see the <strong>Dashboard</strong> with a "Finish setting up" list. 🎉</li>
   </ol>
   <figure class="shot" data-file="images/09-admin-sign-in.png" data-caption="Web admin: the sign-in page (email, then the 6-digit code)."></figure>
   <figure class="shot" data-file="images/10-admin-dashboard-setup.png" data-caption="Web admin: the dashboard for a new salon, with the Finish setting up list."></figure>
+
+  <h3>6e. Your booking page</h3>
+  <p>Your <strong>website address</strong> (without <code>/admin</code>) is your clients' booking page. They pick services, a stylist (or "any"), a free time, sign in with the emailed code and book. No app to install. Under <span class="ui">My bookings</span> they can change or cancel before the cut-off, and download the booking to their calendar.</p>
+  <ul>
+    <li>Share the address in your Instagram bio, Google Business profile, WhatsApp status, or as a QR code at the desk.</li>
+    <li>Times are always shown in your salon's time zone, even if the client's computer is set to another one.</li>
+    <li>For confirmation and reminder emails, set up <a href="#booking-emails">Booking emails</a> (recommended).</li>
+  </ul>
+  <figure class="shot" data-file="images/18-web-booking-home.png" data-caption="Booking website: the salon and its services. Clients tick one or more and continue."></figure>
+  <figure class="shot" data-file="images/19-web-booking-time.png" data-caption="Booking website: free times for the chosen day, in the salon's time zone."></figure>
 </section>
 
 <!-- ======================================================= -->
@@ -848,7 +860,7 @@ copy .env.example .env</code></pre></div></div>
 SUPABASE_ANON_KEY=sb_publishable_xxxxxxxxxxxxxxxx
 BUSINESS_ID=00000000-0000-0000-0000-00000000b001
 
-ADMIN_URL=https://rosa-hair.vercel.app     <span class="comment"># your web admin address</span>
+ADMIN_URL=https://rosa-hair.vercel.app/admin     <span class="comment"># your web admin address</span>
 GOOGLE_SIGN_IN=false
 GOOGLE_WEB_CLIENT_ID=
 GOOGLE_IOS_CLIENT_ID=
@@ -898,6 +910,7 @@ flutter run --dart-define-from-file=.env</code></pre></div>
     <li>In the phone app, change the booking's time, then cancel it. The web admin follows both changes.</li>
     <li>Sign out, then sign in with the <strong>owner</strong> email. You land on the schedule screen, not the client screens.</li>
     <li>In the web admin, add a <strong>walk-in</strong> booking from <span class="ui">Calendar → New booking</span>.</li>
+    <li>On a computer, open your <strong>website address</strong> (the booking page) in a private window, book as the client, then change and cancel it under <span class="ui">My bookings</span>. The web admin follows each change. With <a href="#booking-emails">Booking emails</a> set up, the client gets an email each time.</li>
   </ul>
   <figure class="shot" data-file="images/15-app-booking-flow.png" data-caption="The booking flow on the phone: choose staff, choose a time, confirm."></figure>
   <figure class="shot" data-file="images/16-admin-calendar.png" data-caption="Web admin: the day calendar with one column per stylist."></figure>
@@ -910,7 +923,7 @@ flutter run --dart-define-from-file=.env</code></pre></div>
   <div class="cards">
     <div class="card"><h4>Owner</h4><p>Checks the dashboard and calendar, adds phone and walk-in bookings, moves or cancels bookings, marks the day's bookings Completed or No-show, manages services, stylists, hours and closures.</p></div>
     <div class="card"><h4>Stylist</h4><p>Opens the phone app to see today's bookings (they update live), adds a walk-in client, marks Completed or No-show after the start time.</p></div>
-    <div class="card"><h4>Client</h4><p>Books, gets a confirmation and reminders (with push switched on), changes or cancels before the cut-off, calls the salon after it.</p></div>
+    <div class="card"><h4>Client</h4><p>Books in the phone app or on the booking website, gets a confirmation and reminders (push in the app, email from the website), changes or cancels before the cut-off, calls the salon after it.</p></div>
   </div>
 
   <h3 id="booking-life">A booking's life</h3>
@@ -960,18 +973,19 @@ flutter run --dart-define-from-file=.env</code></pre></div>
       <tr><td>Under the icon on Android</td><td><code>mobile/android/app/src/main/AndroidManifest.xml</code></td><td><code>android:label="Glamio"</code></td></tr>
       <tr><td>Under the icon on iPhone</td><td><code>mobile/ios/Runner/Info.plist</code></td><td>the <code>&lt;string&gt;</code> after <code>CFBundleDisplayName</code> and <code>CFBundleName</code></td></tr>
       <tr><td>Inside the app</td><td><code>mobile/lib/vertical/glamio_config.dart</code></td><td><code>appName: 'Glamio'</code></td></tr>
-      <tr><td>Web admin</td><td><code>admin/src/vertical/glamio.ts</code></td><td><code>appName: 'Glamio'</code></td></tr>
+      <tr><td>Web admin</td><td><code>web/src/vertical/glamio.ts</code></td><td><code>appName: 'Glamio'</code></td></tr>
     </tbody>
   </table></div>
 
   <h3>3. Privacy policy and terms links</h3>
-  <p>Both stores require a privacy policy. Put your links in <code>privacyPolicyUrl</code> and <code>termsUrl</code> in <strong>both</strong> <code>mobile/lib/vertical/glamio_config.dart</code> and <code>admin/src/vertical/glamio.ts</code>. They point to <code>example.com</code> until you change them.</p>
+  <p>Both stores require a privacy policy. Put your links in <code>privacyPolicyUrl</code> and <code>termsUrl</code> in <strong>both</strong> <code>mobile/lib/vertical/glamio_config.dart</code> and <code>web/src/vertical/glamio.ts</code>. They point to <code>example.com</code> until you change them.</p>
 
   <h3>4. Colors</h3>
+  <p>Glamio ships with the “Noir Atelier” colors: ink buttons on a warm bone background in light mode, champagne on espresso in dark mode. Change them like this:</p>
   <ol class="steps">
     <li>Open the free <a href="https://material-foundation.github.io/material-theme-builder/" target="_blank" rel="noopener">Material Theme Builder</a> and enter your brand color.</li>
     <li>Export <strong>Flutter (Dart)</strong>. Copy the light and dark values into <code>mobile/lib/vertical/glamio_theme.dart</code>. Each value there has the same name as in the export (<code>primary</code>, <code>surface</code>, …).</li>
-    <li>Put the same colors in <code>admin/src/app/globals.css</code>; the comments there name the matching values.</li>
+    <li>Put the same colors in <code>web/src/app/globals.css</code>; the comments there name the matching values. The website also has a few extra colors in that file: <code>--brand</code> (small accents and prices), <code>--noir</code> and <code>--champagne</code> (the dark bands and their accent on the booking site).</li>
   </ol>
 
   <h3>5. Logo, app icon and start screen</h3>
@@ -988,23 +1002,64 @@ flutter run --dart-define-from-file=.env</code></pre></div>
       <div class="code"><pre><code>dart run flutter_launcher_icons
 dart run flutter_native_splash:create</code></pre></div>
       The background color of the icon and start screen is set in <code>mobile/flutter_launcher_icons.yaml</code> and in <code>mobile/pubspec.yaml</code> (<code>flutter_native_splash</code>).</li>
-    <li>Onboarding pictures (the 3 intro slides): <code>mobile/assets/images/onboarding_1.png</code> to <code>_3.png</code>, 900 × 720 px.</li>
-    <li>Web admin: the browser tab icon is <code>admin/src/app/icon.svg</code> (plus <code>apple-icon.png</code>); the logo is in <code>admin/src/components/brand-mark.tsx</code>.</li>
+    <li>Onboarding pictures (the 3 intro slides, optional): put them in <code>mobile/assets/images/</code> (portrait, about 800 × 1000 px) and list them in <code>onboardingImages</code> in <code>glamio_config.dart</code>. Without them, each slide shows its icon in the brand arch.</li>
+    <li>Web admin: the browser tab icon is <code>web/src/app/icon.svg</code> (plus <code>apple-icon.png</code>); the logo is in <code>web/src/components/brand-mark.tsx</code>.</li>
   </ol>
 
   <h3>6. Font</h3>
-  <p>Glamio uses Poppins. To change it, put your <code>.ttf</code> files in <code>mobile/assets/fonts/</code>, list them under <code>fonts:</code> in <code>mobile/pubspec.yaml</code>, and set <code>fontFamily</code> in <code>glamio_config.dart</code>. For the web admin, copy the same files to <code>admin/src/app/fonts/</code> and update <code>admin/src/app/layout.tsx</code>.</p>
+  <p>Glamio uses Manrope everywhere, plus Cormorant Garamond for the booking site's large headings. To change the app font, put your <code>.ttf</code> files in <code>mobile/assets/fonts/</code>, list them under <code>fonts:</code> in <code>mobile/pubspec.yaml</code>, and set <code>fontFamily</code> in <code>glamio_config.dart</code>. For the website and admin, put your font files (woff2) in <code>web/src/app/fonts/</code> and update <code>web/src/app/layout.tsx</code>.</p>
 
   <h3>7. Words and languages</h3>
   <p>All texts are in English, Spanish, French and Arabic:</p>
   <ul>
     <li>Phone app: <code>mobile/lib/i18n/en.i18n.json</code> (and <code>es</code>, <code>fr</code>, <code>ar</code>). After editing, run <code>dart run slang</code> in <code>mobile</code>.</li>
-    <li>Web admin: <code>admin/messages/en.json</code> (and the others).</li>
+    <li>Web admin: <code>web/messages/en.json</code> (and the others).</li>
   </ul>
   <p>For example, to say "Barber" instead of "Stylist", change those words in these files.</p>
 
   <h3>8. Feature switches</h3>
   <p>In <code>glamio_config.dart</code>, <code>features</code> turns on the stylist <strong>portfolio</strong> and the <strong>onboarding</strong> slides. Remove one to hide it.</p>
+</section>
+
+<!-- ======================================================= -->
+<section id="booking-emails">
+  <span class="kicker">Make it yours · recommended</span>
+  <h2>Booking emails</h2>
+  <p>Clients who book on the website usually don't have the phone app, so they can't get push messages. With booking emails on, they get an email when they book, change or cancel, plus reminders 24 hours and 1 hour before. App users get the same reminders as push, and an email receipt for what they book themselves. Stylists and the owner are not emailed.</p>
+  <div class="callout info"><strong class="title">You'll need</strong> Your Resend account and verified domain from <a href="#step-email">Step 3</a>. Nothing else to sign up for.</div>
+
+  <h3>1. Give the server function its settings</h3>
+  <p>Supabase dashboard → <span class="ui">Edge Functions → Secrets</span>. Add:</p>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td><code>RESEND_API_KEY</code></td><td>A Resend API key (<code>re_…</code>). The one from Step 3 works; a separate one is easier to replace later.</td></tr>
+      <tr><td><code>EMAIL_FROM</code></td><td>Who the email is from, on your verified domain, for example <code>Rosa Hair &lt;bookings@yoursalon.com&gt;</code></td></tr>
+      <tr><td><code>SITE_URL</code></td><td>Your website address, for example <code>https://rosa-hair.vercel.app</code>. Emails get a "View or change your booking" button.</td></tr>
+      <tr><td><code>CRON_SECRET</code></td><td>A long random text you make up (40 letters and numbers). Skip if you added it for push.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>2. Start the sender</h3>
+  <p>The server checks for new messages every minute. <strong>Skip this if you already started it for push.</strong> Otherwise, in Supabase <span class="ui">SQL Editor</span>, paste the following, replace the two values in capitals, and click <span class="ui">Run</span>:</p>
+  <div class="code"><pre><code>select vault.create_secret('https://YOUR-PROJECT-REF.supabase.co', 'project_url');
+select vault.create_secret('THE-SAME-CRON-SECRET', 'cron_secret');
+
+select cron.schedule('glamio-send-push', '* * * * *', $$
+  select net.http_post(
+    url := (select decrypted_secret from vault.decrypted_secrets where name = 'project_url')
+           || '/functions/v1/send-notifications',
+    headers := jsonb_build_object(
+      'Content-Type', 'application/json',
+      'x-cron-secret', (select decrypted_secret from vault.decrypted_secrets where name = 'cron_secret')),
+    body := '{}'::jsonb
+  );
+$$);</code></pre></div>
+  <p>(The job is called <code>glamio-send-push</code> for every Glamio version; it sends emails too.)</p>
+
+  <h3>3. Test</h3>
+  <p>Book on your website with a client email. Within a minute the client gets "Booking confirmed". Each email is written in the client's language and shows the time in your salon's time zone.</p>
+  <div class="callout tip"><strong class="title">Never sent twice</strong>
+    If Resend is briefly down, Glamio tries again a few times. A message that was already delivered (by push or email) is never sent again.</div>
 </section>
 
 <!-- ======================================================= -->
@@ -1040,13 +1095,13 @@ dart pub global activate flutterfire_cli</code></pre></div></li>
       <div class="table-wrap"><table>
         <tbody>
           <tr><td><code>FCM_SERVICE_ACCOUNT</code></td><td>Open the <code>.json</code> file in VS Code, select everything, and paste it as the value.</td></tr>
-          <tr><td><code>CRON_SECRET</code></td><td>A long random text you make up, for example 40 letters and numbers. Keep it in your notes.</td></tr>
+          <tr><td><code>CRON_SECRET</code></td><td>A long random text you make up, for example 40 letters and numbers. Keep it in your notes. Skip if you added it for <a href="#booking-emails">Booking emails</a>.</td></tr>
         </tbody>
       </table></div></li>
   </ol>
 
   <h3>4. Start the sender</h3>
-  <p>The server checks for new messages every minute. Start it once: in Supabase <span class="ui">SQL Editor</span>, paste the following, replace the two values in capitals, and click <span class="ui">Run</span>:</p>
+  <p><strong>Skip this if you already started it for <a href="#booking-emails">Booking emails</a>.</strong> The server checks for new messages every minute. Start it once: in Supabase <span class="ui">SQL Editor</span>, paste the following, replace the two values in capitals, and click <span class="ui">Run</span>:</p>
   <div class="code"><pre><code>select vault.create_secret('https://YOUR-PROJECT-REF.supabase.co', 'project_url');
 select vault.create_secret('THE-SAME-CRON-SECRET', 'cron_secret');
 
@@ -1072,7 +1127,7 @@ $$);</code></pre></div>
 <section id="google">
   <span class="kicker">Make it yours · optional</span>
   <h2>Google sign-in</h2>
-  <p>Adds a "Continue with Google" button next to the email code. Do the <a href="#rebrand">app id</a> change first.</p>
+  <p>Adds a "Continue with Google" button next to the email code, in the phone app and on the booking website. Do the <a href="#rebrand">app id</a> change first.</p>
   <ol class="steps">
     <li><a href="https://console.cloud.google.com" target="_blank" rel="noopener">Google Cloud Console</a> (use the same project as Firebase, if you have one) → <span class="ui">Google Auth Platform → Get started</span>: app name, support email, audience <strong>External</strong>, contact email → <span class="ui">Create</span>. While the app is in "Testing", add your Gmail under <span class="ui">Audience → Test users</span>. Publish it before your launch.</li>
     <li><span class="ui">Clients → Create client → Web application</span>. Under <em>Authorized redirect URIs</em> add <code>https://YOUR-PROJECT-REF.supabase.co/auth/v1/callback</code>. Copy the <strong>Client ID</strong> and <strong>Client secret</strong>.</li>
@@ -1081,6 +1136,7 @@ $$);</code></pre></div>
       On Windows use <code>%USERPROFILE%\.android\debug.keystore</code>. After publishing on Google Play, create a second Android client with the SHA-1 shown in Play Console → <span class="ui">App integrity</span>.</li>
     <li>For iPhone: <span class="ui">Create client → iOS</span> with your bundle id (the app id).</li>
     <li>Supabase → <span class="ui">Authentication → Sign In / Providers → Google</span>: enable it. <strong>Client IDs</strong>: the Web client ID (for iPhone, add a comma and the iOS client ID). <strong>Client Secret</strong>: the web secret. Turn on <strong>Skip nonce checks</strong>. Save.</li>
+    <li><strong>On the website:</strong> Supabase → <span class="ui">Authentication → URL Configuration → Redirect URLs</span>: add <code>https://YOUR-WEBSITE/auth/callback</code>. Then in Vercel → <span class="ui">Settings → Environment Variables</span> add <code>NEXT_PUBLIC_GOOGLE_SIGN_IN</code> = <code>true</code> and redeploy. (Apple's rule about Apple sign-in applies to the iPhone app only, not to the website.)</li>
     <li>In <code>mobile/.env</code>: <code>GOOGLE_SIGN_IN=true</code> and <code>GOOGLE_WEB_CLIENT_ID=…apps.googleusercontent.com</code>. For iPhone also <code>GOOGLE_IOS_CLIENT_ID</code>, and add the <em>reversed</em> iOS client id (it starts with <code>com.googleusercontent.apps.</code>) as a URL scheme in <code>ios/Runner/Info.plist</code>, following <a href="https://pub.dev/packages/google_sign_in_ios#ios-integration" target="_blank" rel="noopener">google_sign_in's iOS steps</a>.</li>
   </ol>
 </section>
@@ -1165,6 +1221,17 @@ storeFile=/Users/you/upload-keystore.jks</code></pre></div>
     <li>Phone app: raise the version number, build and upload as in <a href="#publish-android">Publish</a>.</li>
   </ol>
   <div class="callout tip"><strong class="title">Your data is safe</strong> Database updates only add or change rules and tables. Bookings, clients and settings stay.</div>
+
+  <h3 id="update-1-1">Updating from 1.0 to 1.1 (booking website)</h3>
+  <ol class="steps">
+    <li>The folder <code>admin/</code> is now called <code>web/</code>. In Vercel → <span class="ui">Settings → Build and Deployment → Root Directory</span>, change <code>admin</code> to <code>web</code> (Netlify: <span class="ui">Base directory</span>). Do this <strong>before</strong> you push, or the next build fails.</li>
+    <li>In Vercel → <span class="ui">Environment Variables</span>, add <code>BUSINESS_ID</code> with the same value as in <code>mobile/.env</code>.</li>
+    <li>The web admin moved to <strong><code>/admin</code></strong> (for example <code>rosa-hair.vercel.app/admin</code>); the plain address is now the booking page. Update your bookmark, and <code>ADMIN_URL</code> in <code>mobile/.env</code> for the next app build.</li>
+    <li>Update the server functions <strong>first</strong>, then the database, in this order:<div class="code"><pre><code>supabase functions deploy delete-account send-notifications --use-api
+supabase db push</code></pre></div></li>
+    <li>Set up <a href="#booking-emails">Booking emails</a> so website clients get confirmations and reminders.</li>
+    <li>1.1 has a <strong>new design</strong> (app, admin and booking website) with new fonts: Manrope, plus Cormorant Garamond on the website. If you changed colors, fonts or the logo in 1.0, your changes are in the files the update replaces (<code>mobile/lib/vertical/glamio_theme.dart</code>, <code>web/src/app/globals.css</code>, the font folders and <code>brand/</code>). Apply your brand again with <a href="#rebrand">Rebrand</a> after updating.</li>
+  </ol>
 </section>
 
 <!-- ======================================================= -->
@@ -1177,6 +1244,12 @@ storeFile=/Users/you/upload-keystore.jks</code></pre></div>
 
   <h4>The app shows "Setup needed — Missing keys"</h4>
   <p><code>mobile/.env</code> is missing or incomplete, or the app was started without it. Check the three required lines, and start with <code>flutter run --dart-define-from-file=.env</code> from inside the <code>mobile</code> folder.</p>
+
+  <h4>Website clients get no booking emails</h4>
+  <p>Check <a href="#booking-emails">Booking emails</a>: the four secrets are set, and the sender job runs (SQL Editor: <code>select * from cron.job</code> lists <code>glamio-send-push</code>). In <span class="ui">Table Editor → notification_outbox</span>, the <code>last_error</code> column says why a message was not sent: <code>email_not_configured</code> (a secret is missing), <code>email_403</code> (the <code>EMAIL_FROM</code> domain is not verified in Resend).</p>
+
+  <h4>The website shows "Online booking is not set up yet"</h4>
+  <p>Add <code>BUSINESS_ID</code> (the same value as in <code>mobile/.env</code>) to the website's environment variables in Vercel, then redeploy.</p>
 
   <h4>No sign-in email arrives</h4>
   <ul>
@@ -1285,7 +1358,8 @@ from public.notification_outbox order by id desc limit 10;</code></pre></div></l
       <tr><td>Riverpod, slang, supabase_flutter, Firebase plugins</td><td>MIT / BSD-3-Clause</td></tr>
       <tr><td>Next.js, React, Tailwind CSS, shadcn/ui, Base UI, next-intl, Zod, date-fns</td><td>MIT</td></tr>
       <tr><td>Lucide icons</td><td>ISC</td></tr>
-      <tr><td>Poppins font (Indian Type Foundry)</td><td>SIL Open Font License 1.1 (<code>mobile/assets/fonts/OFL.txt</code>)</td></tr>
+      <tr><td>Manrope font (The Manrope Project Authors), app and web</td><td>SIL Open Font License 1.1 (<code>mobile/assets/fonts/OFL.txt</code>)</td></tr>
+      <tr><td>Cormorant Garamond font (The Cormorant Project Authors), booking site</td><td>SIL Open Font License 1.1</td></tr>
     </tbody>
   </table></div>
   <p>Each package's full licence is in its own folder after <code>flutter pub get</code> / <code>npm install</code>. The photos in the online demo are <strong>not</strong> included in the download; add your own photos of your salon and work.</p>
@@ -1310,8 +1384,8 @@ from public.notification_outbox order by id desc limit 10;</code></pre></div></l
    EDIT HERE: your details, shown throughout this page.
    ============================================================ */
 const DOC = {
-  version: '1.0.1',
-  updated: '16 Nov 2026',
+  version: '1.1.0',
+  updated: '26 Nov 2026',
   author: 'Alchemify',
   website: 'https://alchemify.space',
   supportEmail: 'support@alchemifyspace.com',
